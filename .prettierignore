@@ -1,0 +1,6 @@
+**/*.yml
+**/*.yaml
+old/
+.next/
+.jest-cache
+/coverage
