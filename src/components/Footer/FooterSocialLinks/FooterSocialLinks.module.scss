@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  text-align: flex-end;
+}
+
+.socialLinksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 24px;
+}

@@ -3,12 +3,14 @@
 }
 
 // todo: заменить на константы
-.wrapper[data-theme='vineColor'] {
+.wrapper[data-theme='wineRed'] {
   background: #680a08;
+  color: white;
 }
 
 .wrapper[data-theme='white'] {
   background: white;
+  color: #680a08;
 }
 
 .contentContainer {

@@ -1,14 +1,12 @@
 import React from 'react';
-
-import cls from './HeaderTopContent.module.scss';
-import { headerTopContentLinks } from '@/components/Header/HeaderTopContent/utils';
 import Link from 'next/link';
+import { headerTopContentLinks } from '@/components/Header/HeaderTopContent/utils';
+import cls from './HeaderTopContent.module.scss';
 
 export const HeaderTopContent: React.FC = () => {
   return (
     <div className={cls.container}>
       <div className={cls.links}>
-        {/* todo: перейти на глобальный routes */}
         {headerTopContentLinks.map((link) => (
           <Link key={link.label} href={link.href}>
             {link.label}
