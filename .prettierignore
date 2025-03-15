@@ -4,3 +4,4 @@ old/
 .next/
 .jest-cache
 /coverage
+src/ui/Icon/Icons/Icons.tsx
