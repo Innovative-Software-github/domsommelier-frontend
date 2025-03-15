@@ -1,0 +1,21 @@
+.content {
+  max-width: 475px;
+  margin-bottom: 167px;
+}
+
+.leftBlock {
+  display: flex;
+}
+
+.navigationLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-right: 100px;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

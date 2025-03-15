@@ -1,0 +1,16 @@
+.wrapper {
+  color: white;
+}
+
+// todo: заменить на константы
+.wrapper[data-theme='vineColor'] {
+  background: #680a08;
+}
+
+.wrapper[data-theme='white'] {
+  background: white;
+}
+
+.contentContainer {
+  padding: 100px 0;
+}
