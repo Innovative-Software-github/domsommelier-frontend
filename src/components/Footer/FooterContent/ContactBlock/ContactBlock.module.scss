@@ -2,6 +2,6 @@
   margin-bottom: 10px;
 }
 
-.contactContent {
-  margin-bottom: 6px;
+.contactContent + .contactContent {
+  margin-top: 6px;
 }

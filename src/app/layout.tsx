@@ -26,26 +26,6 @@ export const metadata: Metadata = {
   description: 'Винный бутик Дом сомелье',
 };
 
-const myFont = localFont({
-  src: './fonts/gilroyRegular.woff2',
-  display: 'swap',
-});
-
-// const gilroyFont = localFont({
-//   src: [
-//     {
-//       path: './fonts/gilroyRegular.woff2',
-//       weight: '400',
-//       style: 'normal',
-//     },
-//     {
-//       path: './fonts/gilroyMedium.woff2',
-//       weight: '500',
-//       style: 'normal',
-//     },
-//   ],
-// });
-
 export default async function RootLayout({
   children,
 }: Readonly<{
