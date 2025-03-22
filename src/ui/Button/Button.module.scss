@@ -1,0 +1,119 @@
+.button {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  border: none;
+  outline: none;
+
+  padding: 0 32px;
+
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: default;
+}
+
+/* Default */
+.button[data-variant='default'] {
+  background-color: var(--color-red-accent);
+}
+
+.button[data-variant='default']:hover {
+  background-color: var(--color-red-accent-light);
+}
+
+.button[data-variant='default']:disabled {
+  background-color: #a66362;
+}
+
+/* Outlined */
+.button[data-variant='outlined'] {
+  border: 1px var(--color-red-accent) solid;
+  background-color: var(--color-white);
+  color: var(--color-red-accent);
+}
+
+.button[data-variant='outlined']:hover {
+  border-color: var(--color-red-accent-light);
+  color: var(--color-red-accent-light);
+}
+
+.button[data-variant='outlined']:disabled {
+  border-color: #a66362;
+  color: #a66362;
+}
+
+/* Dark Outlined */
+.button[data-variant='darkOutlined'] {
+  border: 1px var(--color-grey-3) solid;
+  background-color: var(--color-white);
+  color: #242424;
+}
+
+.button[data-variant='darkOutlined']:hover {
+  border-color: #242424;
+  border: 1px #242424 solid;
+}
+
+.button[data-variant='darkOutlined']:disabled {
+  border: 1px var(--color-grey-3) solid;
+  background-color: var(--color-white);
+  color: var(--color-grey-3);
+}
+
+/* Light Outlined */
+.button[data-variant='lightOutlined'] {
+  border: 1px var(--color-white-transparent-50) solid;
+  background-color: transparent;
+  color: var(--color-white);
+}
+
+.button[data-variant='lightOutlined']:hover {
+  border: 1px var(--color-white) solid;
+}
+
+.button[data-variant='lightOutlined']:disabled {
+  border: 1px var(--color-white-transparent-50) solid;
+  color: var(--color-white-transparent-50);
+}
+
+/* height variants start */
+.button[data-height='H-50'] {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+.button[data-height='H-48'] {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.button[data-height='H-42'] {
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+.button[data-height='H-38'] {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.button[data-height='H-36'] {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.spinner {
+}

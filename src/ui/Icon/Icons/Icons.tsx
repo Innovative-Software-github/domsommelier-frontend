@@ -19,8 +19,20 @@ export const Basket_24 = (
 );
 
 export const Profile_24 = (
-  <svg width="24" height="25" viewBox="0 0 24 25" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+  <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 20.5c0-2.761-3.582-5-8-5s-8 2.239-8 5m8-8a5 5 0 1 1 0-10 5 5 0 0 1 0 10" stroke="currentColor"/>
+  </svg>
+)
+
+export const Hamburger_24 = (
+  <svg width="24" height="25" viewBox="0 0 24 25" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 17.5h18m-18-5h18m-18-5h18" stroke="currentColor"/>
+  </svg>
+)
+
+export const ArrowDown_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="m18.5 8.5-7 7-7-7" stroke="currentColor"/>
   </svg>
 )
 

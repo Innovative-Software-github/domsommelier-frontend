@@ -5,14 +5,18 @@ import cls from './HeaderMainContent.module.scss';
 import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLink';
+import { Button } from '../../../ui/Button/Button';
 
 export const HeaderMainContent: React.FC = () => {
   return (
     <div className={cls.container}>
-      {/* todo: Заменить на ui компонент Button */}
-      <div>
-        <button className={cls.catalogButton}>Каталог</button>
-        <Icon type={IconType.Search_24} width={24} height={24} />
+      <div className={cls.catalogButton}>
+        <Button rightIconType={IconType.Hamburger_24} height="H-42">
+          Каталог
+        </Button>
+        <button className={cls.searchButton}>
+          <Icon type={IconType.Search_24} width={24} height={24} />
+        </button>
       </div>
 
       <div className={cls.logo}>
