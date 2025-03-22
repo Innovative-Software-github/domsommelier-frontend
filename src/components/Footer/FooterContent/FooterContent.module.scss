@@ -1,21 +1,10 @@
 .content {
-  max-width: 475px;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 167px;
 }
 
 .leftBlock {
+  max-width: 475px;
   display: flex;
-}
-
-.navigationLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-right: 100px;
-}
-
-.contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }

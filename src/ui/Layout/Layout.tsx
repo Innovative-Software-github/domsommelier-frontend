@@ -10,7 +10,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
     <div className={cls.layout}>
       <Header />
       <main className={cls.main}>{children}</main>
-      <Footer />
+      <Footer theme='white' />
     </div>
   );
 };

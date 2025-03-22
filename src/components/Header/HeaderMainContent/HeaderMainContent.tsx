@@ -20,7 +20,13 @@ export const HeaderMainContent: React.FC = () => {
       </div>
 
       <div className={cls.logo}>
-        <Image src="/logotype.png" alt="logotype" width={271} height={45} />
+        <Image
+          src="/logotype.png"
+          alt="logotype"
+          width={271}
+          height={45}
+          unoptimized
+        />
       </div>
 
       <div className={cls.links}>
