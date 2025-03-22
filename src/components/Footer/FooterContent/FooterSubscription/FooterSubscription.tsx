@@ -17,7 +17,7 @@ export const FooterSubscription: React.FC<IFooterSubscription> = ({
   const [checked, setChecked] = React.useState(false);
 
   return (
-    <div>
+    <>
       <div className={cls.title}>Узнавай о всех новинках первым</div>
       <Input className={cls.emailInput} placeholder="Введите свою почту" />
 
@@ -32,6 +32,6 @@ export const FooterSubscription: React.FC<IFooterSubscription> = ({
       <Button className={cls.subscribeButton} variant="outlined">
         Подписаться на новости
       </Button>
-    </div>
+    </>
   );
 };

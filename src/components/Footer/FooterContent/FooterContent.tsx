@@ -21,11 +21,13 @@ export interface IFooterContent {
 export const FooterContent: React.FC<IFooterContent> = ({ theme }) => {
   return (
     <div className={cls.content}>
-      <div className={cls.leftBlock}>
+      <div className={cls.navigationAndContactsBlock}>
         <FooterNavigation />
         <FooterContacts />
       </div>
-      <FooterSubscription theme={theme} />
+      <div>
+        <FooterSubscription theme={theme} />
+      </div>
     </div>
   );
 };
