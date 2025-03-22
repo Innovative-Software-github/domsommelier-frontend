@@ -1,10 +1,20 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import { routes } from '../../../constants/routes';
 import cls from './FooterContent.module.scss';
 import { companyContactsConstant } from '../../../constants/contacts';
 import { ContactBlock } from './ContactBlock/ContactBlock';
+import { Checkbox } from '@/ui/Checkbox/Checkbox';
+import { TTheme } from '@/constants/theme';
 
-export const FooterContent: React.FC = () => {
+export interface IFooterContent {
+  theme: TTheme;
+}
+
+export const FooterContent: React.FC<IFooterContent> = ({ theme }) => {
+  const [checked, setChecked] = React.useState(false);
   return (
     <div className={cls.content}>
       <div className={cls.leftBlock}>
@@ -33,7 +43,15 @@ export const FooterContent: React.FC = () => {
           />
         </div>
       </div>
-      <div className={cls.rightBlock}></div>
+      <div className={cls.rightBlock}>
+        <Checkbox
+          theme={theme === 'white' ? 'wineRed' : 'white'}
+          checked={checked}
+          onChange={() => setChecked((checked) => !checked)}
+        >
+          Подписаться на наши новости
+        </Checkbox>
+      </div>
     </div>
   );
 };
