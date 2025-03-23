@@ -41,3 +41,22 @@ export const CheckboxArrow_10 = (
     <path d="m9.5 1.25-6.3 7.5-2.7-3" stroke="currentColor"/>
   </svg>
 )
+
+export const ArrowUpRight_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.80005 19.1984L18.6 5.39844M18.6 5.39844H8.25005M18.6 5.39844V15.7484" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round"/>
+  </svg>
+)
+
+export const ArrowUpRight_40 = (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 32 31 9m0 0H13.75M31 9v17.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+export const ArrowUpRight_80 = (
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 64L62 18M62 18H27.5M62 18V52.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+
+)

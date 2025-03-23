@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  border-bottom: 1px solid #680a08;
+  padding: 2em 1.5em;
+  transition: background var(--short-animation) ease,
+    color var(--short-animation) ease;
+}
+
+.container:last-child {
+  border: none;
+}
+
+.label {
+  font-family: 'forum' !important;
+  font-size: 3.5em;
+  font-weight: 400;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+
+.container:hover {
+  background: #680a08;
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 1em 0.5em;
+  }
+  .label {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding: 0.7em 0.4em;
+  }
+
+  .label {
+    font-size: 1.2em;
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+}

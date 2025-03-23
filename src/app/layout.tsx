@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Forum } from 'next/font/google';
 
 import { Providers } from '@/app/providers';
 
 import '@/styles/globals.scss';
 import '@/styles/reset.scss';
+import clsx from 'clsx';
 
 const gilroy = localFont({
   src: [
@@ -21,6 +23,12 @@ const gilroy = localFont({
   ],
 });
 
+const forum = Forum({
+  weight: ['400'],
+  style: ['normal'],
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'Дом сомелье',
   description: 'Винный бутик Дом сомелье',
@@ -34,7 +42,7 @@ export default async function RootLayout({
   const reduxPreloadedState = {};
 
   return (
-    <html lang="en" className={gilroy.className}>
+    <html lang="en" className={clsx(forum.className, gilroy.className)}>
       <body>
         <Providers reduxPreloadedState={reduxPreloadedState}>
           {children}

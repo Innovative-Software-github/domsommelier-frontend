@@ -13,3 +13,9 @@
 .subscribeButton {
   margin-top: 32px;
 }
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 1em;
+  }
+}

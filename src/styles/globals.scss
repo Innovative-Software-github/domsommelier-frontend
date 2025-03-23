@@ -15,7 +15,12 @@
 }
 
 :root {
-  --container-max-width: 1200px;
+  --container-max-width: 1280px;
+  --margin-top-section: 120px;
+  --margin-top-section2: 100px;
+
+  --short-animation: 150ms;
+  --long-animation: 300ms;
 }
 
 html,
@@ -36,7 +41,7 @@ body {
 }
 
 body * {
-  font-family: inherit !important;
+  font-family: 'gilroy' !important;
   box-sizing: border-box;
 }
 
