@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 /**
  * Хук, позволяющий определить в каком окружении выполняется код.

@@ -25,7 +25,7 @@ export const FooterContent: React.FC<IFooterContent> = ({ theme }) => {
         <FooterNavigation />
         <FooterContacts />
       </div>
-      <div>
+      <div className={cls.subscriptionBlock}>
         <FooterSubscription theme={theme} />
       </div>
     </div>

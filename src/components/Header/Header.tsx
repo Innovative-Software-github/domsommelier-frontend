@@ -8,7 +8,7 @@ import { HeaderTopContent } from '@/components/Header/HeaderTopContent/HeaderTop
 import cls from './Header.module.scss';
 import { useMediaContext } from '../../hooks/useMediaQuery';
 import { HeaderMobile } from './HeaderMobile/HeaderMobile';
-import { useIsServer } from '../../hooks/useIsServer/useIsServer';
+import { useIsServer } from '../../hooks/useIsServer';
 
 export interface IHeaderProps {
   showCatalogLinks?: boolean;
@@ -17,8 +17,6 @@ export interface IHeaderProps {
 export const Header: React.FC<IHeaderProps> = ({ showCatalogLinks = true }) => {
   const isMobileAdaptive = useMediaContext() === 'mobile';
   const isServer = useIsServer();
-
-  console.log(isServer, isMobileAdaptive);
 
   if (isMobileAdaptive && !isServer) {
     return (

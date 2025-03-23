@@ -11,6 +11,10 @@
   gap: 3em;
 }
 
+.subscriptionBlock {
+  min-width: 360px;
+}
+
 @media (max-width: 900px) {
   .content {
     max-width: 70%;
@@ -30,5 +34,9 @@
 
   .navigationAndContactsBlock {
     flex-direction: column;
+  }
+
+  .subscriptionBlock {
+    min-width: 0;
   }
 }
