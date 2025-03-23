@@ -18,8 +18,6 @@ export const Header: React.FC<IHeaderProps> = ({ showCatalogLinks = true }) => {
   const isMobileAdaptive = useMediaContext() === 'mobile';
   const isServer = useIsServer();
 
-  console.log(isServer, isMobileAdaptive);
-
   if (isMobileAdaptive && !isServer) {
     return (
       <ContentContainer>
