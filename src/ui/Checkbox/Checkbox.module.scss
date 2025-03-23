@@ -1,0 +1,65 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--or-color-wg-dark-opacity-10);
+}
+
+.container:focus-visible {
+  outline: none;
+}
+
+.container input[type='checkbox'] {
+  display: none;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  transition: all 150ms ease-in-out;
+  border: 1px solid;
+}
+
+.container[data-theme='wineRed'] .checkbox {
+  border-color: #680a08;
+}
+
+.container[data-theme='white'] .checkbox {
+  border-color: white;
+}
+
+.icon {
+  color: transparent;
+  transition: all 150ms ease-in-out;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  transition: all 150ms ease-in-out;
+}
+
+/* Стили при состоянии "checked" */
+.container[data-theme='wineRed'].checked .checkbox {
+  background: white;
+  background: #680a08;
+}
+
+.container[data-theme='white'].checked .checkbox {
+  background: white;
+}
+
+.container[data-theme='wineRed'].checked .icon {
+  color: white;
+}
+
+.container[data-theme='white'].checked .icon {
+  color: white;
+  color: #680a08;
+}

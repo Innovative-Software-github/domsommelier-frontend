@@ -5,6 +5,7 @@ export enum IconType {
   Heart_24 = 'Heart_24',
   Basket_24 = 'Basket_24',
   Profile_24 = 'Profile_24',
+  CheckboxArrow_10 = 'CheckboxArrow_10',
   Hamburger_24 = 'Hamburger_24',
   ArrowDown_24 = 'ArrowDown_24',
 }
@@ -14,6 +15,7 @@ export const iconToComponent: Record<IconType, React.JSX.Element> = {
   [IconType.Heart_24]: Icons.Heart_24,
   [IconType.Basket_24]: Icons.Basket_24,
   [IconType.Profile_24]: Icons.Profile_24,
+  [IconType.CheckboxArrow_10]: Icons.CheckboxArrow_10,
   [IconType.Hamburger_24]: Icons.Hamburger_24,
   [IconType.ArrowDown_24]: Icons.ArrowDown_24,
 };

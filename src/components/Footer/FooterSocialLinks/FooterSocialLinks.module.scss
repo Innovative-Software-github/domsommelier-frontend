@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  text-align: flex-end;
+}
+
+.socialLinksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5em;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    gap: 2em;
+  }
+
+  .socialLinks {
+    flex-wrap: wrap;
+    gap: 0.8em;
+  }
+
+  .copyright {
+  }
+}

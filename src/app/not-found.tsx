@@ -1,7 +1,7 @@
+import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 import { Layout } from '@/ui/Layout/Layout';
-import { ContentContainer } from '../ui/ContentContainer/ContentContainer';
 
-export default function Home() {
+export default function NotFound() {
   return (
     <Layout>
       <ContentContainer>В разработке</ContentContainer>
