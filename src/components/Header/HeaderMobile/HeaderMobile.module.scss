@@ -1,0 +1,31 @@
+.header {
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.burgerMenuButton {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+}
+
+@media (max-width: 420px) {
+  .input {
+    display: none;
+  }
+}
