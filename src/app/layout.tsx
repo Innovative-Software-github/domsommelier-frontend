@@ -23,6 +23,16 @@ const gilroy = localFont({
   ],
 });
 
+const saol = localFont({
+  src: [
+    {
+      path: './fonts/SaolDisplay-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+});
+
 const forum = Forum({
   weight: ['400'],
   style: ['normal'],
@@ -43,7 +53,10 @@ export default async function RootLayout({
   const reduxPreloadedState = {};
 
   return (
-    <html lang="en" className={clsx(forum.className, gilroy.className)}>
+    <html
+      lang="en"
+      className={clsx(saol.className, forum.className, gilroy.className)}
+    >
       <body>
         <Providers reduxPreloadedState={reduxPreloadedState}>
           {children}

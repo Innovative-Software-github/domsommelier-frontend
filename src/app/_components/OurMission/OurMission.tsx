@@ -1,10 +1,10 @@
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import cls from './OurMission.module.scss';
 
-export const OurMission: React.FC = () => {
-  const missionText =
-    'Мы верим, что хорошее  вино – это маленькая  роскошь,  которую  может себе позволить каждый';
+const missionText =
+  'Мы верим, что хорошее  вино – это маленькая  роскошь,  которую  может себе позволить каждый';
 
+export const OurMission: React.FC = () => {
   return (
     <aside className={cls.wrapper}>
       <ContentContainer className={cls.contentContainer}>

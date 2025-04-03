@@ -1,0 +1,94 @@
+.container {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: auto;
+}
+
+.letter {
+  font-family: 'saol' !important;
+  font-size: clamp(100px, calc(100px + 378 * (75vw / 1280)), 478px);
+  line-height: 100%;
+  color: #680a08;
+}
+
+.wineImageContainer {
+  position: relative;
+  width: clamp(23px, calc(154px + (20vw - 320px) / (1280 - 320) * 378), 154px);
+  height: clamp(77px, calc(154px + (95vw - 320px) / (1280 - 320) * 378), 545px);
+  flex-shrink: 0;
+}
+
+.wineImageContainer img {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .letter {
+    font-size: clamp(
+      100px,
+      calc(100px + (378 + 378 * 0.7) * ((75vw - 320px) / (1280 - 320))),
+      478px
+    );
+  }
+
+  .wineImageContainer {
+    width: clamp(
+      23px,
+      calc(50px + (378 * 0.7) * ((75vw - 320px) / (1280 - 320))),
+      545px
+    );
+    height: clamp(
+      77px,
+      calc(154px + (85vw - 320px) / (1280 - 320) * 378),
+      545px
+    );
+  }
+}
+
+@media (max-width: 580px) {
+  .letter {
+    font-size: clamp(
+      100px,
+      calc(110px + (378 + 378 * 0.7) * ((80vw - 320px) / (1280 - 320))),
+      478px
+    );
+  }
+
+  .wineImageContainer {
+    width: clamp(
+      23px,
+      calc(50px + (378 * 0.7) * ((80vw - 320px) / (1280 - 320))),
+      545px
+    );
+    height: clamp(
+      77px,
+      calc(154px + (80vw - 320px) / (1280 - 320) * 378),
+      545px
+    );
+  }
+}
+
+@media (max-width: 420px) {
+  .letter {
+    font-size: clamp(
+      100px,
+      calc(110px + (378 + 378 * 0.7) * ((85vw - 320px) / (1280 - 320))),
+      478px
+    );
+  }
+
+  .wineImageContainer {
+    width: clamp(
+      23px,
+      calc(50px + (378 * 0.7) * ((100vw - 320px) / (1280 - 320))),
+      545px
+    );
+    height: clamp(
+      77px,
+      calc(154px + (80vw - 320px) / (1280 - 320) * 378),
+      545px
+    );
+  }
+}
