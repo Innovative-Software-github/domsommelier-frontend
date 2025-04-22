@@ -9,7 +9,10 @@ type TLabelPosition = 'start' | 'end';
 type TSwitchSize = 'small' | 'medium';
 type TSwitchVariant = 'default' | 'thin' | 'square';
 
-type TSwitchProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'checked' | 'size' | 'id'> & {
+type TSwitchProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'checked' | 'size' | 'id'
+> & {
   checked: boolean;
   size?: TSwitchSize;
   variant?: TSwitchVariant;
@@ -17,7 +20,7 @@ type TSwitchProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'checked' 
   labelClassName?: string;
   labelPosition?: TLabelPosition;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-}
+};
 
 const DISPLAY_NAME = 'Switch';
 
@@ -60,10 +63,12 @@ export const Switch: React.FC<TSwitchProps> = (props) => {
       data-size={size}
       data-variant={variant}
     >
-      {labelPosition === 'start' && (
-        renderLabel()
-      )}
-      <span className={cls.switchControlWrapper} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      {labelPosition === 'start' && renderLabel()}
+      <span
+        className={cls.switchControlWrapper}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <input
           ref={inputRef}
           className={cls.switchControl}
@@ -80,9 +85,7 @@ export const Switch: React.FC<TSwitchProps> = (props) => {
           }}
         />
       </span>
-      {labelPosition === 'end' && (
-        renderLabel()
-      )}
+      {labelPosition === 'end' && renderLabel()}
     </span>
   );
 };
