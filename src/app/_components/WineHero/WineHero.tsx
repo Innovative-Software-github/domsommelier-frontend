@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import cls from './WineHero.module.scss';
+import React from 'react';
 
 export const WineHero: React.FC = () => {
   return (

@@ -9,6 +9,7 @@ export default function Home() {
     <Layout>
       <WineHero />
       <CategoryLinks />
+      <NewsSwiperSection />
       <OurMission />
     </Layout>
   );
