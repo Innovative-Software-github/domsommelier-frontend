@@ -4,7 +4,6 @@ import Link from 'next/link';
 import cls from './CategoryLink.module.scss';
 import { Icon } from '../../../../ui/Icon/Icon';
 import { IconType } from '../../../../ui/Icon/IconsMapping';
-import { useMediaContext } from '../../../../hooks/useMediaQuery';
 import { MediaQuery } from '../../../../constants/media';
 import { useMediaQuery } from 'react-responsive';
 import { useIsServer } from '../../../../hooks/useIsServer';
@@ -46,8 +45,8 @@ export const CategoryLink: React.FC<ICategoryLink> = ({ label, href }) => {
       <Icon
         className={cls.icon}
         type={IconType.ArrowUpRight_80}
-        width={80}
-        height={80}
+        width={60}
+        height={60}
       />
     );
   };
