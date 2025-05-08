@@ -4,6 +4,7 @@ import cls from './CatalogMenuModal.module.scss';
 import { ContentContainer } from '../../../../ui/ContentContainer/ContentContainer';
 import clsx from 'clsx';
 import { useBodyScrollLock } from '../../../../hooks/useBodyScrollLock';
+import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
 
 export interface ICatalogMenuModalProps {
   isOpen: boolean;
@@ -44,35 +45,7 @@ export const CatalogMenuModal: React.FC<ICatalogMenuModalProps> = ({
       aria-labelledby="catalog-menu-modal"
     >
       <div className={cls.container} data-modal tabIndex={-1}>
-        <ContentContainer className={cls.scrollArea}>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-          <div className="">content</div>
-        </ContentContainer>
+        <CatalogMenuContent />
       </div>
     </div>
   );

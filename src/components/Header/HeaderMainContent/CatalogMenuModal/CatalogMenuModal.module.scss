@@ -25,14 +25,3 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   padding: 24px;
   background: white;
 }
-
-.scrollArea {
-  max-height: 100vh;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-.scrollArea::-webkit-scrollbar {
-  width: 0;
-}

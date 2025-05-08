@@ -1,0 +1,44 @@
+.scrollArea {
+  max-height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scrollArea::-webkit-scrollbar {
+  width: 0;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.categories {
+  min-width: 355px;
+}
+
+.header,
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.filterTitle {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 200%;
+}
+
+.filterList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

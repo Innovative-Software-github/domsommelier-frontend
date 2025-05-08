@@ -36,6 +36,12 @@ export const ArrowDown_24 = (
   </svg>
 )
 
+export const ArrowRight_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="m8.5 5.5 7 7-7 7" stroke="#242424" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+)
+
 export const CheckboxArrow_10 = (
   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
     <path d="m9.5 1.25-6.3 7.5-2.7-3" stroke="currentColor"/>
