@@ -1,0 +1,45 @@
+.container {
+  padding: 20px;
+  position: fixed;
+  inset: 0 0 0 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 10000;
+
+  transform: translateX(100%);
+  transition: transform 200ms ease, opacity 200ms, visibility 200ms;
+
+  opacity: 0;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.container.open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.header {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 24px;
+}
+
+.closeButton {
+  all: unset;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.link {
+  color: #242424;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 200%;
+}
