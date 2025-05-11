@@ -1,0 +1,36 @@
+.catogoryCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 200%;
+  padding: 12px;
+  transition: background 150ms;
+  border-radius: 4px;
+}
+
+.catogoryCard .arrowIcon {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 150ms, visibility 150ms;
+}
+
+.catogoryCard:hover {
+  background: #f7f7f7;
+  cursor: pointer;
+}
+
+.catogoryCard:hover .arrowIcon {
+  visibility: visible;
+  opacity: 1;
+}
+
+.activeCategory {
+  background: #f7f7f7;
+}
+
+.activeCategory .arrowIcon {
+  visibility: visible;
+  opacity: 1;
+}
