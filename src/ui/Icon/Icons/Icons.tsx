@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export const Search_24 = (
   <svg width="24" height="25" viewBox="0 0 24 25" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
-    <path d="m15 15.5 6 6m-11-4a7 7 0 1 1 0-14 7 7 0 0 1 0 14" stroke="currentColor"/>
+    <path d="m15 15.5 6 6m-11-4a7 7 0 1 1 0-14 7 7 0 0 1 0 14" stroke="currentColor" strokeWidth="1.5" />
   </svg>
 );
 
@@ -38,7 +38,7 @@ export const ArrowDown_24 = (
 
 export const ArrowRight_24 = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
-    <path d="m8.5 5.5 7 7-7 7" stroke="#242424" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m8.5 5.5 7 7-7 7" stroke="#242424" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 

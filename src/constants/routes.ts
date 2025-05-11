@@ -10,7 +10,8 @@ export type RouteKey =
   | 'contacts'
   | 'degustation'
   | 'investments'
-  | 'privacyPolicy';
+  | 'privacyPolicy'
+  | 'search';
 
 export const routes: Readonly<Record<RouteKey, IRoute>> = {
   catalog: { href: '/catalog', label: 'Каталог' },
@@ -23,4 +24,5 @@ export const routes: Readonly<Record<RouteKey, IRoute>> = {
     href: '/privacy-policy',
     label: 'Политика конфендециальности',
   },
+  search: { href: '/search', label: 'Поиск' },
 };

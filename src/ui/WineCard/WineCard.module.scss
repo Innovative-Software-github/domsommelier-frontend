@@ -1,0 +1,55 @@
+.container {
+  display: block;
+
+  max-width: 345px;
+  padding: 20px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: box-shadow 150ms ease;
+}
+
+.container:hover {
+  box-shadow: 0px 4px 12.2px 7px #00000011;
+}
+
+.image {
+  object-fit: contain;
+  background: #f7f7f7;
+  padding: 18px;
+  min-width: 305px;
+  min-height: 370px;
+}
+
+.prices {
+  margin: 12px 0;
+
+  & .discountPrice {
+    color: #242424;
+    font-size: 20px;
+    font-weight: 500;
+    margin-right: 12px;
+  }
+
+  & .oldPrice {
+    color: #717171;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: line-through;
+  }
+}
+
+.name {
+  color: #680a08;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 120%;
+  margin-bottom: 8px;
+}
+
+.description {
+  color: #717171;
+  font-size: 14px;
+  font-weight: 400;
+}

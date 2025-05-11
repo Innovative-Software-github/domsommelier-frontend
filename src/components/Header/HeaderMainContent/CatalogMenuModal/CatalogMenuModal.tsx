@@ -5,6 +5,8 @@ import { ContentContainer } from '../../../../ui/ContentContainer/ContentContain
 import clsx from 'clsx';
 import { useBodyScrollLock } from '../../../../hooks/useBodyScrollLock';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
+import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
+import { useBackdropClose } from '../../../../hooks/useBackdropClose';
 
 export interface ICatalogMenuModalProps {
   isOpen: boolean;
@@ -16,6 +18,8 @@ export const CatalogMenuModal: React.FC<ICatalogMenuModalProps> = ({
   onClose,
 }) => {
   useBodyScrollLock(isOpen);
+
+  const backdropRef = useBackdropClose(onClose);
 
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
@@ -38,15 +42,8 @@ export const CatalogMenuModal: React.FC<ICatalogMenuModalProps> = ({
   }, [isOpen, handleKeyDown]);
 
   return (
-    <div
-      className={clsx(cls.backdrop, { [cls.open]: isOpen })}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="catalog-menu-modal"
-    >
-      <div className={cls.container} data-modal tabIndex={-1}>
-        <CatalogMenuContent />
-      </div>
-    </div>
+    <Backdrop ref={backdropRef} isOpen={isOpen}>
+      <CatalogMenuContent />
+    </Backdrop>
   );
 };

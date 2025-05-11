@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  gap: 30px;
+}
+
+.sidebar {
+  flex: 0 0 165px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.content {
+  display: flex;
+  gap: 0px;
+  flex-wrap: wrap;
+}

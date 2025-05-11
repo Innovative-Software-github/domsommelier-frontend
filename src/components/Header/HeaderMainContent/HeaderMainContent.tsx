@@ -12,8 +12,7 @@ import { SearchModal } from './SearchModal/SearchModal';
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
     React.useState(false);
-
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = React.useState(false);
 
   return (
     <div className={cls.container}>
@@ -31,7 +30,7 @@ export const HeaderMainContent: React.FC = () => {
         </Button>
         <button
           className={cls.searchButton}
-          onClick={() => setIsSearchOpen((prev) => !prev)}
+          onClick={() => setIsSearchModalOpen((prev) => !prev)}
         >
           <Icon type={IconType.Search_24} width={24} height={24} />
         </button>
@@ -58,7 +57,10 @@ export const HeaderMainContent: React.FC = () => {
         onClose={() => setIsCatalogMenuModalOpen(false)}
       />
 
-      <SearchModal isOpen={isSearchOpen} />
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+      />
     </div>
   );
 };

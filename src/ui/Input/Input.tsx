@@ -10,7 +10,7 @@ import cls from './Input.module.scss';
 const DISPLAY_NAME = 'input';
 
 // todo: вынести в глобал
-export type TThemeUI = 'redWine' | 'white';
+export type TThemeUI = 'redWine' | 'white' | 'gray';
 
 export interface IInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -26,7 +26,7 @@ export interface IInputProps
   className?: string;
   autoComplete?: string;
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
-  onPressEnter?(event: React.SyntheticEvent<HTMLInputElement>): void;
+  onPressEnter?(event: React.KeyboardEvent<HTMLInputElement>): void;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
