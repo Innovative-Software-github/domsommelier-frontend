@@ -1,0 +1,46 @@
+.title {
+  text-transform: uppercase;
+  color: #680a08;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  color: #999999;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 200%;
+
+  transition: color 150ms;
+}
+
+.link:hover {
+  color: #242424;
+}
+
+.activeLink {
+  position: relative;
+  color: #242424;
+}
+
+.activeLink::before {
+  position: absolute;
+  content: '';
+
+  top: 50%;
+  left: -4px;
+  transform: translateY(-50%);
+
+  height: 18px;
+  width: 1.5px;
+
+  background: #680a08;
+
+  transition: opacity 150ms ease;
+}

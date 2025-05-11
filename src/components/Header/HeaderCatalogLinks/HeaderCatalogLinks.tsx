@@ -1,9 +1,10 @@
 import React from 'react';
-
-import cls from './HeaderCatalogLinks.module.scss';
-import { catalogLinks } from '@/components/Header/HeaderCatalogLinks/utils';
 import Link from 'next/link';
 import clsx from 'clsx';
+
+import { catalogLinks } from '../../../constants/catalogLinks';
+
+import cls from './HeaderCatalogLinks.module.scss';
 
 export const HeaderCatalogLinks = () => {
   return (
