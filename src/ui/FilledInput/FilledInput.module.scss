@@ -1,0 +1,31 @@
+.filledInput[class] {
+  padding: 0 8px;
+  background: #f7f7f7;
+  height: 40px;
+  border: 1px solid;
+  border-color: transparent;
+  transition: border 150ms ease;
+}
+
+.filledInput:hover {
+  border: 1px solid #242424;
+}
+
+.filledInput:hover input::placeholder,
+.filledInput:hover .suffix,
+.filledInput:hover .prefix {
+  color: #717171 !important;
+}
+
+.filledInput.dirty,
+.filledInput.dirty .suffix,
+.filledInput.dirty .prefix {
+  color: #242424 !important;
+}
+
+.filledInput:focus-within,
+.filledInput:focus-within input::placeholder,
+.filledInput:focus-within .suffix,
+.filledInput:focus-within .prefix {
+  color: #242424 !important;
+}

@@ -2,7 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-import { catalogLinks, TDrinkType } from '../../../../constants/catalogLinks';
+import {
+  catalogLinks,
+  TDrinkType,
+} from '../../../../../constants/catalogLinks';
 
 import cls from './Category.module.scss';
 
@@ -20,6 +23,7 @@ export const Category: React.FC<ICategoryProps> = ({ drinkType }) => {
             if (!isPrimary) {
               return (
                 <Link
+                  key={label}
                   scroll={false}
                   className={clsx(cls.link, {
                     [cls.activeLink]: drinkType === linkDrinkType,
