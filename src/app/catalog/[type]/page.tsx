@@ -1,4 +1,4 @@
-import { TDrinkType } from '../../../constants/catalogLinks';
+import { TDrinkType } from '../../../constants/routes/catalogRoutes';
 import { Breadcrumps } from '../../../ui/Breadcrumps/Breadcrumps';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Category } from './Category/Category';
-import { TDrinkType } from '../../../../constants/catalogLinks';
+import { TDrinkType } from '../../../../constants/routes/catalogRoutes';
 import { Button } from '../../../../ui/Button/Button';
 import { filterConfig, useFilters } from './utils';
 

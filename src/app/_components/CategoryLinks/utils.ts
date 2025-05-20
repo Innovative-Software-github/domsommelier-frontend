@@ -1,28 +1,31 @@
+import { routes } from '../../../constants/routes/routes';
 import { ICategoryLink } from './CategoryLink/CategoryLink';
 
-export const categoryLinksList: ICategoryLink[] = [
+const catalog = routes.catalog.children!;
+
+export const categoryLinksList: readonly ICategoryLink[] = [
   {
     label: 'Вино',
-    href: '/',
+    href: catalog.wine.href,
   },
   {
     label: 'Крепкие напитки',
-    href: '/',
+    href: catalog['strong-drinks'].href,
   },
   {
     label: 'Шампанское и игристые вина',
-    href: '/',
+    href: catalog.champagne.href,
   },
   {
     label: 'Слабоалкогольные напитки',
-    href: '/',
+    href: catalog['low-alcohol'].href,
   },
   {
     label: 'Закуски',
-    href: '/',
+    href: catalog.snacks.href,
   },
   {
     label: 'Аксессуары',
-    href: '/',
+    href: catalog.accessories.href,
   },
 ] as const;

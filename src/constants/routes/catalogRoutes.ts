@@ -1,10 +1,3 @@
-export interface ICatalogLink {
-  label: string;
-  link: string;
-  drinkType?: TDrinkType;
-  isPrimary: boolean;
-}
-
 export type TDrinkType =
   | 'wine'
   | 'champagne'
@@ -13,51 +6,68 @@ export type TDrinkType =
   | 'snacks'
   | 'accessories';
 
-export const catalogLinks: ICatalogLink[] = [
-  {
+export interface ICatalogRoute {
+  href: string;
+  label: string;
+  isPrimary: boolean;
+  drinkType?: TDrinkType;
+}
+
+export type CatalogRouteKey =
+  | 'stock'
+  | 'degustation'
+  | 'wine'
+  | 'champagne'
+  | 'strong-drinks'
+  | 'low-alcohol'
+  | 'snacks'
+  | 'accessories';
+
+export const catalogRoutes: Readonly<Record<CatalogRouteKey, ICatalogRoute>> = {
+  stock: {
+    href: '/catalog/stock',
     label: '% Акции',
-    link: './stock',
     isPrimary: true,
   },
-  {
+  degustation: {
+    href: '/catalog/degustation',
     label: 'Дегустации',
-    link: './degustation',
     isPrimary: true,
   },
-  {
+  wine: {
+    href: '/catalog/wine',
     label: 'Вина',
-    link: '/catalog/wine',
     drinkType: 'wine',
     isPrimary: false,
   },
-  {
+  champagne: {
+    href: '/catalog/champagne',
     label: 'Шампанское и игристые вина',
-    link: '/catalog/champagne',
     drinkType: 'champagne',
     isPrimary: false,
   },
-  {
+  'strong-drinks': {
+    href: '/catalog/strong-drinks',
     label: 'Крепкие напитки',
-    link: '/catalog/strong-drinks',
     drinkType: 'strong-drinks',
     isPrimary: false,
   },
-  {
+  'low-alcohol': {
+    href: '/catalog/low-alcohol',
     label: 'Слабоалкогольные напитки',
-    link: '/catalog/low-alcohol',
     drinkType: 'low-alcohol',
     isPrimary: false,
   },
-  {
+  snacks: {
+    href: '/catalog/snacks',
     label: 'Закуски',
-    link: '/catalog/snacks',
     drinkType: 'snacks',
     isPrimary: false,
   },
-  {
+  accessories: {
+    href: '/catalog/accessories',
     label: 'Аксессуары',
-    link: '/catalog/accessories',
     drinkType: 'accessories',
     isPrimary: false,
   },
-] as const;
+} as const;

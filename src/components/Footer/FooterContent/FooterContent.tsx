@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { routes } from '../../../constants/routes';
+import { routes } from '../../../constants/routes/routes';
 import cls from './FooterContent.module.scss';
 import { companyContactsConstant } from '../../../constants/contacts';
 import { ContactBlock } from './ContactBlock/ContactBlock';

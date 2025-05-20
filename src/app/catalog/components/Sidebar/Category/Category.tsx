@@ -3,9 +3,9 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import {
-  catalogLinks,
+  catalogRoutes,
   TDrinkType,
-} from '../../../../../constants/catalogLinks';
+} from '../../../../../constants/routes/catalogRoutes';
 
 import cls from './Category.module.scss';
 
@@ -18,8 +18,8 @@ export const Category: React.FC<ICategoryProps> = ({ drinkType }) => {
     <nav className={cls.container}>
       <div className={cls.title}>Категории</div>
       <ul className={cls.links}>
-        {catalogLinks.map(
-          ({ label, link, drinkType: linkDrinkType, isPrimary }) => {
+        {Object.values(catalogRoutes).map(
+          ({ label, href, drinkType: linkDrinkType, isPrimary }) => {
             if (!isPrimary) {
               return (
                 <Link
@@ -28,7 +28,7 @@ export const Category: React.FC<ICategoryProps> = ({ drinkType }) => {
                   className={clsx(cls.link, {
                     [cls.activeLink]: drinkType === linkDrinkType,
                   })}
-                  href={link}
+                  href={href}
                 >
                   {label}
                 </Link>
