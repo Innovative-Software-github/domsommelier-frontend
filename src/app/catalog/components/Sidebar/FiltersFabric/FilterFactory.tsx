@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import { RangeFilter } from './RangeFilter/RangeFilter';
-import { IFiltersState } from '../utils';
 import { MultiSelectFilter } from './MultiSelectFilter/MultiSelectFilter';
 import { CheckboxFilter } from './CheckboxFilter/CheckboxFilter';
+import { IFilterConfig, IFiltersState, TCheckboxFilterValue, TMultiSelectFilterValue, TRangeFilterValue } from '../interfaces';
+import { isFilterActive } from '../utils';
 
 export interface IFilterFactoryProps {
-  filterConfig: any;
+  filterConfig: IFilterConfig;
   filtersState: IFiltersState;
   onUpdateFilterArray: (field: string, value: any) => void;
 }
@@ -20,7 +21,8 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
     case 'range':
       return (
         <RangeFilter
-          filterState={filtersState[filterConfig.id]}
+          isAccordionOpen={isFilterActive(filtersState[filterConfig.id])}
+          filterState={filtersState[filterConfig.id] as TRangeFilterValue}
           filterConfig={filterConfig}
           onUpdateFilterArray={(value) =>
             onUpdateFilterArray(filterConfig.id, value)
@@ -30,7 +32,8 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
     case 'multi_select':
       return (
         <MultiSelectFilter
-          filterState={filtersState[filterConfig.id]}
+          isAccordionOpen={isFilterActive(filtersState[filterConfig.id])}
+          filterState={filtersState[filterConfig.id] as TMultiSelectFilterValue}
           filterConfig={filterConfig}
           onUpdateFilterArray={(value) => {
             onUpdateFilterArray(filterConfig.id, value);
@@ -40,7 +43,7 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
     case 'checkbox':
       return (
         <CheckboxFilter
-          filterState={filtersState[filterConfig.id]}
+          filterState={filtersState[filterConfig.id] as TCheckboxFilterValue}
           filterConfig={filterConfig}
           onUpdateFilterArray={(value) =>
             onUpdateFilterArray(filterConfig.id, value)

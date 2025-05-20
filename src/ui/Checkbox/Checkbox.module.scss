@@ -73,9 +73,12 @@
 }
 
 /* Состояния checked для rounded */
+.container[data-theme='gray'][data-variant='rounded'].checked .checkbox {
+  border-color: #680a08;
+}
 .container[data-theme='gray'][data-variant='rounded'].checked
   .roundCheckboxItem {
-  background: #999999;
+  background: #680a08;
 }
 .container[data-theme='wineRed'][data-variant='rounded'].checked
   .roundCheckboxItem {

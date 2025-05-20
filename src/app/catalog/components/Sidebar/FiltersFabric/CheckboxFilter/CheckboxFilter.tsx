@@ -4,17 +4,12 @@ import * as React from 'react';
 import cls from './CheckboxFilter.module.scss';
 
 import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
-
-export interface ICheckboxFilterConfig {
-  id: string;
-  type: 'checkbox';
-  name: string;
-}
+import { ICheckboxFilterConfig, TCheckboxFilterValue } from '../../interfaces';
 
 export interface ICheckboxFilterProps {
-  filterState: boolean;
+  filterState: TCheckboxFilterValue;
   filterConfig: ICheckboxFilterConfig;
-  onUpdateFilterArray: (value: boolean) => void;
+  onUpdateFilterArray: (value: TCheckboxFilterValue) => void;
 }
 
 export const CheckboxFilter: React.FC<ICheckboxFilterProps> = ({

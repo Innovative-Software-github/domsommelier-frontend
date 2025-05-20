@@ -9,6 +9,7 @@ import { filterConfig, useFilters } from './utils';
 
 import cls from './Sidebar.module.scss';
 import { FilterFactory } from './FiltersFabric/FilterFactory';
+import { IFilterConfig } from './interfaces';
 
 export interface ISidebarProps {
   drinkType: TDrinkType;
@@ -31,12 +32,10 @@ export const Sidebar: React.FC<ISidebarProps> = ({ drinkType }) => {
     }
   };
 
-  console.log(filtersState);
-
   return (
     <section className={cls.container}>
       <Category drinkType={drinkType} />
-      {filterConfig.map((filterConfig: any) => (
+      {filterConfig.map((filterConfig: IFilterConfig) => (
         <div key={filterConfig.id} className={cls.filter}>
           <FilterFactory
             key={filterConfig.id}

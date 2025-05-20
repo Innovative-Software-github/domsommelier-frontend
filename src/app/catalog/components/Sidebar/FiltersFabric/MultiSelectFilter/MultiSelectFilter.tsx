@@ -4,21 +4,14 @@ import * as React from 'react';
 
 import cls from './MultiSelectFilter.module.scss';
 import { Accordion } from '../../../../../../ui/Accordion/Accordion';
-import { IFiltersState } from '../../utils';
 import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
-
-export interface IMultiSelectFilterConfig {
-  id: string;
-  type: 'multi_select';
-  name: string;
-  options: { value: string; label: string }[];
-}
+import { IMultiSelectFilterConfig, TMultiSelectFilterValue } from '../../interfaces';
 
 export interface IMultiSelectFilterProps {
-  filterConfig: IMultiSelectFilterConfig;
-  filterState: any;
   isAccordionOpen?: boolean;
-  onUpdateFilterArray: (value: any) => void;
+  filterConfig: IMultiSelectFilterConfig;
+  filterState: TMultiSelectFilterValue;
+  onUpdateFilterArray: (value: TMultiSelectFilterValue) => void;
 }
 
 export const MultiSelectFilter: React.FC<IMultiSelectFilterProps> = ({
@@ -27,7 +20,7 @@ export const MultiSelectFilter: React.FC<IMultiSelectFilterProps> = ({
   isAccordionOpen = false,
   onUpdateFilterArray,
 }) => {
-  const { id, name, options } = filterConfig;
+  const { name, options } = filterConfig;
 
   const handleToggle = (value: string) => {
     const next = filterState.includes(value)
@@ -46,6 +39,7 @@ export const MultiSelectFilter: React.FC<IMultiSelectFilterProps> = ({
       <aside className={cls.container}>
         {options.map((option) => (
           <Checkbox
+            key={option.value}
             theme="gray"
             checked={filterState.includes(option.value)}
             onChange={() => handleToggle(option.value)}

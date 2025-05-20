@@ -7,6 +7,7 @@ import { Accordion } from '../../../../../../ui/Accordion/Accordion';
 import { FilledInput } from '../../../../../../ui/FilledInput/FilledInput';
 import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
 import { isNumber } from '../../../../../../utils/isNumber';
+import { IRangeFilterConfig, TRangeFilterValue } from '../../interfaces';
 
 export type TValueStep = {
   min: number | null;
@@ -14,21 +15,11 @@ export type TValueStep = {
   label: string;
 };
 
-export interface IRangeFilterConfig {
-  id: string;
-  name: string;
-  min: number;
-  max: number;
-  unit?: string;
-  steps: TValueStep[];
-  value: [number | null, number | null];
-}
-
 export interface IRangeFilterProps {
   isAccordionOpen?: boolean;
-  filterState: [number | null, number | null];
+  filterState: TRangeFilterValue;
   filterConfig: IRangeFilterConfig;
-  onUpdateFilterArray: (value: [number | null, number | null]) => void;
+  onUpdateFilterArray: (value: TRangeFilterValue) => void;
 }
 
 export const RangeFilter: React.FC<IRangeFilterProps> = ({

@@ -5,7 +5,6 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import clsx from 'clsx';
 import cls from './RangeSlider.module.scss';
-import Tooltip from 'rc-tooltip';
 
 export interface CustomRangeSliderProps {
   /** Минимальное значение */

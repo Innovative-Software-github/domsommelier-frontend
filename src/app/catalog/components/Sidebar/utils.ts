@@ -1,86 +1,15 @@
+// TypeScript
 'use client';
 
 import * as React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { stringifySearchParams } from '../../../../utils/stringifySearchParams';
+import { IFilterConfig, IFiltersState, TCheckboxFilterValue, TMultiSelectFilterValue, TRangeFilterValue } from './interfaces';
 
-export type IFiltersState = Record<string, any>;
-
-export function useFilters() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const initializeFiltersFromUrl = (): IFiltersState => {
-    const filtersFromUrl: IFiltersState = {};
-
-    if (searchParams) {
-      const paramKeys = new Set<string>();
-      searchParams.forEach((_, key) => {
-        paramKeys.add(key);
-      });
-
-      paramKeys.forEach((key) => {
-        const values = searchParams.getAll(key);
-
-        if (values.length > 1) {
-          filtersFromUrl[key] = values.map((value) => {
-            try {
-              return JSON.parse(value);
-            } catch (e) {
-              return value;
-            }
-          });
-        } else if (values.length === 1) {
-          // Single value
-          try {
-            filtersFromUrl[key] = JSON.parse(values[0]);
-          } catch (e) {
-            filtersFromUrl[key] = values[0];
-          }
-        }
-      });
-    }
-
-    return filtersFromUrl;
-  };
-
-  const [filters, setFilters] = React.useState<IFiltersState>(
-    initializeFiltersFromUrl(),
-  );
-
-  const updateFilterValue = (field: string, value: string) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [field]: value,
-    }));
-  };
-
-  const updateFilterArray = (field: string, value: any) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [field]: value,
-    }));
-  };
-
-  const applyFilters = async () => {
-    const queryString = stringifySearchParams(filters);
-
-    router.push(`?${queryString}`, { scroll: false });
-  };
-
-  return {
-    filters,
-    updateFilterValue,
-    updateFilterArray,
-    applyFilters,
-  };
-}
-
-export const filterConfig = [
+export const filterConfig: IFilterConfig[] = [
   {
     type: 'range',
     id: 'price',
-    isAccordionOpen: true,
     name: 'Цена',
     min: 0,
     max: 50000,
@@ -109,3 +38,75 @@ export const filterConfig = [
     ],
   },
 ] as const;
+
+/** храним info о типах фильтров вида { price: 'range', color: 'multi_select', ... } */
+const filterTypesMap = filterConfig.reduce<Record<string, string>>(
+  (acc, item) => {
+    acc[item.id] = item.type;
+    return acc;
+  },
+  {},
+);
+
+const parse = (value: string) => {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+};
+
+export function useFilters() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  /** формируем state из URL */
+  const initializeFiltersFromUrl = (): IFiltersState => {
+    const filtersFromUrl: IFiltersState = {};
+
+    if (!searchParams) return filtersFromUrl;
+
+    /** собираем уникальные ключи query‐строки */
+    const paramKeys = new Set<string>();
+    searchParams.forEach((_, key) => paramKeys.add(key));
+
+    paramKeys.forEach((key) => {
+      const values = searchParams.getAll(key).map(parse);
+
+      if (values.length > 1) {
+        // несколько одноимённых параметров → всегда массив
+        filtersFromUrl[key] = values;
+      } else if (values.length === 1) {
+        const single = values[0];
+
+        // если фильтр по конфигу – multi_select, оборачиваем в массив
+        if (filterTypesMap[key] === 'multi_select') {
+          filtersFromUrl[key] = [single];
+        } else {
+          filtersFromUrl[key] = single;
+        }
+      }
+    });
+
+    return filtersFromUrl;
+  };
+
+  const [filters, setFilters] = React.useState<IFiltersState>(
+    initializeFiltersFromUrl(),
+  );
+
+  const updateFilterArray = (field: string, value: any[]) =>
+    setFilters((prev) => ({ ...prev, [field]: value }));
+
+  const applyFilters = () => {
+    const queryString = stringifySearchParams(filters);
+    router.push(`?${queryString}`, { scroll: false });
+  };
+
+  return { filters, updateFilterArray, applyFilters };
+}
+
+export const isFilterActive = (value: TRangeFilterValue | TMultiSelectFilterValue | TCheckboxFilterValue) => {
+  if (Array.isArray(value)) return value.some(v => v !== null && v !== '');
+  return Boolean(value);
+};
