@@ -1,4 +1,4 @@
-import { catalogRoutes } from "./catalogRoutes";
+import { catalogRoutes } from './catalogRoutes';
 
 export type TRouteKey =
   | 'catalog'
@@ -7,7 +7,8 @@ export type TRouteKey =
   | 'contacts'
   | 'degustation'
   | 'investments'
-  | 'privacyPolicy';
+  | 'privacyPolicy'
+  | 'search';
 
 export interface IRoute {
   href: string;
@@ -30,4 +31,5 @@ export const routes: Readonly<Record<TRouteKey, IRoute>> = {
     href: '/privacy-policy',
     label: 'Политика конфендециальности',
   },
+  search: { href: '/search', label: 'Поиск' },
 } as const;

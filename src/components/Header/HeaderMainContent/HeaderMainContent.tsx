@@ -8,10 +8,12 @@ import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLin
 import { Button } from '../../../ui/Button/Button';
 import { Backdrop } from '../../../ui/Backdrop/Backdrop';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
+import { SearchModal } from './SearchModal/SearchModal';
 
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
     React.useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = React.useState(false);
 
   return (
     <div className={cls.container}>
@@ -27,7 +29,10 @@ export const HeaderMainContent: React.FC = () => {
         >
           Каталог
         </Button>
-        <button className={cls.searchButton}>
+        <button
+          className={cls.searchButton}
+          onClick={() => setIsSearchModalOpen((prev) => !prev)}
+        >
           <Icon type={IconType.Search_24} width={24} height={24} />
         </button>
       </div>
@@ -54,6 +59,11 @@ export const HeaderMainContent: React.FC = () => {
       >
         <CatalogMenuContent />
       </Backdrop>
+
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+      />
     </div>
   );
 };
