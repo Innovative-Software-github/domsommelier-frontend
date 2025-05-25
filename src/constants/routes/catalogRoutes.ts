@@ -6,6 +6,15 @@ export type TDrinkType =
   | 'snacks'
   | 'accessories';
 
+export const drinkTypeLabels: Record<TDrinkType, string> = {
+  wine: 'Вина',
+  champagne: 'Шампанское и игристые вина',
+  'strong-drinks': 'Крепкие напитки',
+  'low-alcohol': 'Слабоалкогольные напитки',
+  snacks: 'Закуски',
+  accessories: 'Аксессуары',
+};
+
 export interface ICatalogRoute {
   href: string;
   label: string;
@@ -25,12 +34,12 @@ export type CatalogRouteKey =
 
 export const catalogRoutes: Readonly<Record<CatalogRouteKey, ICatalogRoute>> = {
   stock: {
-    href: '/catalog/stock',
+    href: '/stock',
     label: '% Акции',
     isPrimary: true,
   },
   degustation: {
-    href: '/catalog/degustation',
+    href: '/degustation',
     label: 'Дегустации',
     isPrimary: true,
   },

@@ -1,0 +1,43 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  max-width: 305px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 305/370;
+}
+
+.image {
+  object-fit: contain;
+  background: #f7f7f7;
+  padding: 18px;
+}
+
+.header {
+  padding: 12px 0px 24px;
+}
+
+.title {
+  margin: 0 0 8px;
+  color: #680a08;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.description {
+  color: #717171;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.button {
+  margin-top: auto;
+}

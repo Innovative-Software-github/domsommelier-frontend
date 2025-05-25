@@ -5,7 +5,12 @@ import * as React from 'react';
 import cls from './MultiSelectFilter.module.scss';
 import { Accordion } from '../../../../../../ui/Accordion/Accordion';
 import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
-import { IMultiSelectFilterConfig, TMultiSelectFilterValue } from '../../interfaces';
+import {
+  IMultiSelectFilterConfig,
+  TMultiSelectFilterValue,
+} from '../../interfaces';
+import { Input } from '../../../../../../ui/Input/Input';
+import { FilledInput } from '../../../../../../ui/FilledInput/FilledInput';
 
 export interface IMultiSelectFilterProps {
   isAccordionOpen?: boolean;

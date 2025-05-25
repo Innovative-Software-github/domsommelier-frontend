@@ -45,7 +45,11 @@ export const Sidebar: React.FC<ISidebarProps> = ({ drinkType }) => {
           />
         </div>
       ))}
-      <Button className={cls.submitButton} onClick={handleSumbit}>
+      <Button
+        variant="darkOutlined"
+        className={cls.submitButton}
+        onClick={handleSumbit}
+      >
         Найти
       </Button>
     </section>

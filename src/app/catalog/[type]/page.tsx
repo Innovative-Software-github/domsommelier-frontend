@@ -1,9 +1,9 @@
 import { TDrinkType } from '../../../constants/routes/catalogRoutes';
-import { Breadcrumps } from '../../../ui/Breadcrumps/Breadcrumps';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { useFilters } from '../components/Sidebar/utils';
 
 import cls from './CatalogPage.module.scss';
 
@@ -18,7 +18,7 @@ export default async function CatalogPage({
     <Layout showCatalogLinks={false}>
       <ContentContainer className={cls.container}>
         <Sidebar drinkType={drinkType} />
-        <CatalogBoard />
+        <CatalogBoard drinkType={drinkType} />
       </ContentContainer>
     </Layout>
   );

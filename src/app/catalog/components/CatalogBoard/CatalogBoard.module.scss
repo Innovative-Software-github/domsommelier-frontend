@@ -1,4 +1,33 @@
 .container {
-  flex: 1 1 auto;
-  background: orange;
+  width: 100%;
+}
+
+.title {
+  color: #680a08;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 115%;
+  margin-bottom: 24px;
+}
+
+.board {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 40px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 420px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card[class] {
+  @media (max-width: 768px) {
+    max-width: none;
+  }
 }

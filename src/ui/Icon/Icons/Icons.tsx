@@ -55,8 +55,19 @@ export const ArrowUpRight_40 = (
 )
 
 export const ArrowUpRight_80 = (
-<svg width="80" height="80" viewBox="0 0 80 80" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
-<path d="M16 64L62 18M62 18H27.5M62 18V52.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-</svg>
+  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 64L62 18M62 18H27.5M62 18V52.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
 
+export const Filters_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 15h7M3 15h2m0 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0m15-6h1M3 9h7m6.5 2.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+)
+
+export const Cancel_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="m18 18-6-6m0 0L6 6m6 6 6-6m-6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
 )

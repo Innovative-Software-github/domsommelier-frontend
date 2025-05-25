@@ -1,9 +1,17 @@
+'use client';
+
 import * as React from 'react';
 
 import { RangeFilter } from './RangeFilter/RangeFilter';
 import { MultiSelectFilter } from './MultiSelectFilter/MultiSelectFilter';
 import { CheckboxFilter } from './CheckboxFilter/CheckboxFilter';
-import { IFilterConfig, IFiltersState, TCheckboxFilterValue, TMultiSelectFilterValue, TRangeFilterValue } from '../interfaces';
+import {
+  IFilterConfig,
+  IFiltersState,
+  TCheckboxFilterValue,
+  TMultiSelectFilterValue,
+  TRangeFilterValue,
+} from '../interfaces';
 import { isFilterActive } from '../utils';
 
 export interface IFilterFactoryProps {

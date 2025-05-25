@@ -4,7 +4,13 @@
 import * as React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { stringifySearchParams } from '../../../../utils/stringifySearchParams';
-import { IFilterConfig, IFiltersState, TCheckboxFilterValue, TMultiSelectFilterValue, TRangeFilterValue } from './interfaces';
+import {
+  IFilterConfig,
+  IFiltersState,
+  TCheckboxFilterValue,
+  TMultiSelectFilterValue,
+  TRangeFilterValue,
+} from './interfaces';
 
 export const filterConfig: IFilterConfig[] = [
   {
@@ -56,6 +62,12 @@ const parse = (value: string) => {
   }
 };
 
+export interface IUseFiltersReturns {
+  filters: IFiltersState;
+  updateFilterArray: (field: string, value: any[]) => void;
+  applyFilters: () => void;
+}
+
 export function useFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -106,7 +118,9 @@ export function useFilters() {
   return { filters, updateFilterArray, applyFilters };
 }
 
-export const isFilterActive = (value: TRangeFilterValue | TMultiSelectFilterValue | TCheckboxFilterValue) => {
-  if (Array.isArray(value)) return value.some(v => v !== null && v !== '');
+export const isFilterActive = (
+  value: TRangeFilterValue | TMultiSelectFilterValue | TCheckboxFilterValue,
+) => {
+  if (Array.isArray(value)) return value.some((v) => v !== null && v !== '');
   return Boolean(value);
 };
