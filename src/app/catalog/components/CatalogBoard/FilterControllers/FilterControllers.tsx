@@ -10,6 +10,7 @@ import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import { Backdrop } from '../../../../../ui/Backdrop/Backdrop';
 import { useBackdropClose } from '../../../../../hooks/useBackdropClose';
 import { useBodyScrollLock } from '../../../../../hooks/useBodyScrollLock';
+import { FiltersPanel } from '../../FiltersPanel/FiltersPanel';
 
 export interface IFilterControllersProps {}
 
@@ -68,7 +69,7 @@ export const FilterControllers: React.FC<IFilterControllersProps> = () => {
         withCancelIcon
         onClickCancelIcon={() => setIsFiltersModalOpen(false)}
       >
-        sdf
+        <FiltersPanel />
       </Backdrop>
     </>
   );

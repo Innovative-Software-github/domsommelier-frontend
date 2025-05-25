@@ -3,7 +3,7 @@ import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer'
 import { Layout } from '../../../ui/Layout/Layout';
 import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';
 import { Sidebar } from '../components/Sidebar/Sidebar';
-import { useFilters } from '../components/Sidebar/utils';
+import { FiltersProvider } from '../hooks/useFiltersContext';
 
 import cls from './CatalogPage.module.scss';
 
@@ -17,8 +17,10 @@ export default async function CatalogPage({
   return (
     <Layout showCatalogLinks={false}>
       <ContentContainer className={cls.container}>
-        <Sidebar drinkType={drinkType} />
-        <CatalogBoard drinkType={drinkType} />
+        <FiltersProvider>
+          <Sidebar drinkType={drinkType} />
+          <CatalogBoard drinkType={drinkType} />
+        </FiltersProvider>
       </ContentContainer>
     </Layout>
   );
