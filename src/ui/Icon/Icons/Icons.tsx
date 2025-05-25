@@ -38,7 +38,7 @@ export const ArrowDown_24 = (
 
 export const ArrowRight_24 = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
-    <path d="m8.5 5.5 7 7-7 7" stroke="#242424" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m8.5 5.5 7 7-7 7" stroke="#242424" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
@@ -50,7 +50,7 @@ export const CheckboxArrow_10 = (
 
 export const ArrowUpRight_24 = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4.80005 19.1984L18.6 5.39844M18.6 5.39844H8.25005M18.6 5.39844V15.7484" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round"/>
+    <path d="M4.80005 19.1984L18.6 5.39844M18.6 5.39844H8.25005M18.6 5.39844V15.7484" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
@@ -68,7 +68,7 @@ export const ArrowUpRight_80 = (
 
 export const Filters_24 = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14 15h7M3 15h2m0 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0m15-6h1M3 9h7m6.5 2.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14 15h7M3 15h2m0 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0m15-6h1M3 9h7m6.5 2.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 

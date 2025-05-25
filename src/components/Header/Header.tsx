@@ -6,32 +6,25 @@ import { HeaderCatalogLinks } from '@/components/Header/HeaderCatalogLinks/Heade
 import { HeaderMainContent } from '@/components/Header/HeaderMainContent/HeaderMainContent';
 import { HeaderTopContent } from '@/components/Header/HeaderTopContent/HeaderTopContent';
 import cls from './Header.module.scss';
-import { useMediaContext } from '../../hooks/useMediaQuery';
 import { HeaderMobile } from './HeaderMobile/HeaderMobile';
-import { useIsServer } from '../../hooks/useIsServer';
 
 export interface IHeaderProps {
   showCatalogLinks?: boolean;
 }
 
 export const Header: React.FC<IHeaderProps> = ({ showCatalogLinks = true }) => {
-  const isMobileAdaptive = useMediaContext() === 'mobile';
-  const isServer = useIsServer();
-
-  if (isMobileAdaptive && !isServer) {
-    return (
-      <ContentContainer>
-        <HeaderMobile />
-      </ContentContainer>
-    );
-  }
-
   return (
     <header className={cls.header}>
       <ContentContainer>
-        <HeaderTopContent />
-        <HeaderMainContent />
-        {!!showCatalogLinks && <HeaderCatalogLinks />}
+        <div className={cls.desktopOnly}>
+          <HeaderTopContent />
+          <HeaderMainContent />
+          {showCatalogLinks && <HeaderCatalogLinks />}
+        </div>
+
+        <div className={cls.mobileOnly}>
+          <HeaderMobile />
+        </div>
       </ContentContainer>
     </header>
   );
