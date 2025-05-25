@@ -8,7 +8,11 @@ import { Button } from '../../../../ui/Button/Button';
 
 import cls from './FiltersPanel.module.scss';
 
-export const FiltersPanel = () => {
+export interface IFiltersPanel {
+  onSubmitFilters: () => void;
+}
+
+export const FiltersPanel: React.FC<IFiltersPanel> = ({ onSubmitFilters }) => {
   const { filters, updateFilterArray, applyFilters } = useFiltersContext();
 
   const handleSumbit = async () => {
@@ -16,6 +20,7 @@ export const FiltersPanel = () => {
       console.log(filters);
 
       applyFilters();
+      onSubmitFilters();
     } catch (error) {
       console.log(error);
     }

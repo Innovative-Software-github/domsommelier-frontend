@@ -37,7 +37,7 @@ export const HeaderMainContent: React.FC = () => {
           alt="logotype"
           width={271}
           height={45}
-          unoptimized
+          priority
         />
       </div>
 

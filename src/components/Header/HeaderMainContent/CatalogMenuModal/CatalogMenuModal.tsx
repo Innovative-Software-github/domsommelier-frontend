@@ -5,6 +5,7 @@ import { ContentContainer } from '../../../../ui/ContentContainer/ContentContain
 import clsx from 'clsx';
 import { useBodyScrollLock } from '../../../../hooks/useBodyScrollLock';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
+import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
 
 export interface ICatalogMenuModalProps {
   isOpen: boolean;
@@ -15,38 +16,9 @@ export const CatalogMenuModal: React.FC<ICatalogMenuModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  useBodyScrollLock(isOpen);
-
-  const handleKeyDown = React.useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    },
-    [onClose],
-  );
-
-  React.useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.removeEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, handleKeyDown]);
-
   return (
-    <div
-      className={clsx(cls.backdrop, { [cls.open]: isOpen })}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="catalog-menu-modal"
-    >
-      <div className={cls.container} data-modal tabIndex={-1}>
-        <CatalogMenuContent />
-      </div>
-    </div>
+    <Backdrop isOpen={isOpen} onClickCancelIcon={onClose}>
+      <CatalogMenuContent />
+    </Backdrop>
   );
 };

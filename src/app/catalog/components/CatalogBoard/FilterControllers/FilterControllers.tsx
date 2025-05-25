@@ -19,30 +19,6 @@ export const FilterControllers: React.FC<IFilterControllersProps> = () => {
 
   const isTablet = useMediaContext(MediaQuery.Tablet) === 'mobile';
 
-  useBodyScrollLock(isFiltersModalOpen);
-
-  const backdropRef = useBackdropClose(() => setIsFiltersModalOpen(false));
-
-  const handleKeyDown = React.useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsFiltersModalOpen(false);
-      }
-    },
-    [setIsFiltersModalOpen],
-  );
-
-  React.useEffect(() => {
-    if (isFiltersModalOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.removeEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isFiltersModalOpen, handleKeyDown]);
-
   return (
     <>
       <section className={cls.container}>
@@ -64,12 +40,11 @@ export const FilterControllers: React.FC<IFilterControllersProps> = () => {
 
       <Backdrop
         animation="rightSide"
-        ref={backdropRef}
         isOpen={isFiltersModalOpen}
         withCancelIcon
         onClickCancelIcon={() => setIsFiltersModalOpen(false)}
       >
-        <FiltersPanel />
+        <FiltersPanel onSubmitFilters={() => setIsFiltersModalOpen(false)} />
       </Backdrop>
     </>
   );
