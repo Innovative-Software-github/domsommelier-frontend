@@ -6,12 +6,24 @@ import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLink';
 import { Button } from '../../../ui/Button/Button';
+import { CatalogMenuModal } from './CatalogMenuModal/CatalogMenuModal';
 
 export const HeaderMainContent: React.FC = () => {
+  const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
+    React.useState(false);
+
   return (
     <div className={cls.container}>
       <div className={cls.catalogButton}>
-        <Button rightIconType={IconType.Hamburger_24} height="H-42">
+        <Button
+          rightIconType={
+            isCatalogMenuModalOpen
+              ? IconType.ArrowDown_24
+              : IconType.Hamburger_24
+          }
+          height="H-42"
+          onClick={() => setIsCatalogMenuModalOpen((prev) => !prev)}
+        >
           Каталог
         </Button>
         <button className={cls.searchButton}>
@@ -34,6 +46,11 @@ export const HeaderMainContent: React.FC = () => {
         <IconLink href="/" iconType={IconType.Heart_24} />
         <IconLink href="/" iconType={IconType.Profile_24} />
       </div>
+
+      <CatalogMenuModal
+        isOpen={isCatalogMenuModalOpen}
+        onClose={() => setIsCatalogMenuModalOpen(false)}
+      />
     </div>
   );
 };
