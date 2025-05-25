@@ -6,15 +6,33 @@ import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLink';
 import { Button } from '../../../ui/Button/Button';
+import { Backdrop } from '../../../ui/Backdrop/Backdrop';
+import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
+import { SearchModal } from './SearchModal/SearchModal';
 
 export const HeaderMainContent: React.FC = () => {
+  const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
+    React.useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = React.useState(false);
+
   return (
     <div className={cls.container}>
       <div className={cls.catalogButton}>
-        <Button rightIconType={IconType.Hamburger_24} height="H-42">
+        <Button
+          rightIconType={
+            isCatalogMenuModalOpen
+              ? IconType.ArrowDown_24
+              : IconType.Hamburger_24
+          }
+          height="H-42"
+          onClick={() => setIsCatalogMenuModalOpen((prev) => !prev)}
+        >
           Каталог
         </Button>
-        <button className={cls.searchButton}>
+        <button
+          className={cls.searchButton}
+          onClick={() => setIsSearchModalOpen((prev) => !prev)}
+        >
           <Icon type={IconType.Search_24} width={24} height={24} />
         </button>
       </div>
@@ -25,7 +43,7 @@ export const HeaderMainContent: React.FC = () => {
           alt="logotype"
           width={271}
           height={45}
-          unoptimized
+          priority
         />
       </div>
 
@@ -34,6 +52,18 @@ export const HeaderMainContent: React.FC = () => {
         <IconLink href="/" iconType={IconType.Heart_24} />
         <IconLink href="/" iconType={IconType.Profile_24} />
       </div>
+
+      <Backdrop
+        isOpen={isCatalogMenuModalOpen}
+        onClickCancelIcon={() => setIsCatalogMenuModalOpen(false)}
+      >
+        <CatalogMenuContent />
+      </Backdrop>
+
+      <SearchModal
+        isOpen={isSearchModalOpen}
+        onClose={() => setIsSearchModalOpen(false)}
+      />
     </div>
   );
 };

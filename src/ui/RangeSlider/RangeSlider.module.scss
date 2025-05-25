@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+  padding: 16px 0;
+}
+
+/* глобальные переопределения rc-slider */
+:global(.rc-slider) {
+  touch-action: none;
+}
+
+:global(.rc-slider-handle) {
+  box-shadow: none !important;
+}
+
+:global(.rc-slider-rail),
+:global(.rc-slider-track) {
+  height: 4px;
+}

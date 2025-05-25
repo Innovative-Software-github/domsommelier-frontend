@@ -5,8 +5,10 @@ import Image from 'next/image';
 import { Input } from '../../../ui/Input/Input';
 import { Icon } from '../../../ui/Icon/Icon';
 import { IconType } from '../../../ui/Icon/IconsMapping';
+import { MobileMenu } from './MobileMenu/MobileMenu';
 
 export const HeaderMobile: React.FC = () => {
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
   const inputPrefix = <Icon type={IconType.Search_24} width={24} height={24} />;
 
   return (
@@ -24,10 +26,18 @@ export const HeaderMobile: React.FC = () => {
           placeholder="Вино"
         />
 
-        <button className={cls.burgerMenuButton}>
+        <button
+          type="button"
+          className={cls.burgerMenuButton}
+          onClick={() => setIsBurgerMenuOpen(true)}
+        >
           <Icon type={IconType.Hamburger_24} width={24} height={24} />
         </button>
       </ContentContainer>
+      <MobileMenu
+        isOpen={isBurgerMenuOpen}
+        onClose={() => setIsBurgerMenuOpen(false)}
+      />
     </header>
   );
 };

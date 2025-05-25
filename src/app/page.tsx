@@ -11,7 +11,7 @@ export default function Home() {
       <WineHero />
       <AboutSection />
       <CategoryLinks />
-      {/* <NewsSwiperSection /> */}
+      <NewsSwiperSection />
       <OurMission />
     </Layout>
   );

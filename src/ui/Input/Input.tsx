@@ -10,7 +10,7 @@ import cls from './Input.module.scss';
 const DISPLAY_NAME = 'input';
 
 // todo: вынести в глобал
-export type TThemeUI = 'redWine' | 'white';
+export type TThemeUI = 'redWine' | 'white' | 'gray';
 
 export interface IInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -23,10 +23,14 @@ export interface IInputProps
   elSuffix?: React.ReactNode;
   errorText?: string;
   placeholder?: string;
-  className?: string;
   autoComplete?: string;
+
+  className?: string;
+  suffixClassName?: string;
+  prefixClassName?: string;
+
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
-  onPressEnter?(event: React.SyntheticEvent<HTMLInputElement>): void;
+  onPressEnter?(event: React.KeyboardEvent<HTMLInputElement>): void;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
@@ -35,7 +39,6 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       value,
       type,
       theme = 'redWine',
-      className,
       isLoading,
       isDisabled,
       elPrefix,
@@ -43,6 +46,9 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       errorText,
       placeholder,
       autoComplete,
+      className,
+      suffixClassName,
+      prefixClassName,
       onChange,
       onKeyDown,
       onPressEnter,
@@ -61,13 +67,17 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
     };
 
     const renderPrefix = () =>
-      elPrefix && <div className={cls.prefix}>{elPrefix}</div>;
+      elPrefix && (
+        <div className={clsx(cls.prefix, prefixClassName)}>{elPrefix}</div>
+      );
 
     const renderSuffix = () =>
       isLoading ? (
         <Spinner className={cls.loadingSpinner} size="m" />
       ) : (
-        elSuffix && <div className={cls.suffix}>{elSuffix}</div>
+        elSuffix && (
+          <div className={clsx(cls.suffix, suffixClassName)}>{elSuffix}</div>
+        )
       );
 
     return (

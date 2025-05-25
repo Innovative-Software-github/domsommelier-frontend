@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { routes } from '../../../../constants/routes';
+import { routes } from '../../../../constants/routes/routes';
 import cls from './FooterNavigation.module.scss';
 
 export const FooterNavigation: React.FC = () => {

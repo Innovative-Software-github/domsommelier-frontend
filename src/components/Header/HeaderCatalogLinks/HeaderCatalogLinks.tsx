@@ -1,22 +1,23 @@
 import React from 'react';
-
-import cls from './HeaderCatalogLinks.module.scss';
-import { catalogLinks } from '@/components/Header/HeaderCatalogLinks/utils';
 import Link from 'next/link';
 import clsx from 'clsx';
+
+import { catalogRoutes } from '../../../constants/routes/catalogRoutes';
+
+import cls from './HeaderCatalogLinks.module.scss';
 
 export const HeaderCatalogLinks = () => {
   return (
     <div className={cls.container}>
-      {catalogLinks.map((catalogLink) => (
+      {Object.values(catalogRoutes).map((catalogRoute) => (
         <Link
-          key={catalogLink.label}
-          href={catalogLink.link}
+          key={catalogRoute.label}
+          href={catalogRoute.href}
           className={clsx(cls.link, {
-            [cls.primaryLink]: catalogLink.isPrimary,
+            [cls.primaryLink]: catalogRoute.isPrimary,
           })}
         >
-          {catalogLink.label}
+          {catalogRoute.label}
         </Link>
       ))}
     </div>

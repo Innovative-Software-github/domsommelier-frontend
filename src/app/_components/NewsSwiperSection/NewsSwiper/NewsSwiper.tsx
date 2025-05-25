@@ -17,28 +17,28 @@ export const NewsSwiper: React.FC = () => {
   const mockImages = [
     {
       id: 1,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gnWdbbi9aFPaIxKK2V3ufIfojrx2nmboxfp-w7NmGwcod7MMnlVYLzINtAe5GRhWUe0iFgvC-gXlYj7UdOee4ggrvqfuewXrfPbnCavknmQ~NJNS7US6-jvapg9wHA5LIwz2eCwL1Nw5b4Bsuh9TaCucJdbfO95y8XbcNOfwZN9Dpmtom3ZdXr3lgThYzuuqRO~Fs0BrmqvvYoovgzv3wQFvsRtYAPAYzlUDkZLmwOr3uZs-Au43XN~8FzBOBtjsPnSIlfQ1FT5ditisMXztat4xpdiMR5WhSrkcjyShjyVzwavo0JL9avn3OGyzcToaaJ2D90oXZGYkSoP1r9GjQQ__',
+      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
       text: 'Дегустация Wineгрет1',
       description:
         'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
     },
     {
       id: 2,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gnWdbbi9aFPaIxKK2V3ufIfojrx2nmboxfp-w7NmGwcod7MMnlVYLzINtAe5GRhWUe0iFgvC-gXlYj7UdOee4ggrvqfuewXrfPbnCavknmQ~NJNS7US6-jvapg9wHA5LIwz2eCwL1Nw5b4Bsuh9TaCucJdbfO95y8XbcNOfwZN9Dpmtom3ZdXr3lgThYzuuqRO~Fs0BrmqvvYoovgzv3wQFvsRtYAPAYzlUDkZLmwOr3uZs-Au43XN~8FzBOBtjsPnSIlfQ1FT5ditisMXztat4xpdiMR5WhSrkcjyShjyVzwavo0JL9avn3OGyzcToaaJ2D90oXZGYkSoP1r9GjQQ__',
+      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
       text: 'Дегустация Wineгрет2',
       description:
         'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
     },
     {
       id: 3,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gnWdbbi9aFPaIxKK2V3ufIfojrx2nmboxfp-w7NmGwcod7MMnlVYLzINtAe5GRhWUe0iFgvC-gXlYj7UdOee4ggrvqfuewXrfPbnCavknmQ~NJNS7US6-jvapg9wHA5LIwz2eCwL1Nw5b4Bsuh9TaCucJdbfO95y8XbcNOfwZN9Dpmtom3ZdXr3lgThYzuuqRO~Fs0BrmqvvYoovgzv3wQFvsRtYAPAYzlUDkZLmwOr3uZs-Au43XN~8FzBOBtjsPnSIlfQ1FT5ditisMXztat4xpdiMR5WhSrkcjyShjyVzwavo0JL9avn3OGyzcToaaJ2D90oXZGYkSoP1r9GjQQ__',
+      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
       text: 'Дегустация Wineгрет3',
       description:
         'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
     },
     {
       id: 4,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gnWdbbi9aFPaIxKK2V3ufIfojrx2nmboxfp-w7NmGwcod7MMnlVYLzINtAe5GRhWUe0iFgvC-gXlYj7UdOee4ggrvqfuewXrfPbnCavknmQ~NJNS7US6-jvapg9wHA5LIwz2eCwL1Nw5b4Bsuh9TaCucJdbfO95y8XbcNOfwZN9Dpmtom3ZdXr3lgThYzuuqRO~Fs0BrmqvvYoovgzv3wQFvsRtYAPAYzlUDkZLmwOr3uZs-Au43XN~8FzBOBtjsPnSIlfQ1FT5ditisMXztat4xpdiMR5WhSrkcjyShjyVzwavo0JL9avn3OGyzcToaaJ2D90oXZGYkSoP1r9GjQQ__',
+      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
       text: 'Дегустация Wineгрет4',
       description:
         'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
@@ -52,7 +52,7 @@ export const NewsSwiper: React.FC = () => {
     },
     {
       id: 6,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=gnWdbbi9aFPaIxKK2V3ufIfojrx2nmboxfp-w7NmGwcod7MMnlVYLzINtAe5GRhWUe0iFgvC-gXlYj7UdOee4ggrvqfuewXrfPbnCavknmQ~NJNS7US6-jvapg9wHA5LIwz2eCwL1Nw5b4Bsuh9TaCucJdbfO95y8XbcNOfwZN9Dpmtom3ZdXr3lgThYzuuqRO~Fs0BrmqvvYoovgzv3wQFvsRtYAPAYzlUDkZLmwOr3uZs-Au43XN~8FzBOBtjsPnSIlfQ1FT5ditisMXztat4xpdiMR5WhSrkcjyShjyVzwavo0JL9avn3OGyzcToaaJ2D90oXZGYkSoP1r9GjQQ__',
+      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
       text: 'Дегустация Wineгрет6',
       description:
         'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',

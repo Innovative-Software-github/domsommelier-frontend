@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  gap: 30px;
+}
+
+.sidebar {
+  flex: 0 0 165px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-right: 100px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}

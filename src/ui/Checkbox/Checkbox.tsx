@@ -8,9 +8,13 @@ import { TTheme } from '@/constants/theme';
 
 export const DISPLAY_NAME = 'Checkbox';
 
+export type TCheckboxTheme = TTheme | 'gray';
+export type TCheckboxVariant = 'boxed' | 'rounded';
+
 export interface ICheckboxProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'color'> {
-  theme?: TTheme;
+  theme?: TCheckboxTheme;
+  variant?: TCheckboxVariant;
   checkboxClassName?: string;
   labelClassName?: string;
 }
@@ -18,6 +22,7 @@ export interface ICheckboxProps
 export const Checkbox: React.FC<ICheckboxProps> = ({
   checked,
   theme = 'wineRed',
+  variant = 'boxed',
   className,
   checkboxClassName,
   labelClassName,
@@ -32,6 +37,7 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
       [cls.disabled]: disabled,
     })}
     data-theme={theme}
+    data-variant={variant}
   >
     <input
       {...restProps}
@@ -40,13 +46,16 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
       type="checkbox"
     />
     <span className={clsx(cls.checkbox, checkboxClassName)}>
-      <Icon
-        isScalable
-        type={IconType.CheckboxArrow_10}
-        className={cls.icon}
-        width={10}
-        height={10}
-      />
+      {variant === 'boxed' && (
+        <Icon
+          isScalable
+          type={IconType.CheckboxArrow_10}
+          className={cls.icon}
+          width={10}
+          height={10}
+        />
+      )}
+      {variant === 'rounded' && <div className={cls.roundCheckboxItem} />}
     </span>
 
     {children && (

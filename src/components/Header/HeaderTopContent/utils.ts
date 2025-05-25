@@ -1,4 +1,4 @@
-import { IRoute, routes } from '@/constants/routes';
+import { IRoute, routes } from '@/constants/routes/routes';
 
 const createLink = (route: IRoute) => ({
   label: route.label,

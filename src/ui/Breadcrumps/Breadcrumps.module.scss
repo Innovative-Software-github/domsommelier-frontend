@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.breadcrumpItem {
+  color: #bdbdbd;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+
+  transition: color 150ms;
+}
+
+.breadcrumpItem:is(a):hover {
+  color: #541514;
+}
+
+.breadcrumpItem:not(a) {
+  cursor: default;
+}
+
+.lastBreadcrumpItem {
+  color: #541514;
+}
+
+.separator {
+  color: #bdbdbd;
+  user-select: none;
+}

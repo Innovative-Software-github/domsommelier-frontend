@@ -50,7 +50,31 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const reduxPreloadedState = {};
+  const reduxPreloadedState = {
+    filterConfig: {
+      wine: {
+        name: 'Шампанское и игристое',
+        price: [
+          {
+            id: 1,
+            price: 'До 1000 ₽ ',
+          },
+          {
+            id: 2,
+            price: '1 000 ₽ - 3 000 ₽',
+          },
+          {
+            id: 3,
+            price: '3 000 ₽ - 6 000 ₽',
+          },
+          {
+            id: 4,
+            price: '6 000 ₽ - 10 000 ₽',
+          },
+        ],
+      },
+    },
+  };
 
   return (
     <html

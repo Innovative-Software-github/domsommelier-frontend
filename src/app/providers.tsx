@@ -2,6 +2,7 @@
 
 import { ReactNode, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import NextTopLoader from 'nextjs-toploader';
 
 import { TAppStore, createStore } from '@/store';
 import { IServerData } from '@/store/interfaces';
@@ -19,5 +20,10 @@ export function Providers({ children, reduxPreloadedState }: IProvidersProps) {
     storeRef.current = createStore(reduxPreloadedState);
   }
 
-  return <ReduxProvider store={storeRef.current}>{children}</ReduxProvider>;
+  return (
+    <ReduxProvider store={storeRef.current}>
+      <NextTopLoader color="#680A08" showSpinner={false} />
+      {children}
+    </ReduxProvider>
+  );
 }
