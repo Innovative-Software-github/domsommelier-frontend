@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import cls from './CatalogMenuContent.module.scss';
-import { ContentContainer } from '../../../../../ui/ContentContainer/ContentContainer';
+import { ContentContainer } from '../../../../ui/ContentContainer/ContentContainer';
 import clsx from 'clsx';
 import { CategoryCard } from './CategoryCard/CategoryCard';
 import Image from 'next/image';

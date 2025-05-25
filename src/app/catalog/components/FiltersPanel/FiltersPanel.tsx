@@ -9,7 +9,7 @@ import { Button } from '../../../../ui/Button/Button';
 import cls from './FiltersPanel.module.scss';
 
 export interface IFiltersPanel {
-  onSubmitFilters: () => void;
+  onSubmitFilters?: () => void;
 }
 
 export const FiltersPanel: React.FC<IFiltersPanel> = ({ onSubmitFilters }) => {
@@ -20,7 +20,9 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({ onSubmitFilters }) => {
       console.log(filters);
 
       applyFilters();
-      onSubmitFilters();
+      if (onSubmitFilters) {
+        onSubmitFilters();
+      }
     } catch (error) {
       console.log(error);
     }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import cls from './CategoryCard.module.scss';
-import { Icon } from '../../../../../../ui/Icon/Icon';
-import { IconType } from '../../../../../../ui/Icon/IconsMapping';
+import { Icon } from '../../../../../ui/Icon/Icon';
+import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import clsx from 'clsx';
 
 export interface ICategoryCardProps {

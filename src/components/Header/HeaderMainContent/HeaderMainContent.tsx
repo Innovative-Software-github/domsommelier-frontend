@@ -6,7 +6,8 @@ import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLink';
 import { Button } from '../../../ui/Button/Button';
-import { CatalogMenuModal } from './CatalogMenuModal/CatalogMenuModal';
+import { Backdrop } from '../../../ui/Backdrop/Backdrop';
+import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
 
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
@@ -47,10 +48,12 @@ export const HeaderMainContent: React.FC = () => {
         <IconLink href="/" iconType={IconType.Profile_24} />
       </div>
 
-      <CatalogMenuModal
+      <Backdrop
         isOpen={isCatalogMenuModalOpen}
-        onClose={() => setIsCatalogMenuModalOpen(false)}
-      />
+        onClickCancelIcon={() => setIsCatalogMenuModalOpen(false)}
+      >
+        <CatalogMenuContent />
+      </Backdrop>
     </div>
   );
 };
