@@ -1,12 +1,10 @@
 import * as React from 'react';
 import cls from './MobileMenu.module.scss';
-import clsx from 'clsx';
-import { Icon } from '../../../../ui/Icon/Icon';
 import { IconType } from '../../../../ui/Icon/IconsMapping';
-import { useBodyScrollLock } from '../../../../hooks/useBodyScrollLock';
 import { MobileMenuItem } from './MobileMenuItem/MobileMenuItem';
 import { MobileMenuAccordion } from './MobileMenuAccordion/MobileMenuAccordion';
 import Link from 'next/link';
+import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
 
 export interface IMobileMenuProps {
   isOpen: boolean;
@@ -33,19 +31,15 @@ const mockOption = [
 ];
 
 export const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen, onClose }) => {
-  useBodyScrollLock(isOpen);
-
   return (
-    <div
-      className={clsx(cls.container, {
-        [cls.open]: isOpen,
-      })}
+    <Backdrop
+      backdropClassName={cls.backdrop}
+      contentClassName={cls.backdropContent}
+      isOpen={isOpen}
+      animation="rightSide"
+      withCancelIcon
+      onClickCancelIcon={onClose}
     >
-      <div className={cls.header}>
-        <button type="button" className={cls.closeButton} onClick={onClose}>
-          <Icon type={IconType.Cancel_24} width={24} height={24} />
-        </button>
-      </div>
       <div className={cls.content}>
         <MobileMenuItem iconType={IconType.Profile_24}>
           Личный кабинет
@@ -70,6 +64,6 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen, onClose }) => {
           Инвестиции
         </Link>
       </div>
-    </div>
+    </Backdrop>
   );
 };
