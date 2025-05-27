@@ -1,6 +1,7 @@
 import { catalogRoutes } from './catalogRoutes';
 
 export type TRouteKey =
+  | 'home'
   | 'catalog'
   | 'about'
   | 'events'
@@ -17,6 +18,7 @@ export interface IRoute {
 }
 
 export const routes: Readonly<Record<TRouteKey, IRoute>> = {
+  home: { href: '/', label: 'Главная' },
   catalog: {
     href: '/catalog',
     label: 'Каталог',

@@ -68,7 +68,7 @@ export interface IUseFiltersReturns {
   applyFilters: () => void;
 }
 
-export function useFilters() {
+export function useFilters(): IUseFiltersReturns {
   const router = useRouter();
   const searchParams = useSearchParams();
 
