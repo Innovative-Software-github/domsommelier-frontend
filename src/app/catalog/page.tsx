@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
+import { routes } from '../../constants/routes/routes';
 
 export default function Catalog() {
-  // todo: правильно направить редирект когда появится route менеджер
-  redirect('/catalog/wine');
+  redirect(routes.catalog.children?.wine.href as string);
 }
