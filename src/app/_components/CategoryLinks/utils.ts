@@ -5,27 +5,27 @@ const catalog = routes.catalog.children!;
 
 export const categoryLinksList: readonly ICategoryLink[] = [
   {
-    label: 'Вино',
+    label: catalog.wine.label,
     href: catalog.wine.href,
   },
   {
-    label: 'Крепкие напитки',
+    label: catalog['strong-drinks'].label,
     href: catalog['strong-drinks'].href,
   },
   {
-    label: 'Шампанское и игристые вина',
+    label: catalog.champagne.label,
     href: catalog.champagne.href,
   },
   {
-    label: 'Слабоалкогольные напитки',
+    label: catalog['low-alcohol'].label,
     href: catalog['low-alcohol'].href,
   },
   {
-    label: 'Закуски',
+    label: catalog.snacks.label,
     href: catalog.snacks.href,
   },
   {
-    label: 'Аксессуары',
+    label: catalog.accessories.label,
     href: catalog.accessories.href,
   },
 ] as const;

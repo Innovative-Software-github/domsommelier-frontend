@@ -8,6 +8,7 @@ import { WineCardPrices } from './WineCardPrices/WineCardPrices';
 
 import cls from './WineCard.module.scss';
 import clsx from 'clsx';
+import { routes } from '../../constants/routes/routes';
 
 export interface IWineCardDescription {
   country: string;
@@ -42,7 +43,7 @@ export const WineCard: React.FC<WineCardProps> = ({
   return (
     <article className={clsx(cls.card, className)}>
       <Link
-        href={`/${id}`}
+        href={`${routes.product.href}/${id}`}
         aria-label={`Перейти к странице товара «${name}»`}
         className={cls.link}
       >
