@@ -1,6 +1,7 @@
 import { TDrinkType } from '../../../constants/routes/catalogRoutes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
+import { ProductInformationContainer } from '../components/ProductInformationContainer/ProductInformationContainer';
 
 export default async function ProductPage({
   params,
@@ -12,7 +13,7 @@ export default async function ProductPage({
   return (
     <Layout>
       <ContentContainer>
-        <div className=""></div>
+        <ProductInformationContainer />
       </ContentContainer>
     </Layout>
   );
