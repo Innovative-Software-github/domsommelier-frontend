@@ -1,17 +1,20 @@
-export type TDrinkType =
-  | 'wine'
-  | 'champagne'
-  | 'strong-drinks'
-  | 'low-alcohol'
-  | 'snacks'
-  | 'accessories';
+export const productType = {
+  wine: 'wine',
+  spirit: 'spirit',
+  accessories: 'accessories',
+  snack: 'snack',
+  low_alcohol: 'low_alcohol',
+  champagne_and_sparkling: 'champagne_and_sparkling',
+} as const;
 
-export const drinkTypeLabels: Record<TDrinkType, string> = {
+export type TProductType = typeof productType[keyof typeof productType];
+
+export const productTypeLabels: Record<TProductType, string> = {
   wine: 'Вина',
-  champagne: 'Шампанское и игристые вина',
-  'strong-drinks': 'Крепкие напитки',
-  'low-alcohol': 'Слабоалкогольные напитки',
-  snacks: 'Закуски',
+  champagne_and_sparkling: 'Шампанское и игристые вина',
+  spirit: 'Крепкие напитки',
+  low_alcohol: 'Слабоалкогольные напитки',
+  snack: 'Закуски',
   accessories: 'Аксессуары',
 };
 
@@ -19,7 +22,7 @@ export interface ICatalogRoute {
   href: string;
   label: string;
   isPrimary: boolean;
-  drinkType?: TDrinkType;
+  productType?: TProductType;
 }
 
 export type CatalogRouteKey =
@@ -46,37 +49,37 @@ export const catalogRoutes: Readonly<Record<CatalogRouteKey, ICatalogRoute>> = {
   wine: {
     href: '/catalog/wine',
     label: 'Вина',
-    drinkType: 'wine',
+    productType: productType.wine,
     isPrimary: false,
   },
   champagne: {
-    href: '/catalog/champagne',
+    href: '/catalog/champagne_and_sparkling',
     label: 'Шампанское и игристые вина',
-    drinkType: 'champagne',
+    productType: productType.champagne_and_sparkling,
     isPrimary: false,
   },
   'strong-drinks': {
-    href: '/catalog/strong-drinks',
+    href: '/catalog/spirit',
     label: 'Крепкие напитки',
-    drinkType: 'strong-drinks',
+    productType: productType.spirit,
     isPrimary: false,
   },
   'low-alcohol': {
-    href: '/catalog/low-alcohol',
+    href: '/catalog/low_alcohol',
     label: 'Слабоалкогольные напитки',
-    drinkType: 'low-alcohol',
+    productType: productType.low_alcohol,
     isPrimary: false,
   },
   snacks: {
-    href: '/catalog/snacks',
+    href: '/catalog/snack',
     label: 'Закуски',
-    drinkType: 'snacks',
+    productType: productType.snack,
     isPrimary: false,
   },
   accessories: {
     href: '/catalog/accessories',
     label: 'Аксессуары',
-    drinkType: 'accessories',
+    productType: productType.accessories,
     isPrimary: false,
   },
 } as const;

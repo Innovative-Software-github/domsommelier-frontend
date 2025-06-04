@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import { IUseFiltersReturns, useFilters } from '../components/Sidebar/utils';
+import { TProductType } from '../../../constants/routes/productsRoutes';
 
 const FiltersContext = createContext<IUseFiltersReturns | null>(null);
 
@@ -13,10 +14,15 @@ export const useFiltersContext = (): IUseFiltersReturns => {
   return ctx;
 };
 
-export const FiltersProvider: React.FC<React.PropsWithChildren> = ({
+interface IFiltersProviderProps extends React.PropsWithChildren {
+  productType: TProductType;
+}
+
+export const FiltersProvider: React.FC<IFiltersProviderProps> = ({
+  productType,
   children,
 }) => {
-  const filtersApi = useFilters();
+  const filtersApi = useFilters(productType);
 
   return (
     <FiltersContext.Provider value={filtersApi}>

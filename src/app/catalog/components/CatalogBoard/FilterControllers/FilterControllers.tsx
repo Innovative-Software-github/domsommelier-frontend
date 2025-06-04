@@ -8,13 +8,16 @@ import { MediaQuery } from '../../../../../constants/media';
 import { Icon } from '../../../../../ui/Icon/Icon';
 import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import { Backdrop } from '../../../../../ui/Backdrop/Backdrop';
-import { useBackdropClose } from '../../../../../hooks/useBackdropClose';
-import { useBodyScrollLock } from '../../../../../hooks/useBodyScrollLock';
 import { FiltersPanel } from '../../FiltersPanel/FiltersPanel';
+import { TProductType } from '../../../../../constants/routes/productsRoutes';
 
-export interface IFilterControllersProps {}
+export interface IFilterControllersProps {
+  productType: TProductType;
+}
 
-export const FilterControllers: React.FC<IFilterControllersProps> = () => {
+export const FilterControllers: React.FC<IFilterControllersProps> = ({
+  productType,
+}) => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = React.useState(false);
 
   const isTablet = useMediaContext(MediaQuery.Tablet) === 'mobile';
@@ -38,14 +41,19 @@ export const FilterControllers: React.FC<IFilterControllersProps> = () => {
         </button>
       </section>
 
-      <Backdrop
-        animation="rightSide"
-        isOpen={isFiltersModalOpen}
-        withCancelIcon
-        onClickCancelIcon={() => setIsFiltersModalOpen(false)}
-      >
-        <FiltersPanel onSubmitFilters={() => setIsFiltersModalOpen(false)} />
-      </Backdrop>
+      {isTablet && (
+        <Backdrop
+          animation="rightSide"
+          isOpen={isFiltersModalOpen}
+          withCancelIcon
+          onClickCancelIcon={() => setIsFiltersModalOpen(false)}
+        >
+          <FiltersPanel
+            productType={productType}
+            onSubmitFilters={() => setIsFiltersModalOpen(false)}
+          />
+        </Backdrop>
+      )}
     </>
   );
 };

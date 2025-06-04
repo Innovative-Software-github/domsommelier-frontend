@@ -1,4 +1,3 @@
-import { TDrinkType } from '../../../constants/routes/catalogRoutes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { ProductInformationContainer } from '../components/ProductInformationContainer/ProductInformationContainer';
@@ -6,7 +5,7 @@ import { ProductInformationContainer } from '../components/ProductInformationCon
 export default async function ProductPage({
   params,
 }: {
-  params: Promise<{ productId: TDrinkType }>;
+  params: Promise<{ productId: number }>;
 }) {
   const { productId } = await params;
 
