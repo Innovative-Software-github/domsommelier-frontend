@@ -1,7 +1,7 @@
 'use server';
 
 import { ApiEndpoint } from '../config/apiEndpoints';
-import { customFetch, IResponse } from '../config/customFetch';
+import { customFetch } from '../config/customFetch';
 import { IFiltersConfigResponse } from './interfaces';
 
 export const getFiltersConfig = async (): Promise<IFiltersConfigResponse> => {

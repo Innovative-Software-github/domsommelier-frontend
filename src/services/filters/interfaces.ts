@@ -1,6 +1,6 @@
 import { IFilterConfig } from '../../app/catalog/components/Sidebar/interfaces';
-import { TProductsTypes } from '../../constants/interfaces/products';
+import { TProductType } from '../../constants/routes/productsRoutes';
 
 export type IFiltersConfigResponse = {
-  [categories in TProductsTypes]: IFilterConfig[];
+  [categories in TProductType]: IFilterConfig[];
 };

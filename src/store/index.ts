@@ -7,10 +7,13 @@ import {
 } from '@reduxjs/toolkit';
 
 import { IServerData, IStore, TAPIError } from './interfaces';
+import { filtersConfig } from './filters/reducers';
 
 export function createStore(preloadedState?: IServerData) {
   return configureStore({
-    reducer: combineReducers({}),
+    reducer: combineReducers({
+      filtersConfig,
+    }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,

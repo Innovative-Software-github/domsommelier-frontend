@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 
 import { Category } from './Category/Category';
@@ -16,7 +14,7 @@ export const Sidebar: React.FC<ISidebarProps> = ({ productType }) => {
   return (
     <section className={cls.container}>
       <Category productType={productType} />
-      <FiltersPanel />
+      <FiltersPanel productType={productType} />
     </section>
   );
 };

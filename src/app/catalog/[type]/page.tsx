@@ -1,4 +1,5 @@
 import { TProductType } from '../../../constants/routes/productsRoutes';
+import { getFiltersConfig } from '../../../services/filters/serverRequest';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';
@@ -17,7 +18,7 @@ export default async function CatalogPage({
   return (
     <Layout showCatalogLinks={false}>
       <ContentContainer className={cls.container}>
-        <FiltersProvider>
+        <FiltersProvider productType={productType}>
           <Sidebar productType={productType} />
           <CatalogBoard productType={productType} />
         </FiltersProvider>

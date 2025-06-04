@@ -17,7 +17,7 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({ productType }) => {
   return (
     <section className={cls.container}>
       <h2 className={cls.title}>{productTypeLabels[productType]}</h2>
-      <FilterControllers />
+      <FilterControllers productType={productType} />
       <div className={cls.board}>
         {Array.from({ length: 12 }).map((_, i) => (
           <WineCard
