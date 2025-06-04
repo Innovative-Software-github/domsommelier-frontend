@@ -4,19 +4,19 @@ import cls from './CatalogBoard.module.scss';
 import { WineCard } from '../../../../ui/WineCard/WineCard';
 import { wineCardModelMock } from '../../../../constants/temporaryMocks';
 import {
-  drinkTypeLabels,
-  TDrinkType,
+  productTypeLabels,
+  TProductType,
 } from '../../../../constants/routes/catalogRoutes';
 import { FilterControllers } from './FilterControllers/FilterControllers';
 
 export interface ICatalogBoardProps {
-  drinkType: TDrinkType;
+  productType: TProductType;
 }
 
-export const CatalogBoard: React.FC<ICatalogBoardProps> = ({ drinkType }) => {
+export const CatalogBoard: React.FC<ICatalogBoardProps> = ({ productType }) => {
   return (
     <section className={cls.container}>
-      <h2 className={cls.title}>{drinkTypeLabels[drinkType]}</h2>
+      <h2 className={cls.title}>{productTypeLabels[productType]}</h2>
       <FilterControllers />
       <div className={cls.board}>
         {Array.from({ length: 12 }).map((_, i) => (

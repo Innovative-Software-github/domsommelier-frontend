@@ -1,4 +1,4 @@
-import { TDrinkType } from '../../../constants/routes/catalogRoutes';
+import { TProductType } from '../../../constants/routes/catalogRoutes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';
@@ -10,16 +10,16 @@ import cls from './CatalogPage.module.scss';
 export default async function CatalogPage({
   params,
 }: {
-  params: Promise<{ type: TDrinkType }>;
+  params: Promise<{ type: TProductType }>;
 }) {
-  const { type: drinkType } = await params;
+  const { type: productType } = await params;
 
   return (
     <Layout showCatalogLinks={false}>
       <ContentContainer className={cls.container}>
         <FiltersProvider>
-          <Sidebar drinkType={drinkType} />
-          <CatalogBoard drinkType={drinkType} />
+          <Sidebar productType={productType} />
+          <CatalogBoard productType={productType} />
         </FiltersProvider>
       </ContentContainer>
     </Layout>

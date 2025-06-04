@@ -3,19 +3,19 @@
 import React from 'react';
 
 import { Category } from './Category/Category';
-import { TDrinkType } from '../../../../constants/routes/catalogRoutes';
+import { TProductType } from '../../../../constants/routes/catalogRoutes';
 
 import cls from './Sidebar.module.scss';
 import { FiltersPanel } from '../FiltersPanel/FiltersPanel';
 
 export interface ISidebarProps {
-  drinkType: TDrinkType;
+  productType: TProductType;
 }
 
-export const Sidebar: React.FC<ISidebarProps> = ({ drinkType }) => {
+export const Sidebar: React.FC<ISidebarProps> = ({ productType }) => {
   return (
     <section className={cls.container}>
-      <Category drinkType={drinkType} />
+      <Category productType={productType} />
       <FiltersPanel />
     </section>
   );
