@@ -1,19 +1,25 @@
 'use client';
 
 import * as React from 'react';
-import { filterConfig } from '../Sidebar/utils';
 import { useFiltersContext } from '../../hooks/useFiltersContext';
-import { FilterFactory } from '../Sidebar/FiltersFabric/FilterFactory';
 import { Button } from '../../../../ui/Button/Button';
-
 import cls from './FiltersPanel.module.scss';
+import { filtersConfigSelector } from '../../../../store/filters/selectors';
+import { useSelector } from 'react-redux';
+import { TProductType } from '../../../../constants/routes/productsRoutes';
+import { FilterFactory } from '../Sidebar/FiltersFabric/FilterFactory';
 
 export interface IFiltersPanel {
+  productType: TProductType;
   onSubmitFilters?: () => void;
 }
 
-export const FiltersPanel: React.FC<IFiltersPanel> = ({ onSubmitFilters }) => {
+export const FiltersPanel: React.FC<IFiltersPanel> = ({
+  productType,
+  onSubmitFilters,
+}) => {
   const { filters, updateFilterArray, applyFilters } = useFiltersContext();
+  const filtersConfig = useSelector(filtersConfigSelector);
 
   const handleSumbit = async () => {
     try {
@@ -28,9 +34,12 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({ onSubmitFilters }) => {
     }
   };
 
+  // TODO: Убрать когда с сервера будут приходить значения с маленькой буквы
+  const mockedProductType = productType.toUpperCase() as TProductType;
+
   return (
     <>
-      {filterConfig.map((filterConfig) => (
+      {filtersConfig[mockedProductType].map((filterConfig) => (
         <div key={filterConfig.id} className={cls.filter}>
           <FilterFactory
             filterConfig={filterConfig}

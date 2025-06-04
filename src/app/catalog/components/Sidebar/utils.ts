@@ -11,48 +11,9 @@ import {
   TMultiSelectFilterValue,
   TRangeFilterValue,
 } from './interfaces';
-
-export const filterConfig: IFilterConfig[] = [
-  {
-    type: 'range',
-    id: 'price',
-    name: 'Цена',
-    min: 0,
-    max: 50000,
-    unit: '₽',
-    steps: [
-      { min: 0, max: 1000, label: 'До 1 000 ₽' },
-      { min: 1000, max: 3000, label: '1 000–3 000 ₽' },
-      { min: 3000, max: 6000, label: '3 000–6 000 ₽' },
-      { min: 6000, max: 10000, label: '6 000–10 000 ₽' },
-      { min: 10000, max: 50000, label: 'От 10 000 ₽' },
-    ],
-  },
-  {
-    id: 'in_stock',
-    type: 'checkbox',
-    name: 'Наличие в магазинах',
-  },
-  {
-    id: 'color',
-    type: 'multi_select',
-    name: 'Цвет',
-    options: [
-      { value: 'white', label: 'Белое' },
-      { value: 'red', label: 'Красное' },
-      { value: 'rose', label: 'Розовое' },
-    ],
-  },
-] as const;
-
-/** храним info о типах фильтров вида { price: 'range', color: 'multi_select', ... } */
-const filterTypesMap = filterConfig.reduce<Record<string, string>>(
-  (acc, item) => {
-    acc[item.id] = item.type;
-    return acc;
-  },
-  {},
-);
+import { useSelector } from 'react-redux';
+import { filtersConfigSelector } from '../../../../store/filters/selectors';
+import { TProductType } from '../../../../constants/routes/productsRoutes';
 
 const parse = (value: string) => {
   try {
@@ -68,9 +29,20 @@ export interface IUseFiltersReturns {
   applyFilters: () => void;
 }
 
-export function useFilters(): IUseFiltersReturns {
+export function useFilters(productType: TProductType): IUseFiltersReturns {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const filtersConfig = useSelector(filtersConfigSelector);
+
+  /** храним info о типах фильтров вида { price: 'range', color: 'multi_select', ... } */
+  // TODO: Убрать когда с сервера будут приходить значения с маленькой буквы
+  const mockedProductType = productType.toUpperCase() as TProductType;
+  const filterTypesMap = filtersConfig[mockedProductType].reduce<
+    Record<string, string>
+  >((acc, item) => {
+    acc[item.id] = item.type;
+    return acc;
+  }, {});
 
   /** формируем state из URL */
   const initializeFiltersFromUrl = (): IFiltersState => {

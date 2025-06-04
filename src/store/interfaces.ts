@@ -1,3 +1,5 @@
+import { IFiltersConfigResponse } from '../services/filters/interfaces';
+
 export type TAPIErrorDescriptor = {
   code: number;
   message: string;
@@ -11,6 +13,8 @@ export type TAPIError =
     }
   | TAPIErrorDescriptor[];
 
-export interface IServerData {}
+export interface IServerData {
+  filtersConfig: IFiltersConfigResponse;
+}
 
 export interface IStore extends IServerData {}

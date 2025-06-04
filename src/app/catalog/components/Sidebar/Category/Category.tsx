@@ -1,32 +1,34 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
 import {
   catalogRoutes,
-  TDrinkType,
-} from '../../../../../constants/routes/catalogRoutes';
+  TProductType,
+} from '../../../../../constants/routes/productsRoutes';
 
 import cls from './Category.module.scss';
 
 export interface ICategoryProps {
-  drinkType: TDrinkType;
+  productType: TProductType;
 }
 
-export const Category: React.FC<ICategoryProps> = ({ drinkType }) => {
+export const Category: React.FC<ICategoryProps> = ({ productType }) => {
   return (
     <nav className={cls.container}>
       <div className={cls.title}>Категории</div>
       <ul className={cls.links}>
         {Object.values(catalogRoutes).map(
-          ({ label, href, drinkType: linkDrinkType, isPrimary }) => {
+          ({ label, href, productType: linkProductType, isPrimary }) => {
             if (!isPrimary) {
               return (
                 <Link
                   key={label}
                   scroll={false}
                   className={clsx(cls.link, {
-                    [cls.activeLink]: drinkType === linkDrinkType,
+                    [cls.activeLink]: productType === linkProductType,
                   })}
                   href={href}
                 >

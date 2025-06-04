@@ -21,6 +21,11 @@ export interface IHttpRequestConfig {
   withCredentials?: boolean;
   withErrorHandling?: boolean;
   signal?: AbortSignal;
+  cacheStrategy?: {
+    cache?: RequestCache;
+    revalidate?: number;
+    tags?: string[];
+  };
 }
 
 export type RequestDataValue =
@@ -41,7 +46,6 @@ export interface IResponse<T> {
 }
 
 /**
- * Универсальная кастомная функция с irma-заголовками для выполнения HTTP-запросов на базе fetch
  *
  * @template TResponsePayload - Тип данных ответа
  * @template TRequestPayload - Тип данных запроса
@@ -56,6 +60,10 @@ export interface IResponse<T> {
  * @param {boolean} [settings.withCredentials] - флаг отправлять ли куки
  * @param {boolean} [settings.withErrorHandling] - флаг включить ли обработку ошибок
  * @param {AbortSignal} [settings.signal] - Сигнал для отмены запроса
+ * @param {Object} [settings.cacheStrategy] - Стратегия кэширования
+ * @param {RequestCache} [settings.cacheStrategy.cache] - Тип кэширования
+ * @param {number} [settings.cacheStrategy.revalidate] - Время перезапроса в секундах
+ * @param {[string]} [settings.cacheStrategy.tags] - Теги для кэширования и ревалидации
  *
  * @param {TRequestPayload} [data] - Данные для отправки
  *
@@ -91,12 +99,13 @@ export async function customFetch<
     path,
     method,
     headers = [],
-    scheme = 'https',
+    scheme = 'http',
     port,
     contentType = 'application/json',
     withCredentials = true,
     withErrorHandling = false,
     signal,
+    cacheStrategy,
   }: IHttpRequestConfig,
   data?: TRequestPayload,
 ): Promise<IResponse<TResponsePayload> | TResponsePayload> {
@@ -118,7 +127,11 @@ export async function customFetch<
       body,
       headers: [...headers, ['Content-Type', contentType]],
       credentials: withCredentials ? 'include' : 'omit',
-      cache: 'no-store',
+      cache: cacheStrategy?.cache || 'no-store',
+      next: {
+        revalidate: cacheStrategy?.revalidate,
+        tags: cacheStrategy?.tags,
+      },
       signal,
     });
 
