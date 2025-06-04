@@ -1,17 +1,20 @@
-export type TProductType =
-  | 'wine'
-  | 'champagne'
-  | 'strong-drinks'
-  | 'low-alcohol'
-  | 'snacks'
-  | 'accessories';
+export const productType = {
+  wine: 'wine',
+  spirit: 'spirit',
+  accessories: 'accessories',
+  snack: 'snack',
+  low_alcohol: 'low_alcohol',
+  champagne_and_sparkling: 'champagne_and_sparkling',
+} as const;
+
+export type TProductType = typeof productType[keyof typeof productType];
 
 export const productTypeLabels: Record<TProductType, string> = {
   wine: 'Вина',
-  champagne: 'Шампанское и игристые вина',
-  'strong-drinks': 'Крепкие напитки',
-  'low-alcohol': 'Слабоалкогольные напитки',
-  snacks: 'Закуски',
+  champagne_and_sparkling: 'Шампанское и игристые вина',
+  spirit: 'Крепкие напитки',
+  low_alcohol: 'Слабоалкогольные напитки',
+  snack: 'Закуски',
   accessories: 'Аксессуары',
 };
 
@@ -46,37 +49,37 @@ export const catalogRoutes: Readonly<Record<CatalogRouteKey, ICatalogRoute>> = {
   wine: {
     href: '/catalog/wine',
     label: 'Вина',
-    productType: 'wine',
+    productType: productType.wine,
     isPrimary: false,
   },
   champagne: {
     href: '/catalog/champagne',
     label: 'Шампанское и игристые вина',
-    productType: 'champagne',
+    productType: productType.champagne_and_sparkling,
     isPrimary: false,
   },
   'strong-drinks': {
     href: '/catalog/strong-drinks',
     label: 'Крепкие напитки',
-    productType: 'strong-drinks',
+    productType: productType.spirit,
     isPrimary: false,
   },
   'low-alcohol': {
     href: '/catalog/low-alcohol',
     label: 'Слабоалкогольные напитки',
-    productType: 'low-alcohol',
+    productType: productType.low_alcohol,
     isPrimary: false,
   },
   snacks: {
     href: '/catalog/snacks',
     label: 'Закуски',
-    productType: 'snacks',
+    productType: productType.snack,
     isPrimary: false,
   },
   accessories: {
     href: '/catalog/accessories',
     label: 'Аксессуары',
-    productType: 'accessories',
+    productType: productType.accessories,
     isPrimary: false,
   },
 } as const;

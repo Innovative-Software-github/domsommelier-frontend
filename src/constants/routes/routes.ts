@@ -1,4 +1,4 @@
-import { catalogRoutes } from './catalogRoutes';
+import { catalogRoutes } from './productsRoutes';
 
 export type TRouteKey =
   | 'home'

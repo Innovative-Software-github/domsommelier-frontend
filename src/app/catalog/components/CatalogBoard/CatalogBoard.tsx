@@ -6,7 +6,7 @@ import { wineCardModelMock } from '../../../../constants/temporaryMocks';
 import {
   productTypeLabels,
   TProductType,
-} from '../../../../constants/routes/catalogRoutes';
+} from '../../../../constants/routes/productsRoutes';
 import { FilterControllers } from './FilterControllers/FilterControllers';
 
 export interface ICatalogBoardProps {

@@ -1,4 +1,4 @@
-import { TProductType } from '../../../constants/routes/catalogRoutes';
+import { TProductType } from '../../../constants/routes/productsRoutes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';

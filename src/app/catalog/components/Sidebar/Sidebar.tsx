@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { Category } from './Category/Category';
-import { TProductType } from '../../../../constants/routes/catalogRoutes';
+import { TProductType } from '../../../../constants/routes/productsRoutes';
 
 import cls from './Sidebar.module.scss';
 import { FiltersPanel } from '../FiltersPanel/FiltersPanel';

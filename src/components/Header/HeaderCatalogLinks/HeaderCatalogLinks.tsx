@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-import { catalogRoutes } from '../../../constants/routes/catalogRoutes';
+import { catalogRoutes } from '../../../constants/routes/productsRoutes';
 
 import cls from './HeaderCatalogLinks.module.scss';
 
