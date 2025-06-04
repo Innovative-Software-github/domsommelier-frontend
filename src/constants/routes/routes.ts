@@ -9,11 +9,12 @@ export type TRouteKey =
   | 'degustation'
   | 'investments'
   | 'privacyPolicy'
-  | 'search';
+  | 'search'
+  | 'product';
 
 export interface IRoute {
   href: string;
-  label: string;
+  label?: string;
   children?: typeof catalogRoutes;
 }
 
@@ -34,4 +35,5 @@ export const routes: Readonly<Record<TRouteKey, IRoute>> = {
     label: 'Политика конфендециальности',
   },
   search: { href: '/search', label: 'Поиск' },
+  product: { href: '/product' },
 } as const;

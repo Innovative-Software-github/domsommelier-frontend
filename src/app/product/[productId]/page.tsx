@@ -1,7 +1,6 @@
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
-
-import cls from './CatalogPage.module.scss';
+import { ProductInformationContainer } from '../components/ProductInformationContainer/ProductInformationContainer';
 
 export default async function ProductPage({
   params,
@@ -11,8 +10,10 @@ export default async function ProductPage({
   const { productId } = await params;
 
   return (
-    <Layout showCatalogLinks={false}>
-      <ContentContainer className={cls.container}>{productId}</ContentContainer>
+    <Layout>
+      <ContentContainer>
+        <ProductInformationContainer />
+      </ContentContainer>
     </Layout>
   );
 }
