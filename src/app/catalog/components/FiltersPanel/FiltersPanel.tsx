@@ -34,12 +34,9 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
     }
   };
 
-  // TODO: Убрать когда с сервера будут приходить значения с маленькой буквы
-  const mockedProductType = productType.toUpperCase() as TProductType;
-
   return (
     <>
-      {filtersConfig[mockedProductType].map((filterConfig) => (
+      {filtersConfig[productType].map((filterConfig) => (
         <div key={filterConfig.id} className={cls.filter}>
           <FilterFactory
             filterConfig={filterConfig}

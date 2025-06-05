@@ -35,9 +35,7 @@ export function useFilters(productType: TProductType): IUseFiltersReturns {
   const filtersConfig = useSelector(filtersConfigSelector);
 
   /** храним info о типах фильтров вида { price: 'range', color: 'multi_select', ... } */
-  // TODO: Убрать когда с сервера будут приходить значения с маленькой буквы
-  const mockedProductType = productType.toUpperCase() as TProductType;
-  const filterTypesMap = filtersConfig[mockedProductType].reduce<
+  const filterTypesMap = filtersConfig[productType].reduce<
     Record<string, string>
   >((acc, item) => {
     acc[item.id] = item.type;
