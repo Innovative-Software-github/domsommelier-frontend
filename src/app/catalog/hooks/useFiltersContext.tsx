@@ -6,12 +6,10 @@ import { TProductType } from '../../../constants/routes/productsRoutes';
 
 const FiltersContext = createContext<IUseFiltersReturns | null>(null);
 
-export const useFiltersContext = (): IUseFiltersReturns => {
+export const useFiltersContext = (): IUseFiltersReturns | null => {
   const ctx = useContext(FiltersContext);
-  if (!ctx) {
-    throw new Error('useFiltersContext must be used within <FiltersProvider>');
-  }
-  return ctx;
+
+  return ctx as IUseFiltersReturns;
 };
 
 interface IFiltersProviderProps extends React.PropsWithChildren {

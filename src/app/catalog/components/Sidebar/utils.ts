@@ -29,10 +29,16 @@ export interface IUseFiltersReturns {
   applyFilters: () => void;
 }
 
-export function useFilters(productType: TProductType): IUseFiltersReturns {
+export function useFilters(
+  productType: TProductType,
+): IUseFiltersReturns | null {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filtersConfig = useSelector(filtersConfigSelector);
+
+  if (!filtersConfig || !filtersConfig[productType]) {
+    return null;
+  }
 
   /** храним info о типах фильтров вида { price: 'range', color: 'multi_select', ... } */
   const filterTypesMap = filtersConfig[productType].reduce<

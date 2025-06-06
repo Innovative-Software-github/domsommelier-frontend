@@ -14,7 +14,7 @@ export type TAPIError =
   | TAPIErrorDescriptor[];
 
 export interface IServerData {
-  filtersConfig: IFiltersConfigResponse;
+  filtersConfig: IFiltersConfigResponse | null;
 }
 
 export interface IStore extends IServerData {}

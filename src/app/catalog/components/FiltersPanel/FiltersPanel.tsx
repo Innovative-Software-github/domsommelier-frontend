@@ -18,8 +18,13 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
   productType,
   onSubmitFilters,
 }) => {
-  const { filters, updateFilterArray, applyFilters } = useFiltersContext();
+  const context = useFiltersContext();
   const filtersConfig = useSelector(filtersConfigSelector);
+
+  if (!context || !filtersConfig || !filtersConfig[productType])
+    return <div>Не удалось загрузить фильтры</div>;
+
+  const { filters, updateFilterArray, applyFilters } = context;
 
   const handleSumbit = async () => {
     try {
