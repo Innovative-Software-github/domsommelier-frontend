@@ -1,3 +1,7 @@
+import { TProductType } from './productTypes';
+
+// TODO: Подумать на счет задания единых названий для роутов
+
 export const ROUTES = {
   home: '/',
   catalog: '/catalog',
@@ -11,13 +15,14 @@ export const ROUTES = {
   product: '/product',
 } as const;
 
-export const PRODUCT_TYPES_ROUTES = {
-  stock: '/stock',
-  degustation: '/degustation',
+export const PRODUCT_TYPES_SEGMENTS: Readonly<Record<TProductType, string>> = {
   wine: '/catalog/wine',
-  champagne: '/catalog/champagne_and_sparkling',
-  'strong-drinks': '/catalog/spirit',
-  'low-alcohol': '/catalog/low_alcohol',
-  snacks: '/catalog/snack',
+  champagne_and_sparkling: '/catalog/champagne_and_sparkling',
+  spirit: '/catalog/spirit',
+  low_alcohol: '/catalog/low_alcohol',
+  snack: '/catalog/snack',
   accessories: '/catalog/accessories',
 } as const;
+
+export type TProductTypesSegments =
+  typeof PRODUCT_TYPES_SEGMENTS[keyof typeof PRODUCT_TYPES_SEGMENTS];

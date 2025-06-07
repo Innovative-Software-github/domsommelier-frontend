@@ -1,31 +1,30 @@
-import { routes } from '../../../constants/routes';
+import { productTypeLabels } from '../../../constants/productTypes';
+import { PRODUCT_TYPES_SEGMENTS } from '../../../constants/routes';
 import { ICategoryLink } from './CategoryLink/CategoryLink';
-
-const catalog = routes.catalog.children!;
 
 export const categoryLinksList: readonly ICategoryLink[] = [
   {
-    label: catalog.wine.label,
-    href: catalog.wine.href,
+    label: productTypeLabels['wine'],
+    href: PRODUCT_TYPES_SEGMENTS.wine,
   },
   {
-    label: catalog['strong-drinks'].label,
-    href: catalog['strong-drinks'].href,
+    label: productTypeLabels['spirit'],
+    href: PRODUCT_TYPES_SEGMENTS['spirit'],
   },
   {
-    label: catalog.champagne.label,
-    href: catalog.champagne.href,
+    label: productTypeLabels['champagne_and_sparkling'],
+    href: PRODUCT_TYPES_SEGMENTS.champagne_and_sparkling,
   },
   {
-    label: catalog['low-alcohol'].label,
-    href: catalog['low-alcohol'].href,
+    label: productTypeLabels['low_alcohol'],
+    href: PRODUCT_TYPES_SEGMENTS['low_alcohol'],
   },
   {
-    label: catalog.snacks.label,
-    href: catalog.snacks.href,
+    label: productTypeLabels['snack'],
+    href: PRODUCT_TYPES_SEGMENTS.snack,
   },
   {
-    label: catalog.accessories.label,
-    href: catalog.accessories.href,
+    label: productTypeLabels['accessories'],
+    href: PRODUCT_TYPES_SEGMENTS.accessories,
   },
 ] as const;

@@ -1,13 +1,28 @@
-import { IRoute, routes } from "../../../../constants/routes";
+import { PRODUCT_TYPES_SEGMENTS, ROUTES } from '../../../../constants/routes';
 
-export const footerNavigationRoutes: IRoute[] = [
+export const footerNavigationRoutes = [
   {
-    label: routes.catalog.label,
-    href: routes.catalog.children?.wine.href!,
+    label: 'Каталог',
+    href: PRODUCT_TYPES_SEGMENTS.wine,
   },
-  routes.about,
-  routes.events,
-  routes.contacts,
-  routes.degustation,
-  routes.investments,
-];
+  {
+    label: 'О нас',
+    href: ROUTES.about,
+  },
+  {
+    label: 'Мероприятия',
+    href: ROUTES.events,
+  },
+  {
+    label: 'Контакты',
+    href: ROUTES.contacts,
+  },
+  {
+    label: 'Дегустации',
+    href: ROUTES.degustation,
+  },
+  {
+    label: 'Инвестиции',
+    href: ROUTES.investments,
+  },
+] as const;

@@ -5,11 +5,13 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import {
-  catalogRoutes,
+  productTypeArray,
+  productTypeLabels,
   TProductType,
 } from '../../../../../constants/productTypes';
 
 import cls from './Category.module.scss';
+import { PRODUCT_TYPES_SEGMENTS } from '../../../../../constants/routes';
 
 export interface ICategoryProps {
   productType: TProductType;
@@ -20,24 +22,18 @@ export const Category: React.FC<ICategoryProps> = ({ productType }) => {
     <nav className={cls.container}>
       <div className={cls.title}>Категории</div>
       <ul className={cls.links}>
-        {Object.values(catalogRoutes).map(
-          ({ label, href, productType: linkProductType, isPrimary }) => {
-            if (!isPrimary) {
-              return (
-                <Link
-                  key={label}
-                  scroll={false}
-                  className={clsx(cls.link, {
-                    [cls.activeLink]: productType === linkProductType,
-                  })}
-                  href={href}
-                >
-                  {label}
-                </Link>
-              );
-            }
-          },
-        )}
+        {productTypeArray.map((type) => (
+          <Link
+            key={productType}
+            scroll={false}
+            className={clsx(cls.link, {
+              [cls.activeLink]: productType === type,
+            })}
+            href={PRODUCT_TYPES_SEGMENTS[type]}
+          >
+            {productTypeLabels[type]}
+          </Link>
+        ))}
       </ul>
     </nav>
   );

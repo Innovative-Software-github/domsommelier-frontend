@@ -7,8 +7,6 @@ export const productType = {
   champagne_and_sparkling: 'champagne_and_sparkling',
 } as const;
 
-export const productTypeArray = Object.values(productType);
-
 export type TProductType = typeof productType[keyof typeof productType];
 
 export const productTypeLabels: Record<TProductType, string> = {
