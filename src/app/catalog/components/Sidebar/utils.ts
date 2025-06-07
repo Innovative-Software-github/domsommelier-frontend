@@ -13,7 +13,7 @@ import {
 } from './interfaces';
 import { useSelector } from 'react-redux';
 import { filtersConfigSelector } from '../../../../store/filters/selectors';
-import { TProductType } from '../../../../constants/routes/productsRoutes';
+import { TProductType } from '../../../../constants/productTypes';
 
 const parse = (value: string) => {
   try {

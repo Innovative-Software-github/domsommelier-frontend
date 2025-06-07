@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import {
   catalogRoutes,
   TProductType,
-} from '../../../../../constants/routes/productsRoutes';
+} from '../../../../../constants/productTypes';
 
 import cls from './Category.module.scss';
 

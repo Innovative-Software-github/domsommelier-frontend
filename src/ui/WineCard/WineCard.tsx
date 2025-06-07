@@ -8,7 +8,7 @@ import { WineCardPrices } from './WineCardPrices/WineCardPrices';
 
 import cls from './WineCard.module.scss';
 import clsx from 'clsx';
-import { routes } from '../../constants/routes/routes';
+import { routes } from '../../constants/routes';
 
 export interface IWineCardDescription {
   country: string;

@@ -1,4 +1,4 @@
-import { IRoute, routes } from "../../../../constants/routes/routes";
+import { IRoute, routes } from "../../../../constants/routes";
 
 export const footerNavigationRoutes: IRoute[] = [
   {

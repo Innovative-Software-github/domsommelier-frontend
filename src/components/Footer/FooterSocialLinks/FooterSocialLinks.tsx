@@ -2,7 +2,7 @@ import { FOOTER_COPYRIGHT_TEXT } from '@/constants/copyright';
 import cls from './FooterSocialLinks.module.scss';
 import { socialLinksConstant } from '@/constants/contacts';
 import Link from 'next/link';
-import { routes } from '@/constants/routes/routes';
+import { routes } from '@/constants/routes';
 
 export const FooterSocialLinks: React.FC = () => {
   return (

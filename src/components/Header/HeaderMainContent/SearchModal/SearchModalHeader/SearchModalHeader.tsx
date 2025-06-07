@@ -6,7 +6,7 @@ import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import { Button } from '../../../../../ui/Button/Button';
 import cls from './SearchModalHeader.module.scss';
 import { useRouter } from 'next/navigation';
-import { routes } from '../../../../../constants/routes/routes';
+import { routes } from '../../../../../constants/routes';
 
 export interface ISearchModalHeaderProps {
   onClose: () => void;

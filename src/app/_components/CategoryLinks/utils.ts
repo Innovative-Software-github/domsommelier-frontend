@@ -1,4 +1,4 @@
-import { routes } from '../../../constants/routes/routes';
+import { routes } from '../../../constants/routes';
 import { ICategoryLink } from './CategoryLink/CategoryLink';
 
 const catalog = routes.catalog.children!;

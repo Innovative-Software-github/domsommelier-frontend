@@ -9,7 +9,7 @@ import { Icon } from '../../../../../ui/Icon/Icon';
 import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import { Backdrop } from '../../../../../ui/Backdrop/Backdrop';
 import { FiltersPanel } from '../../FiltersPanel/FiltersPanel';
-import { TProductType } from '../../../../../constants/routes/productsRoutes';
+import { TProductType } from '../../../../../constants/productTypes';
 
 export interface IFilterControllersProps {
   productType: TProductType;

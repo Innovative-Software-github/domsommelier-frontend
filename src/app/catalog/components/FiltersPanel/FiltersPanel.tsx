@@ -6,7 +6,7 @@ import { Button } from '../../../../ui/Button/Button';
 import cls from './FiltersPanel.module.scss';
 import { filtersConfigSelector } from '../../../../store/filters/selectors';
 import { useSelector } from 'react-redux';
-import { TProductType } from '../../../../constants/routes/productsRoutes';
+import { TProductType } from '../../../../constants/productTypes';
 import { FilterFactory } from '../Sidebar/FiltersFabric/FilterFactory';
 
 export interface IFiltersPanel {

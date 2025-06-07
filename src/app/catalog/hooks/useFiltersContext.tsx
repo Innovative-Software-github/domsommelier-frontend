@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import { IUseFiltersReturns, useFilters } from '../components/Sidebar/utils';
-import { TProductType } from '../../../constants/routes/productsRoutes';
+import { TProductType } from '../../../constants/productTypes';
 
 const FiltersContext = createContext<IUseFiltersReturns | null>(null);
 

@@ -1,5 +1,4 @@
-import { TProductType } from '../../../constants/routes/productsRoutes';
-import { getFiltersConfig } from '../../../services/filters/serverRequest';
+import { TProductType } from '../../../constants/productTypes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';
