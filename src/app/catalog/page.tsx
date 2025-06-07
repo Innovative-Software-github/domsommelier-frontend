@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { routes } from '../../constants/routes/routes';
+import { PRODUCT_TYPES_SEGMENTS } from '../../constants/routes';
 
 export default function Catalog() {
-  redirect(routes.catalog.children?.wine.href as string);
+  redirect(PRODUCT_TYPES_SEGMENTS.wine);
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Category } from './Category/Category';
-import { TProductType } from '../../../../constants/routes/productsRoutes';
+import { TProductType } from '../../../../constants/productTypes';
 
 import cls from './Sidebar.module.scss';
 import { FiltersPanel } from '../FiltersPanel/FiltersPanel';

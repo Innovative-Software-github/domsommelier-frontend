@@ -1,12 +1,16 @@
-import { IRoute, routes } from '@/constants/routes/routes';
-
-const createLink = (route: IRoute) => ({
-  label: route.label,
-  href: route.href,
-});
+import { ROUTES } from '@/constants/routes';
 
 export const headerTopContentLinks = [
-  createLink(routes.about),
-  createLink(routes.events),
-  createLink(routes.investments),
+  {
+    label: 'О нас',
+    href: ROUTES.about,
+  },
+  {
+    label: 'Мероприятия',
+    href: ROUTES.events,
+  },
+  {
+    label: 'Инвестиции',
+    href: ROUTES.investments,
+  },
 ] as const;

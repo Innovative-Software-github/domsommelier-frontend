@@ -6,7 +6,7 @@ import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import { Button } from '../../../../../ui/Button/Button';
 import cls from './SearchModalHeader.module.scss';
 import { useRouter } from 'next/navigation';
-import { routes } from '../../../../../constants/routes/routes';
+import { ROUTES } from '../../../../../constants/routes';
 
 export interface ISearchModalHeaderProps {
   onClose: () => void;
@@ -27,7 +27,7 @@ export const SearchModalHeader: React.FC<ISearchModalHeaderProps> = ({
           const text = e.currentTarget.value.trim();
 
           if (text) {
-            router.push(`${routes.search.href}?q=${encodeURIComponent(text)}`);
+            router.push(`${ROUTES.search}?q=${encodeURIComponent(text)}`);
           }
           onClose();
         }}

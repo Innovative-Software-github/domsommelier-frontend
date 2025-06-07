@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { routes } from '../../constants/routes/routes';
+import { ROUTES } from '../../constants/routes';
 
 export default function Product() {
-  redirect(routes.home.href);
+  redirect(ROUTES.home);
 }

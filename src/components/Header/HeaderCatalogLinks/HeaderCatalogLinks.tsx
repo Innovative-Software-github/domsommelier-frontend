@@ -2,22 +2,27 @@ import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-import { catalogRoutes } from '../../../constants/routes/productsRoutes';
+import {
+  productType,
+  productTypeArray,
+  productTypeLabels,
+} from '../../../constants/productTypes';
 
 import cls from './HeaderCatalogLinks.module.scss';
+import { PRODUCT_TYPES_SEGMENTS } from '../../../constants/routes';
 
 export const HeaderCatalogLinks = () => {
   return (
     <div className={cls.container}>
-      {Object.values(catalogRoutes).map((catalogRoute) => (
+      {productTypeArray.map((type) => (
         <Link
-          key={catalogRoute.label}
-          href={catalogRoute.href}
+          key={type}
+          href={PRODUCT_TYPES_SEGMENTS[type]}
           className={clsx(cls.link, {
-            [cls.primaryLink]: catalogRoute.isPrimary,
+            // [cls.primaryLink]: catalogRoute.isPrimary,
           })}
         >
-          {catalogRoute.label}
+          {productTypeLabels[type]}
         </Link>
       ))}
     </div>
