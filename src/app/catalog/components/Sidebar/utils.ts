@@ -30,6 +30,7 @@ export interface IUseFiltersReturns {
 }
 
 export function useFilters(
+  // TODO: Доставать из урла
   productType: TProductType,
 ): IUseFiltersReturns | null {
   const router = useRouter();
@@ -40,13 +41,15 @@ export function useFilters(
     return null;
   }
 
-  /** храним info о типах фильтров вида { price: 'range', color: 'multi_select', ... } */
-  const filterTypesMap = filtersConfig[productType].reduce<
-    Record<string, string>
-  >((acc, item) => {
-    acc[item.id] = item.type;
-    return acc;
-  }, {});
+  const filterItems = Object.values(filtersConfig[productType] || {});
+
+  const filterTypesMap = filterItems.reduce<Record<string, string>>(
+    (acc, item) => {
+      acc[item.name] = item.type;
+      return acc;
+    },
+    {},
+  );
 
   /** формируем state из URL */
   const initializeFiltersFromUrl = (): IFiltersState => {
