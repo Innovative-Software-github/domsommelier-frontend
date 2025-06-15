@@ -2,9 +2,9 @@ import { Layout } from '@/ui/Layout/Layout';
 import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 
 interface SearchPageProps {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
-  };
+  }>;
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
