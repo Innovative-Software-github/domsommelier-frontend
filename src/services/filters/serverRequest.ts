@@ -1,14 +1,13 @@
 'use server';
 
 import { ApiEndpoint } from '../config/apiEndpoints';
-import { customFetch, IResponse } from '../config/customFetch';
+import { customFetch } from '../config/customFetch';
 import { IFiltersConfigResponse } from './interfaces';
 
 export const getFiltersConfig =
-  async (): Promise<IFiltersConfigResponse | null> => {
-    const { data } = await customFetch<IFiltersConfigResponse>({
+  async (): Promise<IFiltersConfigResponse> => {
+    const response = await customFetch<IFiltersConfigResponse>({
       path: ApiEndpoint.filters.getFiltersConfig,
-      withErrorHandling: true,
       method: 'GET',
       cacheStrategy: {
         cache: 'force-cache',
@@ -17,9 +16,5 @@ export const getFiltersConfig =
       },
     });
 
-    if (!data || typeof data === 'string') {
-      return null;
-    }
-
-    return data;
+    return response;
   };

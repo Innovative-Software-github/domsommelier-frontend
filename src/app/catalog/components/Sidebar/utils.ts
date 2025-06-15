@@ -37,10 +37,6 @@ export function useFilters(
   const searchParams = useSearchParams();
   const filtersConfig = useSelector(filtersConfigSelector);
 
-  if (!filtersConfig || !filtersConfig[productType]) {
-    return null;
-  }
-
   const filterItems = Object.values(filtersConfig[productType] || {});
 
   const filterTypesMap = filterItems.reduce<Record<string, string>>(

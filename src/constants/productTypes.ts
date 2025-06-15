@@ -7,15 +7,19 @@ export const productType = {
   champagne_and_sparkling: 'champagne_and_sparkling',
 } as const;
 
-export const productTypeArray = Object.values(productType);
+export const productTypeArray= Object.values(productType) as TProductType[];
+export const productTypeKeys = Object.keys(productType) as Array<keyof typeof productType>;
 
 export type TProductType = typeof productType[keyof typeof productType];
 
-export const productTypeLabels: Record<TProductType, string> = {
+export const productTypeLabels = {
   wine: 'Вина',
   champagne_and_sparkling: 'Шампанское и игристые вина',
   spirit: 'Крепкие напитки',
   low_alcohol: 'Слабоалкогольные напитки',
   snack: 'Закуски',
   accessories: 'Аксессуары',
-};
+} as const;
+
+export type TProductTypeLabels = typeof productTypeLabels[keyof typeof productTypeLabels];
+

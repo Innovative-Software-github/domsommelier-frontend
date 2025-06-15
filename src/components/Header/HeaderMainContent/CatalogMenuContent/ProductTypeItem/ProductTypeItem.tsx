@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import cls from './CategoryCard.module.scss';
+import cls from './ProductTypeItem.module.scss';
 import { Icon } from '../../../../../ui/Icon/Icon';
 import { IconType } from '../../../../../ui/Icon/IconsMapping';
 import clsx from 'clsx';
 
-export interface ICategoryCardProps {
+export interface IProductTypeItemProps {
   isActiveCategory: boolean;
   title: string;
   onMouseEnter: () => void;
 }
 
-export const CategoryCard: React.FC<ICategoryCardProps> = ({
+export const ProductTypeItem: React.FC<IProductTypeItemProps> = ({
   isActiveCategory,
   title,
   onMouseEnter,

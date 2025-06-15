@@ -1,5 +1,3 @@
-import { TProductType } from './productTypes';
-
 // TODO: Подумать на счет задания единых названий для роутов
 
 export const ROUTES = {
@@ -15,7 +13,7 @@ export const ROUTES = {
   product: '/product',
 } as const;
 
-export const PRODUCT_TYPES_SEGMENTS: Readonly<Record<TProductType, string>> = {
+export const PRODUCT_TYPES_SEGMENTS = {
   wine: '/catalog/wine',
   champagne_and_sparkling: '/catalog/champagne_and_sparkling',
   spirit: '/catalog/spirit',

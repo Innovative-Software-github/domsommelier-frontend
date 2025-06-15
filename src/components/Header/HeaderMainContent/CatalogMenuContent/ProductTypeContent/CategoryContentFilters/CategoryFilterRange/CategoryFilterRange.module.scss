@@ -1,0 +1,19 @@
+.title {
+  color: #242424;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 200%;
+  margin-bottom: 16px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listItem {
+  color: #242424;
+  font-size: 16px;
+  font-weight: 400;
+}
