@@ -7,7 +7,12 @@ import cls from './AccordionsInformation.module.scss';
 export const AccordionsInformation: React.FC = () => {
   return (
     <div className={cls.container}>
-      <Accordion className={cls.accordion} variant="compact" title="Аромат">
+      <Accordion
+        isDefaultOpen
+        className={cls.accordion}
+        variant="compact"
+        title="Аромат"
+      >
         Вино обладает полным, богатым, элегантным, гармоничным, хорошо
         сбалансированным вкусом с нотами спелых черных ягод и фруктов, ванили,
         шоколада и дуба. Благодаря высокому содержанию танинов и хорошей

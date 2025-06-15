@@ -1,3 +1,16 @@
-.productImage {
-  object-fit: contain;
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  background: #f7f7f7;
+  height: min-content;
+  padding: 34px 0;
+  border-radius: 16px;
+}
+
+.responsiveImageWrapper {
+  position: relative;
+  width: 400px;
+  aspect-ratio: 400 / 400;
 }
