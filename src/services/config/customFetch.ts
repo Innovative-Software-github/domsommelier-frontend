@@ -110,7 +110,7 @@ export async function customFetch<
   data?: TRequestPayload,
 ): Promise<IResponse<TResponsePayload> | TResponsePayload> {
   const makeRequest = async (): Promise<TResponsePayload> => {
-    const host = getBackendHost();
+    const host = getBackendHost() || '194.87.190.20:8080';
 
     if (!host) {
       throw new Error('Backend host is not defined');

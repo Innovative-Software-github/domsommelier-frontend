@@ -1,0 +1,49 @@
+.days {
+  display: flex;
+  gap: 36px;
+}
+
+.monthName {
+  color: #566565;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 200%;
+  text-transform: uppercase;
+}
+
+.dayContainer {
+  all: unset;
+  cursor: pointer;
+}
+
+.dayNumber {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.dayShortName {
+  color: #566565;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 200%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.selectedDay {
+  color: #680A08;
+}
+
+.selectedDay .dayShortName {
+  color: #680A08;
+
+}
+
+.hoveredDay {
+  color: #910F0C;
+}
+
+.hoveredDay .dayShortName {
+  color: #910F0C;
+}

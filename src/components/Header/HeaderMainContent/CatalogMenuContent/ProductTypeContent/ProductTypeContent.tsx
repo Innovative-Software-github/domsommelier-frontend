@@ -18,8 +18,11 @@ export const ProductTypeContent: React.FC<IProductTypeContentProps> = ({
 
   return (
     <div className={cls.content}>
-      {visibleFilters.map((filter) => (
-        <ProductTypeColumn filter={filter} />
+      {visibleFilters.map((filter, key) => (
+        <ProductTypeColumn
+          key={key}
+          filter={filter}
+        />
       ))}
     </div>
   );

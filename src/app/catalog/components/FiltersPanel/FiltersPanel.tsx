@@ -8,6 +8,7 @@ import { filtersConfigSelector } from '../../../../store/filters/selectors';
 import { useSelector } from 'react-redux';
 import { TProductType } from '../../../../constants/productTypes';
 import { FilterFactory } from '../Sidebar/FiltersFabric/FilterFactory';
+import { getFilteredProducts } from '../../../../services/filters/requests';
 
 export interface IFiltersPanel {
   productType: TProductType;
@@ -28,7 +29,8 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
 
   const handleSumbit = async () => {
     try {
-      console.log(filters);
+      const response = await getFilteredProducts(filters, productType);
+      console.log(response);
 
       applyFilters();
       if (onSubmitFilters) {

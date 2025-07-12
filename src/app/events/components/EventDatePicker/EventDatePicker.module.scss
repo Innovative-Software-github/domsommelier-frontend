@@ -1,0 +1,16 @@
+.container {
+  margin-top: 16px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE и Edge */
+}
+
+.container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari и Opera */
+}
+
+.monthsContainer {
+  display: flex;
+  gap: 64px;
+}

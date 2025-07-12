@@ -29,32 +29,32 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
     case 'range':
       return (
         <RangeFilter
-          isAccordionOpen={isFilterActive(filtersState[filterConfig.id])}
-          filterState={filtersState[filterConfig.id] as TRangeFilterValue}
+          isAccordionOpen={isFilterActive(filtersState[filterConfig.field])}
+          filterState={filtersState[filterConfig.field] as TRangeFilterValue}
           filterConfig={filterConfig}
           onUpdateFilterArray={(value) =>
-            onUpdateFilterArray(filterConfig.id, value)
+            onUpdateFilterArray(filterConfig.field, value)
           }
         />
       );
     case 'multi_select':
       return (
         <MultiSelectFilter
-          isAccordionOpen={isFilterActive(filtersState[filterConfig.id])}
-          filterState={filtersState[filterConfig.id] as TMultiSelectFilterValue}
+          isAccordionOpen={isFilterActive(filtersState[filterConfig.field])}
+          filterState={filtersState[filterConfig.field] as TMultiSelectFilterValue}
           filterConfig={filterConfig}
           onUpdateFilterArray={(value) => {
-            onUpdateFilterArray(filterConfig.id, value);
+            onUpdateFilterArray(filterConfig.field, value);
           }}
         />
       );
     case 'checkbox':
       return (
         <CheckboxFilter
-          filterState={filtersState[filterConfig.id] as TCheckboxFilterValue}
+          filterState={filtersState[filterConfig.field] as TCheckboxFilterValue}
           filterConfig={filterConfig}
           onUpdateFilterArray={(value) =>
-            onUpdateFilterArray(filterConfig.id, value)
+            onUpdateFilterArray(filterConfig.field, value)
           }
         />
       );
