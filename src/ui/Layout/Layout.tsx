@@ -18,7 +18,7 @@ export const Layout: React.FC<ILayoutProps> = ({
 }) => {
   return (
     <div className={clsx(cls.layout, containerClassName)}>
-      {/* <Header showCatalogLinks={showCatalogLinks} /> */}
+      <Header showCatalogLinks={showCatalogLinks} />
       <main className={clsx(cls.main, className)}>{children}</main>
       <Footer theme="white" />
     </div>
