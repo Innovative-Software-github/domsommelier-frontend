@@ -13,11 +13,11 @@ export interface IEvent {
   registrationLink: string;
 }
 
-export interface IEventCard {
-  id: string;
-  type: string;
-  price: number;
-  dateTime: string;
-  title: string;
-  smallCover: string;
-}
+export type IEventCard = Pick<IEvent,
+  | 'id'
+  | 'type'
+  | 'price'
+  | 'dateTime'
+  | 'title'
+  | 'smallCover'
+>;

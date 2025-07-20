@@ -3,6 +3,7 @@ import { EventBoard } from './components/EventBoard/EventBoard';
 import { EventHeader } from './components/EventHeader/EventHeader';
 import { EventDatePicker } from './components/EventDatePicker/EventDatePicker';
 import { EventFilters } from './components/EventFilters/EventFilters';
+import { Pagination } from '@/ui/Pagination/Pagination';
 
 export const fakeEvents = [
   {
