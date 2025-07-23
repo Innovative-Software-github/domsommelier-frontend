@@ -1,6 +1,7 @@
 
-import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
+import { getEventById } from '../../../services/events/requests';
 import { Layout } from '../../../ui/Layout/Layout';
+import { EventByIdHeader } from './components/EventByIdHeader/EventByIdHeader';
 
 export default async function EventPage({
   params,
@@ -9,13 +10,13 @@ export default async function EventPage({
 }) {
   const { id } = await params;
 
-  console.log(id);
+  const event = await getEventById(id);
+
+  console.log(event);
 
   return (
     <Layout>
-      <ContentContainer>
-        {id}
-      </ContentContainer>
+      <EventByIdHeader event={event} />
     </Layout>
   );
 }

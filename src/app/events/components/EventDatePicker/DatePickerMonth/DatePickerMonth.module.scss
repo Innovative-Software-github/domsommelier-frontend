@@ -4,6 +4,9 @@
 }
 
 .monthName {
+  position: sticky;
+  display: inline-block;
+  left: 0;
   color: #566565;
   font-size: 16px;
   font-weight: 500;

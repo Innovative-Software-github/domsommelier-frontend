@@ -20,7 +20,14 @@ export const EventCard: React.FC<IEventCardProps> = ({
   return (
     <Link href={`${ROUTES.events}/${id}`} id={id} className={styles.container}>
       <div className={styles.imageContainer}>
-        <Image src={smallCover} alt={title} fill className={styles.image} />
+        {/* TODO: Заменить на smallCover, когда будут приходить ссылки */}
+        <Image
+          className={styles.image}
+          src={"/eventImage.png"}
+          alt={title}
+          fill
+          priority
+        />
         <span className={styles.eventType}>{type}</span>
       </div>
       <div className={styles.content}>

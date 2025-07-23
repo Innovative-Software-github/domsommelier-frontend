@@ -1,20 +1,20 @@
 'use client';
 
 import React from "react";
-import { IEventCard } from "../../../../services/events/interfaces";
+import { IGetEventsResponse } from "../../../../services/events/interfaces";
 import { ContentContainer } from "../../../../ui/ContentContainer/ContentContainer";
 import { Pagination } from "../../../../ui/Pagination/Pagination";
 import { EventCard } from "../EventCard/EventCard";
 import styles from './EventBoard.module.scss';
 
 export interface IEventBoardProps {
-  events: IEventCard[];
+  eventsConfig: IGetEventsResponse;
+  page: number;
+  onPageChange: (page: number) => void;
 }
 
-export const EventBoard: React.FC<IEventBoardProps> = ({ events }) => {
-  const [page, setPage] = React.useState(1);
-
-  console.log(page);
+export const EventBoard: React.FC<IEventBoardProps> = ({ eventsConfig, page, onPageChange }) => {
+  const { content: events, totalPages} = eventsConfig;
 
   return (
     <ContentContainer className={styles.container}>
@@ -24,14 +24,14 @@ export const EventBoard: React.FC<IEventBoardProps> = ({ events }) => {
         ))}
       </div>
 
-      <Pagination
+      {totalPages > 1 && <Pagination
         className={styles.pagination}
-        count={10}
-        page={page}
+        count={totalPages}
+        page={page + 1}
         siblingCount={1}
         boundaryCount={1}
-        onChange={setPage}
-      />
+        onChange={(page) => onPageChange(page - 1)}
+      />}
     </ContentContainer>
   );
 };

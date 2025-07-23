@@ -21,3 +21,29 @@ export type IEventCard = Pick<IEvent,
   | 'title'
   | 'smallCover'
 >;
+
+export const EventTypes = {
+  degustation: 'degustation',
+  wineCasino: 'wineCasino',
+} as const;
+
+export type TEventTypes = typeof EventTypes[keyof typeof EventTypes];
+
+export interface IGetEventsRequest {
+  dateStart?: string;
+  dateEnd?: string;
+  priceMin?: number;
+  priceMax?: number;
+  type?: TEventTypes;
+  page: number;
+  size: number;
+}
+
+export interface IGetEventsResponse {
+  content: IEvent[];
+  totalPages: number;
+}
+
+export type TGetEventByIdRequest = string;
+
+export interface IGetEventByIdResponse extends Array<IEvent> {}

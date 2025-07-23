@@ -6,27 +6,28 @@ import { DatePickerMonth } from "./DatePickerMonth/DatePickerMonth";
 import styles from './EventDatePicker.module.scss';
 import { generateMonthsUntilEndOfYear } from "./utils";
 import { isEqual } from "date-fns";
+import { IFilters } from "../EventsClient/EventsClient";
 
 export interface ISelectedDate {    
   dateStart?: Date;
   dateEnd?: Date;
 }
 
-export interface IEventDatePickerProps {} 
+export interface IEventDatePickerProps {
+  dateStart: IFilters['dateStart'];
+  dateEnd: IFilters['endDate'];
+  onDateStartChange: (date: IFilters['dateStart']) => void;
+  onDateEndChange: (date: IFilters['endDate']) => void;
+} 
 
-export const EventDatePicker: React.FC<IEventDatePickerProps> = () => {
-  const [selectedDate, setSelectedDate] = React.useState<ISelectedDate>({});
+export const EventDatePicker: React.FC<IEventDatePickerProps> = ({ dateStart, dateEnd, onDateStartChange, onDateEndChange }) => {
   const [hoverDate, setHoverDate] = React.useState<ISelectedDate>({});
 
   const handleDateClick = (date: Date) => {
-    const { dateStart, dateEnd } = selectedDate;
-
     // Если ничего не выбрано или оба значения уже выбраны — начинаем выбор заново
     if (!dateStart || (dateStart && dateEnd)) {
-      setSelectedDate({
-        dateStart: date,
-        dateEnd: undefined,
-      });
+      onDateStartChange(date);
+      onDateEndChange(undefined);
       setHoverDate({});
       return;
     }
@@ -35,24 +36,21 @@ export const EventDatePicker: React.FC<IEventDatePickerProps> = () => {
     if (dateStart && !dateEnd) {
       // Если клик по той же дате — сбрасываем выбор
       if (date.getTime() === dateStart.getTime()) {
-        setSelectedDate({});
+        onDateStartChange(undefined);
+        onDateEndChange(undefined);
         setHoverDate({});
         return;
       }
       // Если выбрана более ранняя дата — делаем её началом диапазона
       if (date < dateStart) {
-        setSelectedDate({
-          dateStart: date,
-          dateEnd: dateStart,
-        });
+        onDateStartChange(date);
+        onDateEndChange(dateStart);
         setHoverDate({});
         return;
       }
       // Если выбрана более поздняя дата — делаем её концом диапазона
-      setSelectedDate({
-        dateStart,
-        dateEnd: date,
-      });
+      onDateStartChange(dateStart);
+      onDateEndChange(date);
       setHoverDate({});
       return;
     }
@@ -60,8 +58,6 @@ export const EventDatePicker: React.FC<IEventDatePickerProps> = () => {
 
   // Обработчик наведения на день
   const handleDateHover = (date: Date | undefined) => {
-    const { dateStart, dateEnd } = selectedDate;
-
     // Если выбран только dateStart и наведён день, показываем диапазон от dateStart до наведённого дня
     if (dateStart && !dateEnd && date) {
       // Если навели на ту же дату, что и dateStart, просто подсвечиваем её
@@ -97,7 +93,7 @@ export const EventDatePicker: React.FC<IEventDatePickerProps> = () => {
           <DatePickerMonth
             key={Object.keys(month)[0]}
             month={month}
-            selectedDate={selectedDate}
+            selectedDate={{ dateStart, dateEnd }}
             onDateClick={handleDateClick}
             hoverDate={hoverDate}
             onDateHover={handleDateHover}
