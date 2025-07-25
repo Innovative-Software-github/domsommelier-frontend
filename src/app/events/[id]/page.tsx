@@ -2,6 +2,7 @@
 import { getEventById } from '../../../services/events/requests';
 import { Layout } from '../../../ui/Layout/Layout';
 import { EventByIdHeader } from './components/EventByIdHeader/EventByIdHeader';
+import { EventByIdInformation } from './components/EventByIdInformation/EventByIdInformation';
 
 export default async function EventPage({
   params,
@@ -12,11 +13,10 @@ export default async function EventPage({
 
   const event = await getEventById(id);
 
-  console.log(event);
-
   return (
-    <Layout>
+    <Layout footerTheme="wineRed">
       <EventByIdHeader event={event} />
+      <EventByIdInformation eventType={event.type} />
     </Layout>
   );
 }

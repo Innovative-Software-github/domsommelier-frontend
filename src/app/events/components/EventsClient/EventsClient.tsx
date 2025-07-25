@@ -27,6 +27,8 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
     size: DEFAULT_EVENTS_SIZE,
   });
 
+  console.log(events);
+
   const fetchEvents = React.useCallback(async (nextFilters: IFilters) => {
     try {
       const response = await getEvents({
@@ -61,7 +63,9 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
       immediateFetchEvents(next);
 
       if (typeof window !== 'undefined') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
       }
       return next;
     });

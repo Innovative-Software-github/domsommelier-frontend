@@ -1,6 +1,6 @@
 export interface IEvent {
   id: string;
-  type: string;
+  type: TEventTypes;
   price: number;
   dateTime: string;
   title: string;
@@ -46,4 +46,4 @@ export interface IGetEventsResponse {
 
 export type TGetEventByIdRequest = string;
 
-export interface IGetEventByIdResponse extends Array<IEvent> {}
+export interface IGetEventByIdResponse extends IEvent {}

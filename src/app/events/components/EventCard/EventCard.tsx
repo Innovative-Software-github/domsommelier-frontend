@@ -2,8 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ROUTES } from "../../../../constants/routes";
 import { IEventCard } from "../../../../services/events/interfaces";
-import { formatDate } from "./utils";
+
+import { EventTypeTag } from "../EventTypeTag/EventTypeTag";
 import styles from './EventCard.module.scss';
+import { formatDate, timeFormats } from "../../../../utils/dates";
+import { formatEventPrice } from "../../utils/formatPrice";
+
 
 export interface IEventCardProps extends IEventCard {}
 
@@ -15,7 +19,7 @@ export const EventCard: React.FC<IEventCardProps> = ({
   title,
   smallCover,
 }) => {
-  const { formattedDate, formattedTime } = formatDate(dateTime);
+  const formattedDate = formatDate(dateTime, timeFormats.dayMonthTime);
 
   return (
     <Link href={`${ROUTES.events}/${id}`} id={id} className={styles.container}>
@@ -28,15 +32,15 @@ export const EventCard: React.FC<IEventCardProps> = ({
           fill
           priority
         />
-        <span className={styles.eventType}>{type}</span>
+        <EventTypeTag type={type} className={styles.eventType} />
       </div>
       <div className={styles.content}>
         <p className={styles.price}>
-          {price > 0 ? `${price.toLocaleString()} ₽` : 'Бесплатно'}
+          {formatEventPrice(price)}
         </p>
         <h3 className={styles.title}>{title}</h3>
         <span className={styles.date}>
-          {formattedDate}, {formattedTime}
+          {formattedDate}
         </span>
       </div>
     </Link>

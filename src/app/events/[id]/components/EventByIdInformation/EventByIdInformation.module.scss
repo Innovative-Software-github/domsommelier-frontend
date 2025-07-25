@@ -1,0 +1,20 @@
+.container {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.accrodion {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #999999;
+}
+
+.accrodion:last-child {
+  border: none;
+}
+
+.titleAccordion {
+  text-transform: uppercase;
+}
