@@ -95,7 +95,6 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
           <input
             {...nativeInputProps}
             ref={ref}
-            placeholder={placeholder}
             type={type}
             className={cls.input}
             value={value}
