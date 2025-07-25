@@ -9,26 +9,12 @@ import {
 import { IFilterConfig } from '../../../../app/catalog/components/Sidebar/interfaces';
 
 const catalogVisibleFilterKeys: Record<TProductType, string[]> = {
-  wine: ['Цена', 'География'],
-  spirit: ['Цена'],
-  accessories: ['Цена', 'Производитель'],
-  snack: ['Цена', 'Категория', 'География', 'Производитель'],
-  low_alcohol: ['Цена', 'Крепость', 'География', 'Производитель'],
-  champagne_and_sparkling: [
-    'Цена',
-    'Цвет',
-    'Содержание сахара',
-    'Производитель',
-  ],
-} as const;
-
-const subCategoryFilters = {
-  wine: {},
-  spirit: {},
-  accessories: {},
-  snack: {},
-  low_alcohol: {},
-  champagne_and_sparkling: {},
+  wine: [],
+  spirit: [],
+  accessories: [],
+  snack: [],
+  low_alcohol: [],
+  champagne_and_sparkling: [],
 } as const;
 
 export interface ICatalogMenuCategories {

@@ -14,6 +14,7 @@ export interface IAccordion extends React.PropsWithChildren {
   isDefaultOpen?: boolean;
   className?: string;
   variant?: TAccordionVariant;
+  titleClassName?: string;
   bodyClassName?: string;
 }
 
@@ -23,6 +24,7 @@ export const Accordion: React.FC<IAccordion> = ({
   variant = 'regular',
   children,
   className,
+  titleClassName,
   bodyClassName,
 }) => {
   const [isOpen, setIsOpen] = React.useState(isDefaultOpen);
@@ -35,7 +37,7 @@ export const Accordion: React.FC<IAccordion> = ({
       data-variant={variant}
     >
       <div className={cls.header} onClick={toggleAccordion}>
-        <span>{title}</span>
+        <span className={titleClassName}>{title}</span>
         <Icon
           type={IconType.ArrowDown_24}
           width={variant === 'compact' ? 20 : 24}

@@ -12,6 +12,7 @@ export interface IRangeFilterConfig {
   min: number;
   max: number;
   unit?: string;
+  field: string;
   steps: { min: number | null; max: number | null; label: string }[];
 }
 
@@ -20,14 +21,16 @@ export interface IMultiSelectFilterConfig {
   id: string;
   type: 'multi_select';
   name: string;
+  field: string;
   options: { value: string; label: string }[];
 }
 
 export interface ICheckboxFilterConfig {
-  category: TProductType;
   id: string;
   type: 'checkbox';
   name: string;
+  field: string;
+  category: TProductType;
 }
 
 export type IFilterConfig =

@@ -1,0 +1,28 @@
+.button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  cursor: pointer;
+
+  transition: background-color 150ms, color 150ms;
+}
+
+.text {
+  color: var(--conf-color-grey-7);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.active {
+  background-color: black;
+  color: white;
+}
+
+.disabledTransition {
+  transition: none;
+}
