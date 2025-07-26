@@ -1,0 +1,19 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  height: 130px;
+  box-shadow: 0px 4px 22px 7px #00000040;
+  background: #fff;
+}
+
+.buyButton {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  font-size: 20px;
+  font-weight: 500;
+}

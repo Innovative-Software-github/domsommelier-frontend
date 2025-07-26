@@ -1,7 +1,7 @@
 import { Layout } from '@/ui/Layout/Layout';
-import { EventHeader } from './components/EventHeader/EventHeader';
 import { getEvents } from '../../services/events/requests';
 import { EventsClient } from './components/EventsClient/EventsClient';
+import { HeaderTitle } from '../../ui/HeaderTitle/HeaderTitle';
 
 export const DEFAULT_EVENTS_SIZE = 9;
 export const DEFAULT_EVENTS_PAGE = 0;
@@ -14,7 +14,7 @@ export default async function EventsPage() {
 
   return (
     <Layout>
-      <EventHeader />
+      <HeaderTitle title="Мероприятия" />
       <EventsClient initialEvents={events} />
     </Layout>
   );

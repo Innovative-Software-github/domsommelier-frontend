@@ -1,4 +1,4 @@
-// TODO: Подумать на счет задания единых названий для роутов
+
 
 export const ROUTES = {
   home: '/',
@@ -9,6 +9,7 @@ export const ROUTES = {
   degustation: '/degustation',
   investments: '/investments',
   privacyPolicy: '/privacy-policy',
+  shoppingCart: '/shoppingCart',
   search: '/search',
   product: '/product',
 } as const;

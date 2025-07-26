@@ -9,12 +9,14 @@ export interface ILayoutProps extends React.PropsWithChildren {
   showCatalogLinks?: boolean;
   containerClassName?: string;
   className?: string;
+  footerClassName?: string;
 }
 
 export const Layout: React.FC<ILayoutProps> = ({
   footerTheme = 'white',
   showCatalogLinks,
   containerClassName,
+  footerClassName,
   className,
   children,
 }) => {
@@ -22,7 +24,7 @@ export const Layout: React.FC<ILayoutProps> = ({
     <div className={clsx(cls.layout, containerClassName)}>
       <Header showCatalogLinks={showCatalogLinks} />
       <main className={clsx(cls.main, className)}>{children}</main>
-      <Footer theme={footerTheme} />
+      <Footer className={footerClassName} theme={footerTheme} />
     </div>
   );
 };

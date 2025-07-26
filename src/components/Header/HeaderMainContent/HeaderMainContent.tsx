@@ -9,6 +9,7 @@ import { Button } from '../../../ui/Button/Button';
 import { Backdrop } from '../../../ui/Backdrop/Backdrop';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
 import { SearchModal } from './SearchModal/SearchModal';
+import { ROUTES } from '../../../constants/routes';
 
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
@@ -48,7 +49,7 @@ export const HeaderMainContent: React.FC = () => {
       </div>
 
       <div className={cls.links}>
-        <IconLink href="/" iconType={IconType.Basket_24} />
+        <IconLink href={ROUTES.shoppingCart} iconType={IconType.Basket_24} />
         <IconLink href="/" iconType={IconType.Heart_24} />
         <IconLink href="/" iconType={IconType.Profile_24} />
       </div>
