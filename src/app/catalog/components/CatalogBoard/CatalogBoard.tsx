@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import cls from './CatalogBoard.module.scss';
-import { WineCard } from '../../../../ui/WineCard/WineCard';
-import { wineCardModelMock } from '../../../../constants/temporaryMocks';
+import { ProductCard } from '../../../../ui/ProductCard/ProductCard';
+import { productCardModelMock } from '../../../../constants/temporaryMocks';
 import {
   productTypeLabels,
   TProductType,
@@ -20,10 +20,10 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({ productType }) => {
       <FilterControllers productType={productType} />
       <div className={cls.board}>
         {Array.from({ length: 12 }).map((_, i) => (
-          <WineCard
+          <ProductCard
             key={i}
             className={cls.card}
-            wineOption={wineCardModelMock}
+            options={productCardModelMock}
           />
         ))}
       </div>

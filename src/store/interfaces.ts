@@ -1,4 +1,4 @@
-import { IFiltersConfigResponse } from '../services/filters/interfaces';
+import { IFiltersConfigResponse } from "../services/filters/interfaces";
 
 export type TAPIErrorDescriptor = {
   code: number;

@@ -2,43 +2,25 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import clsx from 'clsx';
 import { Button } from '../Button/Button';
 import { formatWineDescription } from './utils';
-import { WineCardPrices } from './WineCardPrices/WineCardPrices';
-
-import cls from './WineCard.module.scss';
-import clsx from 'clsx';
+import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
 import { ROUTES } from '../../constants/routes';
+import { IProductCard } from '../../services/products/interfaces';
+import cls from './ProductCard.module.scss';
 
-export interface IWineCardDescription {
-  country: string;
-  color: string;
-  sweetness: string;
-  displacement: string;
-}
-
-export interface IWineCardModel {
-  id: string;
-  imageLink: string;
-  discountPrice: number;
-  oldPrice: number;
-  name: string;
-  description: IWineCardDescription;
-}
-
-interface WineCardProps {
-  wineOption: IWineCardModel;
+interface IProductCardProps {
+  options: IProductCard;
   className?: string;
 }
 
-export const WineCard: React.FC<WineCardProps> = ({
-  wineOption,
+export const ProductCard: React.FC<IProductCardProps> = ({
+  options,
   className,
 }) => {
-  const { id, imageLink, discountPrice, oldPrice, name, description } =
-    wineOption;
-
-  const hasDiscount = discountPrice < oldPrice;
+  const { id, article, name, price, discount, productCountry, productCategoryName, productPhoto } =
+    options;
 
   return (
     <article className={clsx(cls.card, className)}>
@@ -49,7 +31,7 @@ export const WineCard: React.FC<WineCardProps> = ({
       >
         <div className={cls.imageWrapper}>
           <Image
-            src={imageLink}
+            src={'/wineBottleCard.png'}
             alt={name}
             fill
             className={cls.image}
@@ -61,14 +43,14 @@ export const WineCard: React.FC<WineCardProps> = ({
         <header className={cls.header}>
           <h3 className={cls.title}>{name}</h3>
 
-          <WineCardPrices
-            current={discountPrice}
-            old={oldPrice}
-            showOld={hasDiscount}
+          <ProductCardPrices
+            current={price}
+            old={discount}
+            showOld={discount > 0}
           />
 
           <p className={cls.description}>
-            {formatWineDescription(description)}
+            {formatWineDescription(productCountry)}
           </p>
         </header>
       </Link>
