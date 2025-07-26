@@ -7,7 +7,7 @@ import { EventDatePicker } from "../EventDatePicker/EventDatePicker";
 import { EventFilters } from "../EventFilters/EventFilters";
 import { getEvents } from "../../../../services/events/requests";
 import { useDebouncedCallback } from "../../../../hooks/useDebouncedCallback";
-import { DEFAULT_EVENTS_PAGE, DEFAULT_EVENTS_SIZE } from "../../page";
+import { DEFAULT_EVENTS_PAGE, DEFAULT_EVENTS_SIZE } from "../../constants";
 
 export interface IEventsClientProps {
   initialEvents: IGetEventsResponse;

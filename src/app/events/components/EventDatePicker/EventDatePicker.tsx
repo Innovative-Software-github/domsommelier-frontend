@@ -15,9 +15,9 @@ export interface ISelectedDate {
 
 export interface IEventDatePickerProps {
   dateStart: IFilters['dateStart'];
-  dateEnd: IFilters['endDate'];
+  dateEnd: IFilters['dateEnd'];
   onDateStartChange: (date: IFilters['dateStart']) => void;
-  onDateEndChange: (date: IFilters['endDate']) => void;
+  onDateEndChange: (date: IFilters['dateEnd']) => void;
 } 
 
 export const EventDatePicker: React.FC<IEventDatePickerProps> = ({ dateStart, dateEnd, onDateStartChange, onDateEndChange }) => {
