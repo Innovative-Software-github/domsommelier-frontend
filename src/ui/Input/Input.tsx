@@ -4,19 +4,19 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { Spinner } from '../Spinner/Spinner';
+import { TTheme } from '../../constants/theme';
 
 import cls from './Input.module.scss';
 
 const DISPLAY_NAME = 'input';
 
-// todo: вынести в глобал
-export type TThemeUI = 'redWine' | 'white' | 'gray';
+export type TInputTheme = TTheme | 'gray';
 
 export interface IInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   value?: string;
   type?: string;
-  theme?: TThemeUI;
+  theme?: TInputTheme;
   isLoading?: boolean;
   isDisabled?: boolean;
   elPrefix?: React.ReactNode;

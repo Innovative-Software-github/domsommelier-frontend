@@ -85,6 +85,17 @@
 }
 // Grey theme end
 
+// White theme start
+.container[data-theme='white'] {
+  border-color: #fff;
+  color: #fff;
+}
+
+.container[data-theme='white'] .input::placeholder {
+  color: #fff;
+}
+// White theme end
+
 .prefix,
 .suffix {
   display: flex;

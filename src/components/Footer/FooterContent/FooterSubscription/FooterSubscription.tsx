@@ -19,7 +19,11 @@ export const FooterSubscription: React.FC<IFooterSubscription> = ({
   return (
     <>
       <div className={cls.title}>Узнавай о всех новинках первым</div>
-      <Input className={cls.emailInput} placeholder="Введите свою почту" />
+      <Input
+        className={cls.emailInput}
+        theme={theme === 'white' ? 'wineRed' : 'white'}
+        placeholder="Введите свою почту"
+      />
 
       <Checkbox
         theme={theme === 'white' ? 'wineRed' : 'white'}
