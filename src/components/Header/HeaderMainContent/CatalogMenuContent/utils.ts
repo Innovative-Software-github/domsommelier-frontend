@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { filtersConfigSelector } from '../../../../store/filters/selectors';
 import {
-  productTypeKeys,
+  productTypeArray,
   productTypeLabels,
   TProductType,
   TProductTypeLabels,
@@ -30,9 +30,9 @@ export interface IUseCatalogMenuDataReturn {
 export const useCatalogMenuData = () => {
   const filterConfig = useSelector(filtersConfigSelector);
 
-  const catalogMenuCategories = productTypeKeys.map((productTypeKeys) => ({
-    key: productTypeKeys,
-    label: productTypeLabels[productTypeKeys],
+  const catalogMenuCategories = productTypeArray.map((productType) => ({
+    key: productType,
+    label: productTypeLabels[productType],
   }));
 
   const getVisibleFiltersByKey = (key: TProductType) => {
