@@ -8,7 +8,7 @@ import { filtersConfigSelector } from '../../../../store/filters/selectors';
 import { useSelector } from 'react-redux';
 import { TProductType } from '../../../../constants/productTypes';
 import { FilterFactory } from '../Sidebar/FiltersFabric/FilterFactory';
-import { getFilteredProducts } from '../../../../services/filters/requests';
+import { getFilteredProducts } from '../../../../services/products/requests';
 
 export interface IFiltersPanel {
   productType: TProductType;

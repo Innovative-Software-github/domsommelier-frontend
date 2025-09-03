@@ -20,7 +20,7 @@ export const MobileMenuAccordion: React.FC<IMobileMenuAccordionProps> = ({
   return (
     <Accordion className={cls.accordion} bodyClassName={cls.body} title={title}>
       {option.map(({ name, href }) => (
-        <Link className={cls.link} href={href}>
+        <Link key={name} className={cls.link} href={href}>
           {name}
         </Link>
       ))}

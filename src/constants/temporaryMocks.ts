@@ -1,15 +1,12 @@
-import { IWineCardModel } from '../ui/WineCard/WineCard';
+import { IProductCard } from "../services/products/interfaces";
 
-export const wineCardModelMock: IWineCardModel = {
+export const productCardModelMock: IProductCard = {
   id: '1',
-  imageLink: '/wineBottleCard.png',
-  discountPrice: 1611,
-  oldPrice: 1614,
+  article: '1234567890',
   name: 'The Durif Caravan',
-  description: {
-    country: 'Австралия',
-    color: 'красное',
-    sweetness: 'сухое',
-    displacement: '0.75',
-  },
+  price: 1611,
+  discount: 1614,
+  productCountry: 'Австралия',
+  productCategoryName: 'Вино',
+  productPhoto: [],
 };

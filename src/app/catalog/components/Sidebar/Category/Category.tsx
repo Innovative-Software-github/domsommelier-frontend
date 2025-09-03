@@ -22,9 +22,9 @@ export const Category: React.FC<ICategoryProps> = ({ productType }) => {
     <nav className={cls.container}>
       <div className={cls.title}>Категории</div>
       <ul className={cls.links}>
-        {productTypeArray.map((type) => (
+        {productTypeArray.map((type, index) => (
           <Link
-            key={productType}
+            key={index}
             scroll={false}
             className={clsx(cls.link, {
               [cls.activeLink]: productType === type,

@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import { SearchSidebarBlock } from './SearchSidebarBlock/SearchSidebarBlock';
-import { WineCard } from '../../../../../ui/WineCard/WineCard';
-import { wineCardModelMock } from '../../../../../constants/temporaryMocks';
 
 import cls from './SearchModalBody.module.scss';
 
@@ -22,9 +20,9 @@ export const SearchModalBody: React.FC<ISearchModalBodyProps> = () => {
         />
       </div>
       <div className={cls.content}>
-        <WineCard wineOption={wineCardModelMock} />
-        <WineCard wineOption={wineCardModelMock} />
-        <WineCard wineOption={wineCardModelMock} />
+        {/* <ProductCard wineOption={wineCardModelMock} />
+        <ProductCard wineOption={wineCardModelMock} />
+        <ProductCard wineOption={wineCardModelMock} /> */}
       </div>
     </div>
   );

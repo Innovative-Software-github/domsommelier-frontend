@@ -1,12 +1,12 @@
-import cls from './WineCardPrices.module.scss';
+import cls from './ProductCardPrices.module.scss';
 
-export interface IWineCardPrices {
+export interface IProductCardPrices {
   current: number;
   old: number;
   showOld: boolean;
 }
 
-export const WineCardPrices: React.FC<IWineCardPrices> = ({
+export const ProductCardPrices: React.FC<IProductCardPrices> = ({
   current,
   old,
   showOld,
