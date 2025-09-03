@@ -1,0 +1,16 @@
+.popover {
+  width: 152px;
+  box-shadow: 0px 4px 4px 0px #00000017;
+  z-index: 1000;
+  background: white;
+}
+
+.anchor {
+  all: unset;
+  color: #000000;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+}

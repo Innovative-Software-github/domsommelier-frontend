@@ -1,3 +1,5 @@
+import { TEventTypes } from "../../constants/events";
+
 export interface IEvent {
   id: string;
   type: TEventTypes;
@@ -22,13 +24,6 @@ export type IEventCard = Pick<IEvent,
   | 'smallCover'
 >;
 
-export const EventTypes = {
-  degustation: 'degustation',
-  wineCasino: 'wineCasino',
-} as const;
-
-export type TEventTypes = typeof EventTypes[keyof typeof EventTypes];
-
 export interface IGetEventsRequest {
   dateStart?: string;
   dateEnd?: string;
@@ -42,6 +37,7 @@ export interface IGetEventsRequest {
 export interface IGetEventsResponse {
   content: IEvent[];
   totalPages: number;
+  totalElements: number;
 }
 
 export type TGetEventByIdRequest = string;

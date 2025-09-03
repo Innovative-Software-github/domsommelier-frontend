@@ -6,6 +6,7 @@ import { Icon } from '../Icon/Icon';
 import { Spinner } from '../Spinner/Spinner';
 
 import cls from './Button.module.scss';
+import Link from 'next/link';
 
 const DISPLAY_NAME = 'Button';
 
@@ -32,6 +33,9 @@ export interface IButtonProps
   leftIconType?: IconType;
   rightIconType?: IconType;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+
+  // Для Link
+  href?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
@@ -46,6 +50,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
       rightIconType,
       leftIconType,
       onClick,
+      href,
       ...restProps
     } = props;
 
@@ -72,6 +77,28 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
         <Icon type={leftIconType} width={24} height={24} className={cls.icon} />
       ));
 
+    const buttonContent = (
+      <>
+        {leftIcon}
+        {children}
+        {rightIcon}
+      </>
+    )
+
+    if (href) {
+      return (
+        <Link
+          href={href}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          className={clsx(cls.button, cls.link, className)}
+          data-variant={variant}
+          data-height={height}
+        >
+          {buttonContent}
+        </Link>
+      );
+    }
+
     return (
       <button
         type="button"
@@ -83,9 +110,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
         disabled={isDisabled || isLoading}
         onClick={onClick}
       >
-        {leftIcon}
-        {children}
-        {rightIcon}
+        {buttonContent}
       </button>
     );
   },

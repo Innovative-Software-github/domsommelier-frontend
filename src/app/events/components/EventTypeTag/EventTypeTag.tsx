@@ -1,15 +1,10 @@
-import { EventTypes, TEventTypes } from "../../../../services/events/interfaces";
 import clsx from "clsx";
 import cls from './EventTypeTag.module.scss';
+import { EventNameByType, TEventTypes } from "../../../../constants/events";
 
 export interface IEventTypeTagProps {
   type: TEventTypes;
   className?: string;
-}
-
-export const EventNameByType: Record<TEventTypes, string> = {
-  [EventTypes.degustation]: 'Дегустация',
-  [EventTypes.wineCasino]: 'Винное казино',
 }
 
 export const EventTypeTag: React.FC<IEventTypeTagProps> = ({ type, className }) => {

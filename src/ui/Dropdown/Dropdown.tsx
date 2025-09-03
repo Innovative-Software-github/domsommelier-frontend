@@ -1,24 +1,27 @@
-import { Popover, PopoverDisclosure, PopoverProvider } from "@ariakit/react";
-import styles from './Dropdown.module.scss';
+import React from "react";
+import { PopoverProvider } from "@ariakit/react";
+import { DropdownAnchor } from "./DropdownAnchor/DropdownAnchor";
+import { DropdownPopover } from "./DropdownPopover/DropdownPopover";
+import { IDropdownComposition, IDropdownProps } from './interfaces';
+import { validateChildren } from "./utils";
 
-export interface IDropdownProps {
-  anchor: React.ReactNode;
-  children: React.ReactNode;
-  flip?: boolean;
-}
+export const Dropdown: React.FC<IDropdownProps> & IDropdownComposition = ({
+  children,
+}) => {
+  if (!validateChildren(children)) {
+    console.error('Dropdown: Разрешены только Dropdown.Anchor и Dropdown.Popover как дочерние элементы');
 
-export const Dropdown: React.FC<IDropdownProps> = ({ anchor, children, flip = false }) => {
+    return null;
+  }
+
   return (
-    <PopoverProvider>
-      <PopoverDisclosure className={styles.disclosure}>
-        {anchor}
-      </PopoverDisclosure>
-      <Popover
-        className={styles.popover}
-        flip={flip}
-      >
-        {children}
-      </Popover>
+    <PopoverProvider
+      placement="bottom-start"
+    >
+      {children}
     </PopoverProvider>
   );
-}; 
+};
+
+Dropdown.Anchor = DropdownAnchor;
+Dropdown.Popover = DropdownPopover;

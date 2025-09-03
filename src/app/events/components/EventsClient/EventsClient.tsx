@@ -8,6 +8,7 @@ import { EventFilters } from "../EventFilters/EventFilters";
 import { getEvents } from "../../../../services/events/requests";
 import { useDebouncedCallback } from "../../../../hooks/useDebouncedCallback";
 import { DEFAULT_EVENTS_PAGE, DEFAULT_EVENTS_SIZE } from "../../constants";
+import { EventEmptyList } from "../EventEmptyList/EventEmptyList";
 
 export interface IEventsClientProps {
   initialEvents: IGetEventsResponse;
@@ -27,8 +28,6 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
     size: DEFAULT_EVENTS_SIZE,
   });
 
-  console.log(events);
-
   const fetchEvents = React.useCallback(async (nextFilters: IFilters) => {
     try {
       const response = await getEvents({
@@ -40,6 +39,7 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
           ? nextFilters.dateEnd.toISOString()
           : undefined,
       });
+
       setEvents(response);
     } catch (error) {
       console.error(error);
@@ -71,6 +71,12 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
     });
   };
 
+  if (events.totalElements === 0) {
+    return (
+      <EventEmptyList />
+    );
+  }
+
   return (
     <>
       <EventDatePicker
@@ -79,8 +85,15 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
         onDateStartChange={(date) => updateFilters("dateStart", date)}
         onDateEndChange={(date) => updateFilters("dateEnd", date)}
       />
-      <EventFilters />
-      <EventBoard eventsConfig={events} page={filters.page} onPageChange={setPage} />
+      <EventFilters
+        eventType={filters.type}
+        updateFilters={(type) => updateFilters("type", type)}
+      />
+      <EventBoard
+        eventsConfig={events}
+        page={filters.page}
+        onPageChange={setPage}
+      />
     </>
   );
 };
