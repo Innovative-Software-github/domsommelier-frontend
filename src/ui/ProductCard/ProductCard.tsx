@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 import { formatWineDescription } from './utils';
 import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
 import { ROUTES } from '../../constants/routes';
-import { IProductCard } from '../../services/products/interfaces';
+import { IProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCard.module.scss';
 
 interface IProductCardProps {

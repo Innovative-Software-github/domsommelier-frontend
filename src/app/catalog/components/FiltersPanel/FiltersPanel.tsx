@@ -33,6 +33,7 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
       console.log(response);
 
       applyFilters();
+
       if (onSubmitFilters) {
         onSubmitFilters();
       }
