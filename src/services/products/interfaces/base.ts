@@ -1,10 +1,10 @@
 import type { TProductType } from '../../../constants/productTypes';
-import { TAccessoriesProduct } from './accessories';
-import { TChampagneAndSparklingProduct } from './champagneAndSparkling';
-import { TSpiritProduct } from './spirit';
-import { TSnackProduct } from './snack';
-import { TWineProduct } from './wine';
-import { TLowAlcoholProduct } from './lowAlcohol';
+import { IAccessoriesProductCard, TAccessoriesProduct } from './accessories';
+import { IChampagneAndSparklingProductCard, TChampagneAndSparklingProduct } from './champagneAndSparkling';
+import { ISpiritProductCard, TSpiritProduct } from './spirit';
+import { ISnackProductCard, TSnackProduct } from './snack';
+import { IWineProductCard, TWineProduct } from './wine';
+import { ILowAlcoholProductCard, TLowAlcoholProduct } from './lowAlcohol';
 
 export interface IProductPhoto {
   id: string;
@@ -39,10 +39,18 @@ export interface IBaseProductCard extends Pick<IBaseProduct<TProductType, unknow
 | 'productCountry' 
 | 'productPhoto'> {}
 
-export type IProduct =
+export type TProduct =
   | TWineProduct
   | TSpiritProduct
   | TAccessoriesProduct
   | TSnackProduct
   | TChampagneAndSparklingProduct
   | TLowAlcoholProduct;
+
+export type TProductCard =
+  | IWineProductCard
+  | ISpiritProductCard
+  | IAccessoriesProductCard
+  | ISnackProductCard
+  | IChampagneAndSparklingProductCard
+  | ILowAlcoholProductCard;
