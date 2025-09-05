@@ -29,15 +29,17 @@ export interface IBaseProduct<ProductType extends TProductType, TDetails> {
   details: TDetails;
 }
 
-export interface IBaseProductCard extends Pick<IBaseProduct<TProductType, unknown>, 
+export interface IBaseProductCard<ProductType extends TProductType>
+extends Pick<IBaseProduct<ProductType, unknown>, 
 | 'article' 
 | 'discount' 
 | 'id' 
 | 'name' 
 | 'price' 
-| 'productCategoryName' 
 | 'productCountry' 
-| 'productPhoto'> {}
+| 'productPhoto'> {
+  productCategoryName: ProductType;
+}
 
 export type TProduct =
   | TWineProduct

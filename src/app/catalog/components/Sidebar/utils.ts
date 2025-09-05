@@ -1,11 +1,9 @@
-// TypeScript
 'use client';
 
 import * as React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { stringifySearchParams } from '../../../../utils/stringifySearchParams';
 import {
-  IFilterConfig,
   IFiltersState,
   TCheckboxFilterValue,
   TMultiSelectFilterValue,
@@ -78,9 +76,7 @@ export function useFilters(
     return filtersFromUrl;
   };
 
-  const [filters, setFilters] = React.useState<IFiltersState>(
-    initializeFiltersFromUrl(),
-  );
+  const [filters, setFilters] = React.useState<IFiltersState>(() => initializeFiltersFromUrl());
 
   const updateFilterArray = (field: string, value: any[]) =>
     setFilters((prev) => ({ ...prev, [field]: value }));

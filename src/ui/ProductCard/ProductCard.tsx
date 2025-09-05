@@ -4,23 +4,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { Button } from '../Button/Button';
-import { formatWineDescription } from './utils';
+import { formatProductCardDescription } from './utils';
 import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
 import { ROUTES } from '../../constants/routes';
-import { IProductCard } from '../../services/products/interfaces/base';
+import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCard.module.scss';
 
 interface IProductCardProps {
-  options: IProductCard;
+  option: TProductCard;
   className?: string;
 }
 
 export const ProductCard: React.FC<IProductCardProps> = ({
-  options,
+  option,
   className,
 }) => {
-  const { id, article, name, price, discount, productCountry, productCategoryName, productPhoto } =
-    options;
+  const { id, name, price, discount, productPhoto } =
+    option;
 
   return (
     <article className={clsx(cls.card, className)}>
@@ -31,7 +31,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
       >
         <div className={cls.imageWrapper}>
           <Image
-            src={'/wineBottleCard.png'}
+            src={productPhoto[0]?.url || '/wineBottleCard.png'}
             alt={name}
             fill
             className={cls.image}
@@ -44,13 +44,12 @@ export const ProductCard: React.FC<IProductCardProps> = ({
           <h3 className={cls.title}>{name}</h3>
 
           <ProductCardPrices
-            current={price}
-            old={discount}
-            showOld={discount > 0}
+            price={price}
+            discount={discount}
           />
 
           <p className={cls.description}>
-            {formatWineDescription(productCountry)}
+            {formatProductCardDescription(option)}
           </p>
         </header>
       </Link>

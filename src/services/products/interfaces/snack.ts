@@ -6,6 +6,6 @@ export interface ISnackDetails {
   producer?: string;
 }
 
-export interface ISnackProductCard extends IBaseProductCard, Pick<ISnackDetails, 'category' | 'pairings' | 'producer'> {}
+export interface ISnackProductCard extends IBaseProductCard<'snack'>, Pick<ISnackDetails, 'category' | 'pairings' | 'producer'> {}
 
 export type TSnackProduct = IBaseProduct<'snack', ISnackDetails>;

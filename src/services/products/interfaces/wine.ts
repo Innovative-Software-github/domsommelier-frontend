@@ -10,7 +10,7 @@ export interface IWineDetails {
   features?: string[];
 }
 
-export interface IWineProductCard extends IBaseProductCard,
+export interface IWineProductCard extends IBaseProductCard<'wine'>,
   Pick<IWineDetails, 'color' | 'type' | 'volume'> {}
 
 export type TWineProduct = IBaseProduct<'wine', IWineDetails>;

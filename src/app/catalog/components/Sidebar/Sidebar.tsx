@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Category } from './Category/Category';
 import { TProductType } from '../../../../constants/productTypes';
+import { FiltersPanel } from '../FiltersPanel/FiltersPanel';
 
 import cls from './Sidebar.module.scss';
-import { FiltersPanel } from '../FiltersPanel/FiltersPanel';
 
 export interface ISidebarProps {
   productType: TProductType;

@@ -1,19 +1,19 @@
-.prices {
+.container {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 8px;
+}
 
-  &__current {
-    color: #242424;
-    font-size: 20px;
-    font-weight: 500;
-  }
+.price {
+  color: #242424;
+  font-size: 20px;
+  font-weight: 500;
+}
 
-  &__old {
-    color: #717171;
-    font-size: 16px;
-    font-weight: 500;
-    text-decoration: line-through;
-  }
+.oldPrice {
+  color: #717171;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: line-through;
 }

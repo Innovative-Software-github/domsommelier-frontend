@@ -6,4 +6,4 @@ export interface IAccessoriesDetails {
 
 export type TAccessoriesProduct = IBaseProduct<'accessories', IAccessoriesDetails>;
 
-export interface IAccessoriesProductCard extends IBaseProductCard, Pick<IAccessoriesDetails, 'producer'> {}
+export interface IAccessoriesProductCard extends IBaseProductCard<'accessories'>, Pick<IAccessoriesDetails, 'producer'> {}

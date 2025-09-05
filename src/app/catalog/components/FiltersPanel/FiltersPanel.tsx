@@ -30,7 +30,6 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
   const handleSumbit = async () => {
     try {
       const response = await getFilteredProducts(filters, productType);
-      console.log(response);
 
       applyFilters();
 

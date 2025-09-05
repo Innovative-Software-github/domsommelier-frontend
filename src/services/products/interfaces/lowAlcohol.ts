@@ -8,7 +8,7 @@ export interface ILowAlcoholDetails {
   features: string[];
 }
 
-export interface ILowAlcoholProductCard extends IBaseProductCard,
+export interface ILowAlcoholProductCard extends IBaseProductCard<'low_alcohol'>,
   Pick<ILowAlcoholDetails, 'category' | 'strength' | 'volume'> {}
 
 export type TLowAlcoholProduct = IBaseProduct<'low_alcohol', ILowAlcoholDetails>;

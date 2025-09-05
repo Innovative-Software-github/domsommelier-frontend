@@ -9,7 +9,7 @@ export interface IChampagneAndSparklingDetails {
   features?: string[];
 }
 
-export interface IChampagneAndSparklingProductCard extends IBaseProductCard,
+export interface IChampagneAndSparklingProductCard extends IBaseProductCard<'champagne_and_sparkling'>,
   Pick<IChampagneAndSparklingDetails, 'category' | 'content' | 'color' | 'volume' | 'producer' | 'features'> {}
 
 export type TChampagneAndSparklingProduct = IBaseProduct<'champagne_and_sparkling', IChampagneAndSparklingDetails>;

@@ -8,7 +8,7 @@ export interface ISpiritDetails {
   features?: string[];
 }
 
-export interface ISpiritProductCard extends IBaseProductCard,
+export interface ISpiritProductCard extends IBaseProductCard<'spirit'>,
   Pick<ISpiritDetails, 'category' | 'strength' | 'volume'> {}
 
 export type TSpiritProduct = IBaseProduct<'spirit', ISpiritDetails>;
