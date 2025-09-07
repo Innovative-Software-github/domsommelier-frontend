@@ -8,11 +8,13 @@ import {
 
 import { IServerData, IStore, TAPIError } from './interfaces';
 import { filtersConfig } from './filters/reducers';
+import productCards from './products/reducers';
 
 export function createStore(preloadedState?: IServerData) {
   return configureStore({
     reducer: combineReducers({
       filtersConfig,
+      productCards,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

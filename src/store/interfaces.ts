@@ -18,3 +18,8 @@ export interface IServerData {
 }
 
 export interface IStore extends IServerData {}
+
+export interface IStoreItemState {
+  isLoading: boolean;
+  error: TAPIError;
+}

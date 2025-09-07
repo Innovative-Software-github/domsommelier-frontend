@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import cls from './ProductTypeContent.module.scss';
 import { TProductType } from '../../../../../constants/productTypes';
-import { IFilterConfig } from '../../../../../app/catalog/components/Sidebar/interfaces';
+import { IFilterConfig } from '../../../../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
 import { ProductTypeColumn } from './ProductTypeColumn/ProductTypeColumn';
 
 export interface IProductTypeContentProps {

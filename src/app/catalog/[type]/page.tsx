@@ -1,28 +1,33 @@
 import { TProductType } from '../../../constants/productTypes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
-import { CatalogBoard } from '../components/CatalogBoard/CatalogBoard';
-import { Sidebar } from '../components/Sidebar/Sidebar';
-import { FiltersProvider } from '../hooks/useFiltersContext';
 import { getFilteredProducts } from '../../../services/products/requests';
+import { CatalogClientWrapper } from './components/CatalogClientWrapper/CatalogClientWrapper';
+import { parseFilterStateFromUrl } from './utils/parseFilterStateFromUrl';
+import { toUrlSearchParams } from './utils/toUrlSearchParams';
 
 import cls from './CatalogPage.module.scss';
 
 export default async function CatalogPage({
   params,
+  searchParams,
 }: {
-  params: Promise<{ type: TProductType }>;
+  params: { type: TProductType };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { type: productType } = await params;
-  const initialProductCards = await getFilteredProducts({}, productType);
+  const { type: productType } = params;
+
+  const urlSearchParams = toUrlSearchParams(searchParams);
+  const filters = parseFilterStateFromUrl(urlSearchParams);
+  const initialProductCards = await getFilteredProducts(filters, productType);
 
   return (
     <Layout showCatalogLinks={false}>
       <ContentContainer className={cls.container}>
-        <FiltersProvider productType={productType}>
-          <Sidebar productType={productType} />
-          <CatalogBoard productType={productType} initialProductCards={initialProductCards} />
-        </FiltersProvider>
+        <CatalogClientWrapper
+          productType={productType}
+          initialProductCards={initialProductCards}
+        />
       </ContentContainer>
     </Layout>
   );

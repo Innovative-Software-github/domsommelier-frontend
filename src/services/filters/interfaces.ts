@@ -1,4 +1,4 @@
-import { IFilterConfig } from '../../app/catalog/components/Sidebar/interfaces';
+import { IFilterConfig } from '../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
 import { TProductType } from '../../constants/productTypes';
 
 export type IFiltersConfigResponse = {

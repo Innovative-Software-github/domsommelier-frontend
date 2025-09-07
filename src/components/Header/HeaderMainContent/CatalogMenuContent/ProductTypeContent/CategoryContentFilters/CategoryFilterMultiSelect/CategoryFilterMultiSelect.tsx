@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import cls from './CategoryFilterMultiSelect.module.scss';
-import { IMultiSelectFilterConfig } from '../../../../../../../app/catalog/components/Sidebar/interfaces';
+import { IMultiSelectFilterConfig } from '../../../../../../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
 import Link from 'next/link';
 import { PRODUCT_TYPES_SEGMENTS } from '../../../../../../../constants/routes';
 import { stringifySearchParams } from '../../../../../../../utils/stringifySearchParams';

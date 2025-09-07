@@ -3,20 +3,27 @@
 import * as React from 'react';
 
 import cls from './FilterControllers.module.scss';
-import { useMediaContext } from '../../../../../hooks/useMediaQuery';
-import { MediaQuery } from '../../../../../constants/media';
-import { Icon } from '../../../../../ui/Icon/Icon';
-import { IconType } from '../../../../../ui/Icon/IconsMapping';
-import { Backdrop } from '../../../../../ui/Backdrop/Backdrop';
+import { useMediaContext } from '../../../../../../hooks/useMediaQuery';
+import { MediaQuery } from '../../../../../../constants/media';
+import { Icon } from '../../../../../../ui/Icon/Icon';
+import { IconType } from '../../../../../../ui/Icon/IconsMapping';
+import { Backdrop } from '../../../../../../ui/Backdrop/Backdrop';
 import { FiltersPanel } from '../../FiltersPanel/FiltersPanel';
-import { TProductType } from '../../../../../constants/productTypes';
+import { TProductType } from '../../../../../../constants/productTypes';
+import { IFiltersState } from '../../FiltersPanel/FiltersFabric/interfaces';
 
 export interface IFilterControllersProps {
   productType: TProductType;
+  filters: IFiltersState;
+  updateFilterArray: (field: string, value: any[]) => void;
+  applyFilters: () => void;
 }
 
 export const FilterControllers: React.FC<IFilterControllersProps> = ({
   productType,
+  filters,
+  updateFilterArray,
+  applyFilters,
 }) => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = React.useState(false);
 
@@ -50,7 +57,9 @@ export const FilterControllers: React.FC<IFilterControllersProps> = ({
         >
           <FiltersPanel
             productType={productType}
-            onSubmitFilters={() => setIsFiltersModalOpen(false)}
+            filters={filters}
+            updateFilterArray={updateFilterArray}
+            applyFilters={applyFilters}
           />
         </Backdrop>
       )}

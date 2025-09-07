@@ -16,6 +16,7 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 20px;
   row-gap: 40px;
+  transition: opacity 50ms ease-in-out;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -24,10 +25,31 @@
   @media (max-width: 420px) {
     grid-template-columns: repeat(1, 1fr);
   }
+
+  &.isLoading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
 }
 
 .card[class] {
   @media (max-width: 768px) {
     max-width: none;
   }
+}
+
+.emptyState {
+  grid-template-columns: 1fr;
+}
+
+.emptyList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 120%;
+  color: #680a08;
 }
