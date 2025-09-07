@@ -11,7 +11,7 @@ import {
 } from '../../../../../constants/productTypes';
 import { FilterControllers } from './FilterControllers/FilterControllers';
 import { useSelector } from 'react-redux';
-import { productCardsLoadingSelector, productCardsSelector } from '../../../../../store/products/selectors';
+import { productCardsInitialLoadedSelector, productCardsLoadingSelector, productCardsSelector } from '../../../../../store/products/selectors';
 import { IFiltersState } from '../FiltersPanel/FiltersFabric/interfaces';
 
 export interface ICatalogBoardProps {
@@ -29,6 +29,10 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
 }) => {
   const productCards = useSelector(productCardsSelector);
   const isProductCardsLoading = useSelector(productCardsLoadingSelector);
+  const isProductCardsInitialLoaded = useSelector(productCardsInitialLoadedSelector);
+
+  console.log(productCards);
+  console.log(isProductCardsInitialLoaded);
 
   return (
     <section className={cls.container}>
@@ -43,7 +47,7 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
 
       <div className={clsx(cls.board, {
         [cls.isLoading]: isProductCardsLoading,
-        [cls.emptyState]: productCards.length === 0,
+        [cls.emptyState]: productCards.length === 0 && isProductCardsInitialLoaded,
       })}>
         {productCards.map((card) => (
           <ProductCard
@@ -53,7 +57,7 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
           />
         ))}
 
-        {productCards.length === 0 && (
+        {productCards.length === 0 && isProductCardsInitialLoaded && (
           <div className={cls.emptyList}>
             <p>Ничего не найдено</p>
           </div>

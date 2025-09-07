@@ -23,4 +23,4 @@ IAsyncThunkConfig
   },
 );
 
-export const setProductCards = createAction<TGetFilteredProductsResponse>('products/setProductCards');
+export const setInitialProductCards = createAction<TGetFilteredProductsResponse>('products/setInitialProductCards');
