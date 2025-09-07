@@ -2,7 +2,7 @@ import { IFiltersState } from "../../app/catalog/[type]/components/FiltersPanel/
 import { ApiEndpoint } from "../config/apiEndpoints";
 import { customFetch } from "../config/customFetch";
 import { TProductType } from "../../constants/productTypes";
-import { TProductCard } from "./interfaces/base";
+import { TProduct, TProductCard } from "./interfaces/base";
 
 export interface IGetFilteredProductsRequest {
   filters: IFiltersState;
@@ -15,10 +15,22 @@ export const getFilteredProducts = async (
 ) => {
   const response = await customFetch<TProductCard[], IFiltersState>(
     {
-      path: `${ApiEndpoint.filters.getFilteredProducts}?category=${category}`,
+      path: `${ApiEndpoint.products.getFilteredProducts}?category=${category}`,
       method: 'POST',
     },
     filters
+  );
+
+  return response;
+}
+
+export const getProductById = async (id: string) => {
+  const response = await customFetch<TProduct, { id: string }>(
+    {
+      path: ApiEndpoint.products.getProductById,
+      method: 'GET',
+    },
+    { id: id }
   );
 
   return response;

@@ -6,12 +6,23 @@ import cls from './ProductActionPanel.module.scss';
 import { Button } from '../../../../../../ui/Button/Button';
 import { Icon } from '../../../../../../ui/Icon/Icon';
 import { IconType } from '../../../../../../ui/Icon/IconsMapping';
+import { useProductPrice } from '../../../../../../hooks/useProductPrice';
 
-export const ProductActionPanel: React.FC = () => {
+export interface IProductActionPanelProps {
+  price: number;
+  discount?: number | null;
+}
+
+export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
+  price,
+  discount,
+}) => {
+  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
+
   return (
     <div className={cls.container}>
-      <div className={cls.oldPrice}>2 489 ₽</div>
-      <div className={cls.price}>2 364 ₽</div>
+      {hasDiscount && <div className={cls.oldPrice}>{price} ₽</div>}
+      <div className={cls.price}>{currentPrice} ₽</div>
       <div className={cls.actions}>
         <Button className={cls.favoriteButton} variant="darkOutlined">
           <Icon className={cls.heartIcon} type={IconType.Heart_24} />

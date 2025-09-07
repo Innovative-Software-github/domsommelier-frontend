@@ -2,38 +2,19 @@
 
 import React from 'react';
 import cls from './GeneralInformation.module.scss';
+import { TProduct } from '../../../../../../../services/products/interfaces/base';
+import { getGeneralInformationData } from './utils';
 
-const temporaryMock = [
-  {
-    property: 'Цвет',
-    result: 'Насыщенного гранатово-красного цвета',
-  },
-  {
-    property: 'Страна',
-    result: 'Австралия',
-  },
-  {
-    property: 'Регион',
-    result: 'Юго-Восточная Австралия',
-  },
-  {
-    property: 'Сахар',
-    result: '900 мм',
-  },
-  {
-    property: 'Виноград',
-    result: 'Дюриф: 100%',
-  },
-  {
-    property: 'Объем',
-    result: '0,75 л',
-  },
-] as const;
+export interface IGeneralInformationProps {
+  product: TProduct;
+}
 
-export const GeneralInformation: React.FC = () => {
+export const GeneralInformation: React.FC<IGeneralInformationProps> = ({ product }) => {
+  const generalInformationData = getGeneralInformationData(product);
+
   return (
     <div className={cls.container}>
-      {temporaryMock.map(({ property, result }) => (
+      {generalInformationData.map(({ property, result }) => (
         <div className={cls.block}>
           <span className={cls.property}>{`${property}:`}</span>
           <span className={cls.result}>{result}</span>

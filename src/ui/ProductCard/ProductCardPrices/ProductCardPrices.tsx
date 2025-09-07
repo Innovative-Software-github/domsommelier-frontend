@@ -1,3 +1,4 @@
+import { useProductPrice } from '../../../hooks/useProductPrice';
 import { TProductCard } from '../../../services/products/interfaces/base';
 import cls from './ProductCardPrices.module.scss';
 
@@ -10,12 +11,11 @@ export const ProductCardPrices: React.FC<IProductCardPrices> = ({
   price,
   discount,
 }) => {
-  const hasDiscount = typeof discount === 'number' && discount > 0;
-  const current = hasDiscount ? discount! : price;
+  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
 
   return (
     <div className={cls.container}>
-      <span className={cls.price}>{current} ₽</span>
+      <span className={cls.price}>{currentPrice} ₽</span>
       {hasDiscount && <span className={cls.oldPrice}>{price} ₽</span>}
     </div>
   );

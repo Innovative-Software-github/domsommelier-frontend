@@ -1,16 +1,23 @@
+import { useProductPrice } from '../../../../../../hooks/useProductPrice';
 import { Button } from '../../../../../../ui/Button/Button';
 import cls from './ProductCartButton.module.scss';
 
 export interface IProductCartButtonProps {
-
+  price: number;
+  discount?: number | null;
 }
 
-export const ProductCartButton: React.FC<IProductCartButtonProps> = () => {
+export const ProductCartButton: React.FC<IProductCartButtonProps> = ({
+  price,
+  discount,
+}) => {
+  const { currentPrice } = useProductPrice(price, discount);
+
   return (
     <div className={cls.container}>
       <Button className={cls.buyButton} onClick={() => alert('Пашол нахуй')}>
         <p>В корзину</p>
-        <p>1 611 ₽</p>
+        <p>{currentPrice} ₽</p>
       </Button>
       <div className={cls.delivery}>
         Способ получения: Самовывоз ул. Первая, д.2

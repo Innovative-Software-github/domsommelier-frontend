@@ -7,17 +7,23 @@ import { ProductInformation } from './ProductInformation/ProductInformation';
 import { ProductActionPanel } from './ProductActionPanel/ProductActionPanel';
 import { useMediaContext } from '../../../../../hooks/useMediaQuery';
 import { ProductCartButton } from './ProductCartButton/ProductCartButton';
+import { TProduct } from '../../../../../services/products/interfaces/base';
+
 import cls from './ProductInformationContainer.module.scss';
 
-export const ProductInformationContainer: React.FC = () => {
+export interface IProductInformationContainerProps {
+  product: TProduct;
+}
+
+export const ProductInformationContainer: React.FC<IProductInformationContainerProps> = ({ product }) => {
   const isTablet = useMediaContext(1000) === 'mobile';
 
   return (
-    <div className={cls.container}>
-      <ProductPhotoGallery />
-      <ProductInformation />
-      <ProductActionPanel />
-      {isTablet && <ProductCartButton />}
+    <div className={cls.container}> 
+      <ProductPhotoGallery productPhoto={product.productPhoto} />
+      <ProductInformation product={product} />
+      <ProductActionPanel price={product.price} discount={product.discount} />
+      {isTablet && <ProductCartButton price={product.price} discount={product.discount} />}
     </div>
   );
 };
