@@ -6,7 +6,7 @@ import {
   TProductType,
   TProductTypeLabels,
 } from '../../../../constants/productTypes';
-import { IFilterConfig } from '../../../../app/catalog/components/Sidebar/interfaces';
+import { IFilterConfig } from '../../../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
 
 const catalogVisibleFilterKeys: Record<TProductType, string[]> = {
   wine: [],

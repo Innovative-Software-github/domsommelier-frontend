@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import cls from './CategoryContentFilters.module.scss';
-import { IFilterConfig } from '../../../../../../app/catalog/components/Sidebar/interfaces';
+import { IFilterConfig } from '../../../../../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
 import { CategoryFilterRange } from './CategoryFilterRange/CategoryFilterRange';
 import { CategoryFilterMultiSelect } from './CategoryFilterMultiSelect/CategoryFilterMultiSelect';
 

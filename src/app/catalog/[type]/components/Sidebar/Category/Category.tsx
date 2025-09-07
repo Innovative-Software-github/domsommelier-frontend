@@ -8,10 +8,10 @@ import {
   productTypeArray,
   productTypeLabels,
   TProductType,
-} from '../../../../../constants/productTypes';
+} from '../../../../../../constants/productTypes';
 
 import cls from './Category.module.scss';
-import { PRODUCT_TYPES_SEGMENTS } from '../../../../../constants/routes';
+import { PRODUCT_TYPES_SEGMENTS } from '../../../../../../constants/routes';
 
 export interface ICategoryProps {
   productType: TProductType;

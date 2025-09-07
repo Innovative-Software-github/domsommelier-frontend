@@ -1,12 +1,17 @@
-import { IFiltersState } from "../../app/catalog/components/Sidebar/interfaces";
+import { IFiltersState } from "../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces";
 import { ApiEndpoint } from "../config/apiEndpoints";
 import { customFetch } from "../config/customFetch";
 import { TProductType } from "../../constants/productTypes";
 import { TProductCard } from "./interfaces/base";
 
+export interface IGetFilteredProductsRequest {
+  filters: IFiltersState;
+  productType: TProductType;
+}
+
 export const getFilteredProducts = async (
-  filters: IFiltersState,
-  category: TProductType
+  filters: IGetFilteredProductsRequest['filters'],
+  category: IGetFilteredProductsRequest['productType'],
 ) => {
   const response = await customFetch<TProductCard[], IFiltersState>(
     {

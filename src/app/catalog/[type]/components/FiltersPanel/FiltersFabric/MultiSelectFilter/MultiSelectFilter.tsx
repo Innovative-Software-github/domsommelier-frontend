@@ -3,14 +3,12 @@
 import * as React from 'react';
 
 import cls from './MultiSelectFilter.module.scss';
-import { Accordion } from '../../../../../../ui/Accordion/Accordion';
-import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
+import { Accordion } from '../../../../../../../ui/Accordion/Accordion';
+import { Checkbox } from '../../../../../../../ui/Checkbox/Checkbox';
 import {
   IMultiSelectFilterConfig,
   TMultiSelectFilterValue,
-} from '../../interfaces';
-import { Input } from '../../../../../../ui/Input/Input';
-import { FilledInput } from '../../../../../../ui/FilledInput/FilledInput';
+} from '../interfaces';
 
 export interface IMultiSelectFilterProps {
   isAccordionOpen?: boolean;
@@ -46,8 +44,8 @@ export const MultiSelectFilter: React.FC<IMultiSelectFilterProps> = ({
           <Checkbox
             key={option.value}
             theme="gray"
-            checked={filterState.includes(option.value)}
-            onChange={() => handleToggle(option.value)}
+            checked={filterState.includes(option.label)}
+            onChange={() => handleToggle(option.label)}
           >
             {option.label}
           </Checkbox>

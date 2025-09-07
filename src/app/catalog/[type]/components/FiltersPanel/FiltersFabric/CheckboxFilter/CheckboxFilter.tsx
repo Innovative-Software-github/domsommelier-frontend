@@ -3,8 +3,8 @@
 import * as React from 'react';
 import cls from './CheckboxFilter.module.scss';
 
-import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
-import { ICheckboxFilterConfig, TCheckboxFilterValue } from '../../interfaces';
+import { Checkbox } from '../../../../../../../ui/Checkbox/Checkbox';
+import { ICheckboxFilterConfig, TCheckboxFilterValue } from '../interfaces';
 
 export interface ICheckboxFilterProps {
   filterState: TCheckboxFilterValue;

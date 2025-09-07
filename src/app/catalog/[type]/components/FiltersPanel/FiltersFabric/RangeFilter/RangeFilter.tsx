@@ -3,11 +3,11 @@
 import * as React from 'react';
 import cls from './RangeFilter.module.scss';
 
-import { Accordion } from '../../../../../../ui/Accordion/Accordion';
-import { FilledInput } from '../../../../../../ui/FilledInput/FilledInput';
-import { Checkbox } from '../../../../../../ui/Checkbox/Checkbox';
-import { isNumber } from '../../../../../../utils/isNumber';
-import { IRangeFilterConfig, TRangeFilterValue } from '../../interfaces';
+import { Accordion } from '../../../../../../../ui/Accordion/Accordion';
+import { FilledInput } from '../../../../../../../ui/FilledInput/FilledInput';
+import { Checkbox } from '../../../../../../../ui/Checkbox/Checkbox';
+import { isNumber } from '../../../../../../../utils/isNumber';
+import { IRangeFilterConfig, TRangeFilterValue } from '../interfaces';
 
 export type TValueStep = {
   min: number | null;

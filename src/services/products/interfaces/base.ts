@@ -56,3 +56,5 @@ export type TProductCard =
   | ISnackProductCard
   | IChampagneAndSparklingProductCard
   | ILowAlcoholProductCard;
+
+export type TGetFilteredProductsResponse = TProductCard[];

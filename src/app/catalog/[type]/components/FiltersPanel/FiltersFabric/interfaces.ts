@@ -1,4 +1,4 @@
-import { TProductType } from '../../../../constants/productTypes';
+import { TProductType } from '../../../../../../constants/productTypes';
 
 export type TRangeFilterValue = [number | null, number | null];
 export type TMultiSelectFilterValue = string[];

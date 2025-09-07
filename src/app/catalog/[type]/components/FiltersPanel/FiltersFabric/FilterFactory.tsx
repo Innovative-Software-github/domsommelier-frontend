@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { RangeFilter } from './RangeFilter/RangeFilter';
 import { MultiSelectFilter } from './MultiSelectFilter/MultiSelectFilter';
 import { CheckboxFilter } from './CheckboxFilter/CheckboxFilter';
 import {
@@ -11,8 +10,9 @@ import {
   TCheckboxFilterValue,
   TMultiSelectFilterValue,
   TRangeFilterValue,
-} from '../interfaces';
-import { isFilterActive } from '../utils';
+} from './interfaces';
+import { isFilterActive } from '../../../utils/isFilterActive';
+import { RangeFilter } from './RangeFilter/RangeFilter';
 
 export interface IFilterFactoryProps {
   filterConfig: IFilterConfig;
@@ -37,6 +37,7 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
           }
         />
       );
+
     case 'multi_select':
       return (
         <MultiSelectFilter
@@ -48,6 +49,7 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
           }}
         />
       );
+
     case 'checkbox':
       return (
         <CheckboxFilter
