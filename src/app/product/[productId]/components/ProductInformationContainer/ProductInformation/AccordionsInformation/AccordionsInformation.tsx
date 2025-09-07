@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Accordion } from '../../../../../../ui/Accordion/Accordion';
+import { Accordion } from '../../../../../../../ui/Accordion/Accordion';
 import cls from './AccordionsInformation.module.scss';
 
 export const AccordionsInformation: React.FC = () => {

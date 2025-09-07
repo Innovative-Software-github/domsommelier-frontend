@@ -1,4 +1,4 @@
-import { Button } from '../../../../../ui/Button/Button';
+import { Button } from '../../../../../../ui/Button/Button';
 import cls from './ProductCartButton.module.scss';
 
 export interface IProductCartButtonProps {

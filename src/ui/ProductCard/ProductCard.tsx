@@ -26,6 +26,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
     <article className={clsx(cls.card, className)}>
       <Link
         href={`${ROUTES.product}/${id}`}
+        target="_blank"
         aria-label={`Перейти к странице товара «${name}»`}
         className={cls.link}
       >

@@ -3,9 +3,9 @@
 import React from 'react';
 
 import cls from './ProductActionPanel.module.scss';
-import { Button } from '../../../../../ui/Button/Button';
-import { Icon } from '../../../../../ui/Icon/Icon';
-import { IconType } from '../../../../../ui/Icon/IconsMapping';
+import { Button } from '../../../../../../ui/Button/Button';
+import { Icon } from '../../../../../../ui/Icon/Icon';
+import { IconType } from '../../../../../../ui/Icon/IconsMapping';
 
 export const ProductActionPanel: React.FC = () => {
   return (
