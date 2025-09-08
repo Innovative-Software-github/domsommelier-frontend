@@ -1,4 +1,5 @@
 import { IFiltersConfigResponse } from "../services/filters/interfaces";
+import { IProductCardsState } from "./products/reducers";
 
 export type TAPIErrorDescriptor = {
   code: number;
@@ -17,7 +18,9 @@ export interface IServerData {
   filtersConfig: IFiltersConfigResponse;
 }
 
-export interface IStore extends IServerData {}
+export interface IStore extends IServerData {
+  productCards: IProductCardsState;
+}
 
 export interface IStoreItemState {
   isLoading: boolean;

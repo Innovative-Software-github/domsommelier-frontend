@@ -13,6 +13,7 @@ import { FilterControllers } from './FilterControllers/FilterControllers';
 import { useSelector } from 'react-redux';
 import { productCardsInitialLoadedSelector, productCardsLoadingSelector, productCardsSelector } from '../../../../../store/products/selectors';
 import { IFiltersState } from '../FiltersPanel/FiltersFabric/interfaces';
+import { TProductCard } from '../../../../../services/products/interfaces/base';
 
 export interface ICatalogBoardProps {
   productType: TProductType;
@@ -49,7 +50,7 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
         [cls.isLoading]: isProductCardsLoading,
         [cls.emptyState]: productCards.length === 0 && isProductCardsInitialLoaded,
       })}>
-        {productCards.map((card) => (
+        {productCards.map((card: TProductCard) => (
           <ProductCard
             key={card.id}
             option={card}

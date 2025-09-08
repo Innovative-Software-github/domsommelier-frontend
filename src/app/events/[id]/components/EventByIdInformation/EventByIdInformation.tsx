@@ -1,4 +1,4 @@
-import { TEventTypes } from "../../../../../services/events/interfaces";
+import { TEventTypes } from "../../../../../constants/events";
 import { Accordion } from "../../../../../ui/Accordion/Accordion";
 import { ContentContainer } from "../../../../../ui/ContentContainer/ContentContainer";
 import { EVENT_INFORMATION } from "../../constants/eventInformation";

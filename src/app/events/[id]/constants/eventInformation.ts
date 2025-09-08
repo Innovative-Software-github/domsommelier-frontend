@@ -1,4 +1,4 @@
-import { TEventTypes } from "../../../../services/events/interfaces";
+import { TEventTypes } from "../../../../constants/events";
 
 export interface IFaqItem {
   title: string;

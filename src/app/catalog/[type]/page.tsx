@@ -12,12 +12,13 @@ export default async function CatalogPage({
   params,
   searchParams,
 }: {
-  params: { type: TProductType };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ type: TProductType }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { type: productType } = params;
+  const { type: productType } = await params;
 
-  const urlSearchParams = toUrlSearchParams(searchParams);
+  const urlParams = await searchParams;
+  const urlSearchParams = toUrlSearchParams(urlParams);
   const filters = parseFilterStateFromUrl(urlSearchParams);
   const initialProductCards = await getFilteredProducts(filters, productType);
 
