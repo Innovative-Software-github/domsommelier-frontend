@@ -13,6 +13,30 @@ export const basketItemsSelector = createSelector(
   (basket) => basket.items
 );
 
+// Мемоизированный селектор для Map товаров в корзине
+export const basketItemsMapSelector = createSelector(
+  [basketItemsSelector],
+  (items) => {
+    const itemsMap = new Map();
+    items.forEach(item => {
+      itemsMap.set(item.product.id, item);
+    });
+    return itemsMap;
+  }
+);
+
+// Быстрая проверка наличия товара в корзине
+export const isProductInBasketSelector = createSelector(
+  [basketItemsMapSelector, (_, productId: string) => productId],
+  (itemsMap, productId) => itemsMap.has(productId)
+);
+
+// Получение количества товара в корзине
+export const getProductQuantitySelector = createSelector(
+  [basketItemsMapSelector, (_, productId: string) => productId],
+  (itemsMap, productId) => itemsMap.get(productId)?.quantity || 0
+);
+
 export const basketTotalPriceSelector = createSelector(
   [basketSelector],
   (basket) => basket.totalPrice

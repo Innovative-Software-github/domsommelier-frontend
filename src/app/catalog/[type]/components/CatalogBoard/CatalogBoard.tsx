@@ -2,16 +2,20 @@
 
 import React from 'react';
 import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 
 import cls from './CatalogBoard.module.scss';
-import { ProductCard } from '../../../../../ui/ProductCard/ProductCard';
+import { ProductCardWithBasket } from '../../../../../ui/ProductCard/ProductCardWithBasket';
 import {
   productTypeLabels,
   TProductType,
 } from '../../../../../constants/productTypes';
 import { FilterControllers } from './FilterControllers/FilterControllers';
-import { useSelector } from 'react-redux';
-import { productCardsInitialLoadedSelector, productCardsLoadingSelector, productCardsSelector } from '../../../../../store/products/selectors';
+import {
+  productCardsInitialLoadedSelector,
+  productCardsLoadingSelector,
+  productCardsSelector,
+} from '../../../../../store/products/selectors';
 import { IFiltersState } from '../FiltersPanel/FiltersFabric/interfaces';
 import { TProductCard } from '../../../../../services/products/interfaces/base';
 
@@ -32,9 +36,6 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
   const isProductCardsLoading = useSelector(productCardsLoadingSelector);
   const isProductCardsInitialLoaded = useSelector(productCardsInitialLoadedSelector);
 
-  console.log(productCards);
-  console.log(isProductCardsInitialLoaded);
-
   return (
     <section className={cls.container}>
       <h2 className={cls.title}>{productTypeLabels[productType]}</h2>
@@ -51,7 +52,7 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
         [cls.emptyState]: productCards.length === 0 && isProductCardsInitialLoaded,
       })}>
         {productCards.map((card: TProductCard) => (
-          <ProductCard
+          <ProductCardWithBasket
             key={card.id}
             option={card}
             className={cls.card}

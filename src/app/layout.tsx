@@ -9,6 +9,8 @@ import '@/styles/reset.scss';
 import clsx from 'clsx';
 import { getFiltersConfig } from '../services/filters/serverRequest';
 import { IServerData } from '../store/interfaces';
+import { createBasketInitialState } from '../store/basket/utils';
+import { getBasket } from '../services/basket/requests';
 
 const gilroy = localFont({
   src: [
@@ -42,20 +44,26 @@ const forum = Forum({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Дом сомелье',
-  description: 'Винный бутик Дом сомелье',
-};
+export const TEMP_CUSTOMER_ID = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+
+// export const metadata: Metadata = {
+//   title: 'Дом сомелье',
+//   description: 'Винный бутик Дом сомелье',
+// };
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const filtersConfig = await getFiltersConfig();
+  const [filtersConfig, basket] = await Promise.all([
+    getFiltersConfig(),
+    getBasket(TEMP_CUSTOMER_ID),
+  ]);
 
   const reduxPreloadedState: IServerData = {
     filtersConfig: filtersConfig,
+    basketReducer: createBasketInitialState(basket),
   };
 
   return (

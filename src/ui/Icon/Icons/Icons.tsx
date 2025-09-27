@@ -77,3 +77,15 @@ export const Cancel_24 = (
     <path d="m18 18-6-6m0 0L6 6m6 6 6-6m-6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
+
+export const Plus_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="m12.03 5-.018 14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+export const Minus_24 = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="inherit" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.25 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)

@@ -2,13 +2,18 @@ import { createReducer } from '@reduxjs/toolkit';
 import { IBasketBase } from '../../services/basket/interfaces';
 import { IStoreItemState } from '../interfaces';
 import { addPendingState, addRejectState, addFulfilledState } from '../utils';
-import { getBasketRequest, addToCartThunk, removeFromCartThunk, clearCartThunk } from './actions';
+import {
+  getBasketRequest,
+  addToBasketThunk,
+  removeFromBasketThunk,
+  clearBasketThunk,
+} from './actions';
 
 export interface IBasketReducer extends IStoreItemState {
   basket: IBasketBase;
 }
 
-const initialState: IBasketReducer = {
+export const initialBasketState: IBasketReducer = {
   basket: {
     customerId: '',
     items: [],
@@ -20,7 +25,7 @@ const initialState: IBasketReducer = {
   error: null,
 };
 
-export const basketReducer = createReducer(initialState, (builder) => {
+export const basketReducer = createReducer(initialBasketState, (builder) => {
   builder
     .addCase(getBasketRequest.pending, addPendingState)
     .addCase(getBasketRequest.rejected, addRejectState)
@@ -29,26 +34,26 @@ export const basketReducer = createReducer(initialState, (builder) => {
       addFulfilledState(state);
     })
     
-    .addCase(addToCartThunk.pending, addPendingState)
-    .addCase(addToCartThunk.fulfilled, (state, { payload }) => {
+    .addCase(addToBasketThunk.pending, addPendingState)
+    .addCase(addToBasketThunk.fulfilled, (state, { payload }) => {
       state.basket = payload;
       addFulfilledState(state);
     })
-    .addCase(addToCartThunk.rejected, addRejectState)
+    .addCase(addToBasketThunk.rejected, addRejectState)
     
-    .addCase(removeFromCartThunk.pending, addPendingState)
-    .addCase(removeFromCartThunk.fulfilled, (state, { payload }) => {
+    .addCase(removeFromBasketThunk.pending, addPendingState)
+    .addCase(removeFromBasketThunk.fulfilled, (state, { payload }) => {
       state.basket = payload;
       addFulfilledState(state);
     })
-    .addCase(removeFromCartThunk.rejected, addRejectState)
+    .addCase(removeFromBasketThunk.rejected, addRejectState)
     
-    .addCase(clearCartThunk.pending, addPendingState)
-    .addCase(clearCartThunk.fulfilled, (state) => {
-      state = initialState;
+    .addCase(clearBasketThunk.pending, addPendingState)
+    .addCase(clearBasketThunk.fulfilled, (state) => {
+      state = initialBasketState;
       addFulfilledState(state);
     })
-    .addCase(clearCartThunk.rejected, addRejectState);
+    .addCase(clearBasketThunk.rejected, addRejectState);
 });
 
 export default basketReducer;

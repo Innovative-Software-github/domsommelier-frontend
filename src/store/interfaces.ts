@@ -18,11 +18,11 @@ export type TAPIError =
 
 export interface IServerData {
   filtersConfig: IFiltersConfigResponse;
+  basketReducer: IBasketReducer;
 }
 
 export interface IStore extends IServerData {
   productCards: IProductCardsState;
-  basketReducer: IBasketReducer
 }
 
 export interface IStoreItemState {

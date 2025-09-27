@@ -19,7 +19,7 @@ export const getBasketRequest = createAsyncThunk<
   }
 );
 
-export const addToCartThunk = createAsyncThunk<
+export const addToBasketThunk = createAsyncThunk<
   IAddToBasketResponse,
   IAddToCartThunkArgs,
   IAsyncThunkConfig
@@ -34,7 +34,7 @@ export const addToCartThunk = createAsyncThunk<
   }
 );
 
-export const removeFromCartThunk = createAsyncThunk<
+export const removeFromBasketThunk = createAsyncThunk<
   IRemoveFromBasketResponse,
   IRemoveFromCartThunkArgs,
   IAsyncThunkConfig
@@ -49,7 +49,7 @@ export const removeFromCartThunk = createAsyncThunk<
   }
 );
 
-export const clearCartThunk = createAsyncThunk<
+export const clearBasketThunk = createAsyncThunk<
   null,
   TCustomerId,
   IAsyncThunkConfig

@@ -17,10 +17,6 @@ export interface IBasketBase {
   discountedPrice: number;
 }
 
-export interface IAddToBasketRequest {
-  quantity: number;
-}
-
 export interface IGetBasketResponse extends IBasketBase {}
 export interface IAddToBasketResponse extends IBasketBase {}
 export interface IRemoveFromBasketResponse extends IBasketBase {}
