@@ -49,7 +49,7 @@ export const HeaderMainContent: React.FC = () => {
       </div>
 
       <div className={cls.links}>
-        <IconLink href={ROUTES.shoppingCart} iconType={IconType.Basket_24} />
+        <IconLink href={ROUTES.basket} iconType={IconType.Basket_24} />
         <IconLink href="/" iconType={IconType.Heart_24} />
         <IconLink href="/" iconType={IconType.Profile_24} />
       </div>
