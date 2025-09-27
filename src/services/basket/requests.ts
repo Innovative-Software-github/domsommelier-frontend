@@ -1,6 +1,6 @@
 import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
-import { IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, TCustomerId, TProductId } from './interfaces';
+import { IAddToBasketRequest, IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, TCustomerId, TProductId } from './interfaces';
 
 export const getBasket = async (customerId: TCustomerId) => {
   return customFetch<IGetBasketResponse>({
@@ -13,12 +13,13 @@ export const getBasket = async (customerId: TCustomerId) => {
 export const addToBasket = async (
   customerId: TCustomerId, 
   productId: TProductId, 
+  quantity: number,
 ) => {
-  return customFetch<IAddToBasketResponse>({
+  return customFetch<IAddToBasketResponse, IAddToBasketRequest>({
     path: ApiEndpoint.basket.addToBasket(customerId, productId),
     method: 'POST',
     withCredentials: true,
-  });
+  }, { quantity });
 };
 
 export const removeFromBasket = async (
