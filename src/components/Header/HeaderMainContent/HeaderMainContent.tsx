@@ -11,14 +11,14 @@ import { Backdrop } from '../../../ui/Backdrop/Backdrop';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
 import { SearchModal } from './SearchModal/SearchModal';
 import { ROUTES } from '../../../constants/routes';
-import { basketItemsCountSelector } from '../../../store/basket/selectors';
+import { basketProductsCountSelector } from '../../../store/basket/selectors';
 
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
     React.useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = React.useState(false);
   
-  const cartTotalItems = useSelector(basketItemsCountSelector);
+  const cartTotalItems = useSelector(basketProductsCountSelector);
 
   return (
     <div className={cls.container}>

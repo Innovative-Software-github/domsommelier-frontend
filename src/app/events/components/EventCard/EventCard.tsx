@@ -8,7 +8,6 @@ import styles from './EventCard.module.scss';
 import { formatDate, timeFormats } from "../../../../utils/dates";
 import { formatEventPrice } from "../../utils/formatPrice";
 
-
 export interface IEventCardProps extends IEventCard {}
 
 export const EventCard: React.FC<IEventCardProps> = ({

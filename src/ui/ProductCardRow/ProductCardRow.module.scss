@@ -1,0 +1,78 @@
+.card {
+  display: flex;
+  width: 100%;
+  background: white;
+}
+
+// image section
+.imageSection {
+  flex: 0 0 120px;
+  height: 150px;
+  margin-right: 24px;
+}
+
+.imageLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f7f7f7;
+  overflow: hidden;
+}
+
+.image {
+  padding: 7px;
+  object-fit: contain;
+}
+// image section end
+
+// content section
+.contentSection {
+  flex: 1 1 auto;
+}
+
+.title {
+  color: #680A08;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 120%;
+
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 16px;
+  color: #717171;
+  margin: 0;
+}
+// content section end
+
+// quantity section
+.quantitySection {
+  flex: 0 0 175px;
+  padding: 0 40px;
+}
+// quantity section end
+
+// price section
+.priceSection {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 0 0 125px;
+
+}
+
+.price {
+  color: #242424;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 120%;
+  margin: 0
+}
+// price section end

@@ -10,6 +10,7 @@ export const ROUTES = {
   investments: '/investments',
   privacyPolicy: '/privacy-policy',
   basket: '/basket',
+  checkout: '/checkout',
   search: '/search',
   product: '/product',
 } as const;

@@ -74,8 +74,8 @@ export const ProductCard: React.FC<IProductCardProps> = ({
       {isInBasket ? (
         <QuantityButton
           value={currentQuantity}
-          onChange={handleQuantityChange}
           className={cls.quantityButton}
+          onChange={handleQuantityChange}
         />
       ) : (
         <Button

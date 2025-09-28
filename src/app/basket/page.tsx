@@ -1,15 +1,15 @@
 import { Layout } from '@/ui/Layout/Layout';
 import { HeaderTitle } from '../../ui/HeaderTitle/HeaderTitle';
-import { ContentContainer } from '../../ui/ContentContainer/ContentContainer';
-import { BasketClientWrapper } from './components/BasketClientWrapper/BasketClientWrapper';
+import { BasketLayout } from './components/BasketLayout/BasketLayout';
+import cls from './page.module.scss';
 
 export default async function BasketPage() {
   return (
     <Layout>
-      <HeaderTitle title="Корзина" />
-      <ContentContainer>
-        <BasketClientWrapper />
-      </ContentContainer>
+      <div className={cls.container}>
+        <HeaderTitle title="Корзина" />
+        <BasketLayout />
+      </div>
     </Layout>
   );
 }

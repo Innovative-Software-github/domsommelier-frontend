@@ -18,7 +18,11 @@
 }
 
 .currentQuantity {
+  flex-shrink: 0;
+
   color: #242424;
   font-weight: 16px;
   line-height: 140%;
+
+  padding: 0 16px;
 }

@@ -8,14 +8,14 @@ export const basketSelector = createSelector(
   (basketState) => basketState.basket
 );
 
-export const basketItemsSelector = createSelector(
+export const basketProductsSelector = createSelector(
   [basketSelector],
   (basket) => basket.items
 );
 
 // Мемоизированный селектор для Map товаров в корзине
-export const basketItemsMapSelector = createSelector(
-  [basketItemsSelector],
+export const basketProductsMapSelector = createSelector(
+  [basketProductsSelector],
   (items) => {
     const itemsMap = new Map();
     items.forEach(item => {
@@ -27,13 +27,13 @@ export const basketItemsMapSelector = createSelector(
 
 // Быстрая проверка наличия товара в корзине
 export const isProductInBasketSelector = createSelector(
-  [basketItemsMapSelector, (_, productId: string) => productId],
+  [basketProductsMapSelector, (_, productId: string) => productId],
   (itemsMap, productId) => itemsMap.has(productId)
 );
 
 // Получение количества товара в корзине
 export const getProductQuantitySelector = createSelector(
-  [basketItemsMapSelector, (_, productId: string) => productId],
+  [basketProductsMapSelector, (_, productId: string) => productId],
   (itemsMap, productId) => itemsMap.get(productId)?.quantity || 0
 );
 
@@ -57,8 +57,8 @@ export const basketCustomerIdSelector = createSelector(
   (basket) => basket.customerId
 );
 
-export const basketItemsCountSelector = createSelector(
-  [basketItemsSelector],
+export const basketProductsCountSelector = createSelector(
+  [basketProductsSelector],
   (items) => items.reduce((total, item) => total + item.quantity, 0)
 );
 
@@ -73,11 +73,11 @@ export const basketErrorSelector = createSelector(
 );
 
 export const basketIsEmptySelector = createSelector(
-  [basketItemsSelector],
+  [basketProductsSelector],
   (items) => items.length === 0
 );
 
-export const basketItemByIdSelector = createSelector(
-  [basketItemsSelector, (_, productId: string) => productId],
+export const basketProductByIdSelector = createSelector(
+  [basketProductsSelector, (_, productId: string) => productId],
   (items, productId) => items.find(item => item.product.id === productId)
 );
