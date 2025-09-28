@@ -1,8 +1,7 @@
 import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { TGetFilteredProductsResponse } from '../../services/products/interfaces/base';
-import { IAsyncThunkConfig } from '..';
 import { getFilteredProducts, IGetFilteredProductsRequest } from '../../services/products/requests';
-import { TAPIError } from '../interfaces';
+import { IAsyncThunkConfig, TAPIError } from '../interfaces';
 
 export const getFilteredProductsRequest = createAsyncThunk<
 TGetFilteredProductsResponse,
