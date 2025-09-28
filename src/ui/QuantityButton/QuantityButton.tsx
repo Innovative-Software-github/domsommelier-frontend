@@ -8,6 +8,7 @@ import cls from './QuantityButton.module.scss';
 import { MAX_PRODUCT_QUANTITY } from '../../constants/constants';
 
 export interface IQuantityButtonProps {
+  theme?: 'gray' | 'white';
   value: number;
   min?: number;
   max?: number;
@@ -20,6 +21,7 @@ export interface IQuantityButtonProps {
 }
 
 export const QuantityButton: React.FC<IQuantityButtonProps> = ({
+  theme = 'gray',
   value,
   onChange,
   min = 0,
@@ -54,7 +56,10 @@ export const QuantityButton: React.FC<IQuantityButtonProps> = ({
   const isIncreaseDisabled = disabled || value >= max;
 
   return (
-    <div className={`${cls.container} ${className || ''}`}>
+    <div
+      className={clsx(cls.container, className)}
+      data-theme={theme}
+    >
       <button 
         className={clsx(cls.operationButton, {
           [cls.disabled]: isDecreaseDisabled,

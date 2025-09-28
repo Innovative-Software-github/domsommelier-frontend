@@ -17,7 +17,7 @@ interface IProductCardProps {
   currentQuantity: number;
   isInBasket: boolean;
   onAddToBasket: (productId: string) => void;
-  onUpdateQuantity: (productId: string, quantity: number) => void;
+  onUpdateQuantity: (quantity: number) => void;
 }
 
 export const ProductCard: React.FC<IProductCardProps> = ({
@@ -35,7 +35,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   };
 
   const handleQuantityChange = (newQuantity: number) => {
-    onUpdateQuantity(id, newQuantity);
+    onUpdateQuantity(newQuantity);
   };
 
   return (

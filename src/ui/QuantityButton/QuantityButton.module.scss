@@ -1,9 +1,14 @@
 .container {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 13px 32px;
   background: #F7F7F7;
   cursor: default;
+}
+
+.container[data-theme='white'] {
+  background: #ffffff;
 }
 
 .operationButton {
