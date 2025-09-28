@@ -26,8 +26,8 @@ export const ProductCartButton: React.FC<IProductCartButtonProps> = ({
       {isInBasket ? (
         <QuantityButton
           value={currentQuantity}
-          onChange={handleQuantityChange}
           className={cls.quantityButton}
+          onChange={handleQuantityChange}
         />
       ) : (
         <Button className={cls.buyButton} onClick={handleAddToBasket}>
