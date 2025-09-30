@@ -10,7 +10,7 @@ export interface IBasketProductsListProps {}
 
 export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
   const products = useSelector(basketProductsSelector);
-  const { updateQuantity } = useBasket();
+  const { updateQuantity, removeFromBasket } = useBasket();
 
   const handleUpdateQuantity = async (productId: string, quantity: number) => {
     await updateQuantity(productId, quantity);
@@ -26,9 +26,10 @@ export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
         <ProductCardRow
           key={product.product.id}
           option={product.product}
-          currentQuantity={product.quantity}
           isInBasket={true}
+          currentQuantity={product.quantity}
           onUpdateQuantity={(quantity) => handleUpdateQuantity(product.product.id, quantity)}
+          onRemoveFromBasket={() => removeFromBasket(product.product.id)}
         />
       ))}
     </div>

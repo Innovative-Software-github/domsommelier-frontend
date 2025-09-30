@@ -10,14 +10,19 @@ import { ROUTES } from '../../constants/routes';
 import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCardRow.module.scss';
 import { Button } from '../Button/Button';
+import { Icon } from '../Icon/Icon';
+import { IconType } from '../Icon/IconsMapping';
 
 interface IProductCardRowProps {
   option: TProductCard;
   className?: string;
   currentQuantity: number;
   isInBasket?: boolean;
+  isFavorite?: boolean;
   onAddToBasket?: (productId: string) => void;
   onUpdateQuantity: (quantity: number) => void;
+  onRemoveFromBasket?: (productId: string) => void;
+  onToggleFavorite?: (productId: string) => void;
 }
 
 export const ProductCardRow: React.FC<IProductCardRowProps> = ({
@@ -25,8 +30,11 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   className,
   onAddToBasket,
   onUpdateQuantity,
+  onRemoveFromBasket,
+  onToggleFavorite,
   currentQuantity = 0,
   isInBasket = false,
+  isFavorite = false,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
 
@@ -36,6 +44,14 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
 
   const handleQuantityChange = (newQuantity: number) => {
     onUpdateQuantity(newQuantity);
+  };
+
+  const handleRemoveFromBasket = () => {
+    onRemoveFromBasket?.(id);
+  };
+
+  const handleToggleFavorite = () => {
+    onToggleFavorite?.(id);
   };
 
   return (
@@ -92,6 +108,31 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
 
       <div className={cls.priceSection}>
         <p className={cls.price}>{price} ₽</p>
+      </div>
+
+      <div className={cls.actionsSection}>
+        <button
+          className={cls.actionButton}
+          onClick={handleToggleFavorite}
+          aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+        >
+          <Icon 
+            type={IconType.Heart_24}
+            width={24}
+            height={24}
+          />
+        </button>
+        <button
+          className={cls.actionButton}
+          onClick={handleRemoveFromBasket}
+          aria-label="Удалить из корзины"
+        >
+          <Icon
+            type={IconType.Cancel_24}
+            width={24}
+            height={24}
+          />
+        </button>
       </div>
     </article>
   );
