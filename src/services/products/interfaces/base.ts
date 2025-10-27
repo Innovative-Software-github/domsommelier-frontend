@@ -30,8 +30,8 @@ export interface IBaseProduct<ProductType extends TProductType, TDetails> {
 }
 
 export interface IBaseProductCard<ProductType extends TProductType>
-extends Pick<IBaseProduct<ProductType, unknown>, 
-| 'article' 
+extends Pick<IBaseProduct<ProductType, unknown>,
+| 'article'
 | 'discount' 
 | 'id' 
 | 'name' 

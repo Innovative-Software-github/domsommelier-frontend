@@ -16,10 +16,6 @@ export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
     await updateQuantity(productId, quantity);
   };
 
-  if (products.length === 0) {
-    return <div className={cls.productsList}>Корзина пуста</div>;
-  }
-
   return (
     <div className={cls.productsList}>
       {products.map((product) => (

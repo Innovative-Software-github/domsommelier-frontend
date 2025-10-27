@@ -5,15 +5,16 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { QuantityButton } from '../QuantityButton/QuantityButton';
 import { formatProductCardDescription } from '../ProductCard/utils';
-import { ProductCardPrices } from '../ProductCard/ProductCardPrices/ProductCardPrices';
 import { ROUTES } from '../../constants/routes';
 import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCardRow.module.scss';
 import { Button } from '../Button/Button';
 import { Icon } from '../Icon/Icon';
 import { IconType } from '../Icon/IconsMapping';
+import { useProductPrice } from '../../hooks/useProductPrice';
+import { ProductCardRowPrice } from './ProductCardRowPrice/ProductCardRowPrice';
 
-interface IProductCardRowProps {
+export interface IProductCardRowProps {
   option: TProductCard;
   className?: string;
   currentQuantity: number;
@@ -37,6 +38,9 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   isFavorite = false,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
+  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
+
+  console.log(hasDiscount, currentPrice);
 
   const handleAddToBasket = () => {
     onAddToBasket?.(id);
@@ -106,15 +110,13 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
         )}
       </div>
 
-      <div className={cls.priceSection}>
-        <p className={cls.price}>{price} ₽</p>
-      </div>
+      <ProductCardRowPrice price={price} discount={discount} />
 
       <div className={cls.actionsSection}>
         <button
+          aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
           className={cls.actionButton}
           onClick={handleToggleFavorite}
-          aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
         >
           <Icon 
             type={IconType.Heart_24}
@@ -123,9 +125,9 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
           />
         </button>
         <button
+          aria-label="Удалить из корзины"
           className={cls.actionButton}
           onClick={handleRemoveFromBasket}
-          aria-label="Удалить из корзины"
         >
           <Icon
             type={IconType.Cancel_24}

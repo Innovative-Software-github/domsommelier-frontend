@@ -60,30 +60,11 @@
 }
 // quantity section end
 
-// price section
-.priceSection {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  flex: 0 0 100px;
-  max-width: 100px;
-
-}
-
-.price {
-  color: #242424;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 120%;
-  margin: 0
-}
-// price section end
-
 // actions section
 .actionsSection {
   position: absolute;
   bottom: 12px;
-  right: 12px;
+  right: 0px;
   display: flex;
   gap: 8px;
   transition: opacity 150ms ease, visibility 150ms ease ;
@@ -93,9 +74,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
   width: 44px;
   height: 44px;
-  border: none;
   border-radius: 50%;
   background: white;
   transition: box-shadow 150ms ease;
