@@ -2,6 +2,7 @@ import { BlockContainer } from '../../../../ui/BlockContainer/BlockContainer';
 
 import cls from './DeliveryMethod.module.scss';
 import { DeliveryOption, TDeliveryOptionType } from './DeliveryOption/DeliveryOption';
+import { DELIVERY_OPTIONS } from './utils';
 
 export interface IDeliveryMethodProps {
   selectedType: TDeliveryOptionType;
@@ -12,20 +13,19 @@ export const DeliveryMethod: React.FC<IDeliveryMethodProps> = ({
   selectedType,
   onSelectType,
 }) => {
-
   return (
     <BlockContainer>
       <h2 className={cls.title}>Способ получения</h2>
 
       <div className={cls.deliveryOptions}>
-        <DeliveryOption
-          type="pickup"
-          title="Забрать из винотеки"
-          date="Сегодня, 25 октября"
-          price="Бесплатно"
-          selected={selectedType === 'pickup'}
-          onSelect={() => onSelectType('pickup')}
-        />
+        {DELIVERY_OPTIONS.map((option) => (
+          <DeliveryOption
+            key={option.type}
+            {...option}
+            selected={selectedType === option.type}
+            onSelect={() => onSelectType(option.type)}
+          />
+        ))}
       </div>
     </BlockContainer>
   )
