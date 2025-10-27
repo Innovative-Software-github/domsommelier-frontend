@@ -8,4 +8,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  padding-top: 40px;
+  padding-bottom: 100px;
+}
+
+.main[data-bg-theme='white'] {
+  background: white;
+}
+
+.main[data-bg-theme='gray'] {
+  background: #F7F7F7;
 }

@@ -1,0 +1,11 @@
+.container {
+  cursor: pointer;
+  width: fit-content;
+  min-width: 200px;
+  padding: 20px;
+  border: 1px solid #24242479;
+}
+
+.selected {
+  border: 1px solid #680a08;
+}

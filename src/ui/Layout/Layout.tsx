@@ -6,6 +6,7 @@ import clsx from 'clsx';
 
 export interface ILayoutProps extends React.PropsWithChildren {
   footerTheme?: TTheme;
+  backgroundTheme?: 'white' | 'gray';
   showCatalogLinks?: boolean;
   containerClassName?: string;
   className?: string;
@@ -14,6 +15,7 @@ export interface ILayoutProps extends React.PropsWithChildren {
 
 export const Layout: React.FC<ILayoutProps> = ({
   footerTheme = 'white',
+  backgroundTheme = 'white',
   showCatalogLinks,
   containerClassName,
   footerClassName,
@@ -23,7 +25,7 @@ export const Layout: React.FC<ILayoutProps> = ({
   return (
     <div className={clsx(cls.layout, containerClassName)}>
       <Header showCatalogLinks={showCatalogLinks} />
-      <main className={clsx(cls.main, className)}>{children}</main>
+      <main data-bg-theme={backgroundTheme} className={clsx(cls.main, className)}>{children}</main>
       <Footer className={footerClassName} theme={footerTheme} />
     </div>
   );

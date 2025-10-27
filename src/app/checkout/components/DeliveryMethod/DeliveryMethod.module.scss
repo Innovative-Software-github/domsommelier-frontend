@@ -1,0 +1,16 @@
+.deliveryOptions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 4px;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #242424;
+  margin-bottom: 24px;
+}
