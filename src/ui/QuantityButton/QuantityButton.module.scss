@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 32px;
+  background: #F7F7F7;
+  cursor: default;
+}
+
+.container[data-theme='white'] {
+  background: #ffffff;
+}
+
+.operationButton {
+  all: unset;
+  color: #242424;
+  cursor: pointer;
+}
+
+.currentQuantity {
+  flex-shrink: 0;
+
+  color: #242424;
+  font-weight: 16px;
+  line-height: 140%;
+
+  padding: 0 16px;
+}

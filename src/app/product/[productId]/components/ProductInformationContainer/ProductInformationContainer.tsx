@@ -21,9 +21,22 @@ export const ProductInformationContainer: React.FC<IProductInformationContainerP
   return (
     <div className={cls.container}> 
       <ProductPhotoGallery productPhoto={product.productPhoto} />
+
       <ProductInformation product={product} />
-      <ProductActionPanel price={product.price} discount={product.discount} />
-      {isTablet && <ProductCartButton price={product.price} discount={product.discount} />}
+
+      <ProductActionPanel 
+        productId={product.id}
+        price={product.price} 
+        discount={product.discount} 
+      />
+
+      {isTablet && (
+        <ProductCartButton 
+          productId={product.id}
+          price={product.price} 
+          discount={product.discount} 
+        />
+      )}
     </div>
   );
 };

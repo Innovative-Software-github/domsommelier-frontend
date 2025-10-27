@@ -4,8 +4,8 @@ import { ReactNode, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import NextTopLoader from 'nextjs-toploader';
 
-import { TAppStore, createStore } from '@/store';
-import { IServerData } from '@/store/interfaces';
+import { createStore } from '@/store';
+import { IServerData, TAppStore } from '@/store/interfaces';
 
 interface IProvidersProps {
   children: ReactNode;

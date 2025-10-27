@@ -9,7 +9,8 @@ export const ROUTES = {
   degustation: '/degustation',
   investments: '/investments',
   privacyPolicy: '/privacy-policy',
-  shoppingCart: '/shoppingCart',
+  basket: '/basket',
+  checkout: '/checkout',
   search: '/search',
   product: '/product',
 } as const;

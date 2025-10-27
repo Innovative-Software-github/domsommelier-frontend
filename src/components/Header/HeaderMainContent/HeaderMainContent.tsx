@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 
 import cls from './HeaderMainContent.module.scss';
 import { Icon } from '@/ui/Icon/Icon';
@@ -10,11 +11,14 @@ import { Backdrop } from '../../../ui/Backdrop/Backdrop';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
 import { SearchModal } from './SearchModal/SearchModal';
 import { ROUTES } from '../../../constants/routes';
+import { basketProductsCountSelector } from '../../../store/basket/selectors';
 
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
     React.useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = React.useState(false);
+  
+  const cartTotalItems = useSelector(basketProductsCountSelector);
 
   return (
     <div className={cls.container}>
@@ -49,7 +53,12 @@ export const HeaderMainContent: React.FC = () => {
       </div>
 
       <div className={cls.links}>
-        <IconLink href={ROUTES.shoppingCart} iconType={IconType.Basket_24} />
+        <IconLink 
+          href={ROUTES.basket} 
+          iconType={IconType.Basket_24} 
+          badgeCount={cartTotalItems}
+          showBadge
+        />
         <IconLink href="/" iconType={IconType.Heart_24} />
         <IconLink href="/" iconType={IconType.Profile_24} />
       </div>

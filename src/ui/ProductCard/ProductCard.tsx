@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { Button } from '../Button/Button';
+import { QuantityButton } from '../QuantityButton/QuantityButton';
 import { formatProductCardDescription } from './utils';
 import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
 import { ROUTES } from '../../constants/routes';
@@ -13,14 +14,29 @@ import cls from './ProductCard.module.scss';
 interface IProductCardProps {
   option: TProductCard;
   className?: string;
+  currentQuantity: number;
+  isInBasket: boolean;
+  onAddToBasket: (productId: string) => void;
+  onUpdateQuantity: (quantity: number) => void;
 }
 
 export const ProductCard: React.FC<IProductCardProps> = ({
   option,
   className,
+  onAddToBasket,
+  onUpdateQuantity,
+  currentQuantity = 0,
+  isInBasket = false,
 }) => {
-  const { id, name, price, discount, productPhoto } =
-    option;
+  const { id, name, price, discount, productPhoto } = option;
+
+  const handleAddToBasket = () => {
+    onAddToBasket(id);
+  };
+
+  const handleQuantityChange = (newQuantity: number) => {
+    onUpdateQuantity(newQuantity);
+  };
 
   return (
     <article className={clsx(cls.card, className)}>
@@ -55,12 +71,21 @@ export const ProductCard: React.FC<IProductCardProps> = ({
         </header>
       </Link>
 
-      <Button
-        aria-label={`Добавить «${name}» в корзину`}
-        className={cls.button}
-      >
-        В корзину
-      </Button>
+      {isInBasket ? (
+        <QuantityButton
+          value={currentQuantity}
+          className={cls.quantityButton}
+          onChange={handleQuantityChange}
+        />
+      ) : (
+        <Button
+          aria-label={`Добавить «${name}» в корзину`}
+          className={cls.button}
+          onClick={handleAddToBasket}
+        >
+          В корзину
+        </Button>
+      )}
     </article>
   );
 };

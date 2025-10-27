@@ -14,6 +14,8 @@ export enum IconType {
   ArrowUpRight_80 = 'ArrowUpRight_80',
   Filters_24 = 'Filters_24',
   Cancel_24 = 'Cancel_24',
+  Plus_24 = 'Plus_24',
+  Minus_24 = 'Minus_24',
 }
 
 export const iconToComponent: Record<IconType, React.JSX.Element> = {
@@ -30,4 +32,6 @@ export const iconToComponent: Record<IconType, React.JSX.Element> = {
   [IconType.ArrowUpRight_80]: Icons.ArrowUpRight_80,
   [IconType.Filters_24]: Icons.Filters_24,
   [IconType.Cancel_24]: Icons.Cancel_24,
+  [IconType.Plus_24]: Icons.Plus_24,
+  [IconType.Minus_24]: Icons.Minus_24,
 };
