@@ -10,6 +10,7 @@ import { TDeliveryOptionType } from "../DeliveryMethod/DeliveryOption/DeliveryOp
 import { TPaymentOptionType } from "../PaymentMethod/PaymentOption/PaymentOption";
 import { createObjectUpdater } from "../../../../utils/createUpdaters";
 import { CustomerInfo } from "../CustomerInfo/CustomerInfo";
+import { OrderSummary } from "../../../../components/OrderSummary/OrderSummary";
 
 export const CheckoutLayout: React.FC = () => {
   const [checkoutResponse, setCheckoutResponse] = React.useState<{ deliveryMethod: TDeliveryOptionType; paymentMethod: TPaymentOptionType; customerName: string; customerPhone: string }>({
@@ -41,7 +42,9 @@ export const CheckoutLayout: React.FC = () => {
           onChangePhone={(value) => checkoutResponseUpdater('customerPhone', value)}
         />
       </div>
-      <div className={cls.orderInfo}>sdfsdf</div>
+      <div className={cls.orderInfo}>
+        <OrderSummary actionText="Оформить заказ" />
+      </div>
     </ContentContainer>
   );
 };

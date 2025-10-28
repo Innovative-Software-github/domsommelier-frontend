@@ -1,11 +1,11 @@
-import { formatPrice } from '../../../../../../utils/formatPrice';
-import cls from './BasketSummaryTotal.module.scss';
+import { formatPrice } from '../../../utils/formatPrice';
+import cls from './OrderSummaryTotal.module.scss';
 
-export interface IBasketSummaryTotalProps {
+export interface IOrderSummaryTotalProps {
   totalPrice: number;
 }
 
-export const BasketSummaryTotal: React.FC<IBasketSummaryTotalProps> = ({
+export const OrderSummaryTotal: React.FC<IOrderSummaryTotalProps> = ({
   totalPrice,
 }) => {
   return (
@@ -17,3 +17,5 @@ export const BasketSummaryTotal: React.FC<IBasketSummaryTotalProps> = ({
     </div>
   );
 };
+
+
