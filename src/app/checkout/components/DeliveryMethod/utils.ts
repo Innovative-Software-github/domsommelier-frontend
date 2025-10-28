@@ -4,7 +4,6 @@ export const DELIVERY_OPTIONS = [
   {
     type: 'pickup' as TDeliveryOptionType,
     title: 'Забрать из винотеки',
-    date: 'Сегодня, 25 октября',
-    price: 'Бесплатно',
+    description: 'Сегодня, 25 октября',
   },
 ] as const;

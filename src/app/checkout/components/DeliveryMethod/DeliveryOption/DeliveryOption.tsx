@@ -6,8 +6,7 @@ export type TDeliveryOptionType = 'pickup';
 export interface IDeliveryOptionProps {
   type: TDeliveryOptionType;
   title: string;
-  date: string;
-  price: string;
+  description: string;
   selected: boolean;
   onSelect: () => void;
 }
@@ -15,16 +14,14 @@ export interface IDeliveryOptionProps {
 export const DeliveryOption: React.FC<IDeliveryOptionProps> = ({
   type,
   title,
-  date,
-  price,
+  description,
   selected,
   onSelect,
 }) => {
   return (
     <MethodContainer selected={selected} onSelect={onSelect}>
       <div className={cls.title}>{title}</div>
-      <div className={cls.date}>{date}</div>
-      <div className={cls.price}>{price}</div>
+      <div className={cls.description}>{description}</div>
     </MethodContainer>
   )
 }
