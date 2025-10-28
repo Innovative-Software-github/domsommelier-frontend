@@ -66,12 +66,12 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       }
     };
 
-    const renderPrefix = () =>
+    const renderPrefix =
       elPrefix && (
         <div className={clsx(cls.prefix, prefixClassName)}>{elPrefix}</div>
       );
 
-    const renderSuffix = () =>
+    const renderSuffix =
       isLoading ? (
         <Spinner className={cls.loadingSpinner} size="m" />
       ) : (
@@ -91,10 +91,11 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
             [cls.dirty]: !isEmpty,
           })}
         >
-          {renderPrefix()}
+          {renderPrefix}
           <input
             {...nativeInputProps}
             ref={ref}
+            placeholder={placeholder}
             type={type}
             className={cls.input}
             value={value}
@@ -103,7 +104,7 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
             onKeyDown={handleKeyDown}
             onChange={onChange}
           />
-          {renderSuffix()}
+          {renderSuffix}
         </div>
         {!!errorText && <p className={cls.errorText}>{errorText}</p>}
       </>

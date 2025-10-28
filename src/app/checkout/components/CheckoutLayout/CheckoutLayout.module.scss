@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.registrationInfo {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.orderInfo {
+  flex: 0 0 354px;
+}
