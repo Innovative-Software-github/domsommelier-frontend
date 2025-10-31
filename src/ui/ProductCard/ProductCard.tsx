@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 import { QuantityButton } from '../QuantityButton/QuantityButton';
 import { formatProductCardDescription } from './utils';
 import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
-import { ROUTES } from '../../constants/routes';
+import { getProductUrl, ROUTES } from '../../constants/routes';
 import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCard.module.scss';
 
@@ -41,7 +41,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   return (
     <article className={clsx(cls.card, className)}>
       <Link
-        href={`${ROUTES.product}/${id}`}
+        href={getProductUrl(id)}
         target="_blank"
         aria-label={`Перейти к странице товара «${name}»`}
         className={cls.link}

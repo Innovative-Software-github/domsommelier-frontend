@@ -1,0 +1,26 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 124px;
+  height: 148px;
+}
+
+.image {
+  object-fit: contain;
+  background: #F7F7F7;
+  padding: 8px;
+}
+
+.quantity {
+  font-size: 16px;
+  color: #717171;
+  text-align: center;
+  margin-top: 12px;
+}
+

@@ -26,3 +26,7 @@ export const PRODUCT_TYPES_SEGMENTS = {
 
 export type TProductTypesSegments =
   typeof PRODUCT_TYPES_SEGMENTS[keyof typeof PRODUCT_TYPES_SEGMENTS];
+
+export const getProductUrl = (productId: string): string => {
+  return `${ROUTES.product}/${productId}`;
+};

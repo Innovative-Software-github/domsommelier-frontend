@@ -24,7 +24,7 @@ type TButtonHTMLAttributes = Omit<
 
 export interface IButtonProps
   extends TButtonHTMLAttributes,
-    React.PropsWithChildren {
+  React.PropsWithChildren {
   className?: string;
   variant?: TButtonVariant;
   height?: TButtonHeight;

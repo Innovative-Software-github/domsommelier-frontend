@@ -11,6 +11,8 @@ import { TPaymentOptionType } from "../PaymentMethod/PaymentOption/PaymentOption
 import { createObjectUpdater } from "../../../../utils/createUpdaters";
 import { CustomerInfo } from "../CustomerInfo/CustomerInfo";
 import { OrderSummary } from "../../../../components/OrderSummary/OrderSummary";
+import { Promocode } from "../Promocode/Promocode";
+import { PickupFromStore } from "../PickupFromStore/PickupFromStore";
 
 export const CheckoutLayout: React.FC = () => {
   const [checkoutResponse, setCheckoutResponse] = React.useState<{ deliveryMethod: TDeliveryOptionType; paymentMethod: TPaymentOptionType; customerName: string; customerPhone: string }>({
@@ -30,6 +32,8 @@ export const CheckoutLayout: React.FC = () => {
           onSelectType={(type) => checkoutResponseUpdater('deliveryMethod', type)}
         />
 
+        <PickupFromStore />
+
         <PaymentMethod
           selectedType={checkoutResponse.paymentMethod}
           onSelectType={(type) => checkoutResponseUpdater('paymentMethod', type)}
@@ -44,6 +48,7 @@ export const CheckoutLayout: React.FC = () => {
       </div>
       <div className={cls.orderInfo}>
         <OrderSummary actionText="Оформить заказ" />
+        <Promocode />
       </div>
     </ContentContainer>
   );

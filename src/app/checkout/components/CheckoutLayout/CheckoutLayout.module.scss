@@ -14,4 +14,7 @@
 
 .orderInfo {
   flex: 0 0 354px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
