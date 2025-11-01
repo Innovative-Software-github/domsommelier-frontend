@@ -20,6 +20,16 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   }
 }
 
+// Для центрированной модалки
+.backdrop[data-animation='center'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .container {
   padding: 24px;
   background: white;
@@ -49,10 +59,29 @@ $backdrop-color: rgba(0, 0, 0, 0.5);
   visibility: visible;
 }
 
+// Для анимации center через data-атрибуты
+.container[data-animation='center'] {
+  position: relative;
+  background: white;
+  border-radius: 4px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin: auto;
+}
+
 .header {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  font-weight: 500;
 }
 
 .closeButton {

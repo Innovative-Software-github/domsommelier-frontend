@@ -11,6 +11,7 @@ import { getFiltersConfig } from '../services/filters/serverRequest';
 import { IServerData } from '../store/interfaces';
 import { createBasketInitialState } from '../store/basket/utils';
 import { getBasket } from '../services/basket/requests';
+import { getCityInitialState } from '../services/city/serverRequest';
 
 const gilroy = localFont({
   src: [
@@ -56,14 +57,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [filtersConfig, basket] = await Promise.all([
+  const [filtersConfig, basket, cityInitialState] = await Promise.all([
     getFiltersConfig(),
     getBasket(TEMP_CUSTOMER_ID),
+    getCityInitialState(),
   ]);
 
   const reduxPreloadedState: IServerData = {
     filtersConfig: filtersConfig,
     basketReducer: createBasketInitialState(basket),
+    city: cityInitialState,
   };
 
   return (

@@ -7,6 +7,7 @@ import { IServerData } from './interfaces';
 import { filtersConfig } from './filters/reducers';
 import productCards from './products/reducers';
 import basketReducer from './basket/reducers';
+import { cityReducer } from './city/reducers';
 
 export function createStore(preloadedState?: IServerData) {
   return configureStore({
@@ -15,6 +16,7 @@ export function createStore(preloadedState?: IServerData) {
       filtersConfig,
       productCards,
       basketReducer,
+      city: cityReducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

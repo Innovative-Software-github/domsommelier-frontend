@@ -24,8 +24,6 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
 }) => {
   const filtersConfig = useSelector(filtersConfigSelector);
 
-  console.log(filtersConfig)
-
   return (
     <>
       {Object.values(filtersConfig[productType]).map((filterConfig) => (

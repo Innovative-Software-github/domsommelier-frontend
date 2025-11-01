@@ -34,7 +34,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
+html {
+  width: 100%;
+  height: 100%;
+  scrollbar-gutter: stable;
+}
+
 body {
   width: 100%;
   height: 100%;

@@ -38,9 +38,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   isFavorite = false,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
-  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
-
-  console.log(hasDiscount, currentPrice);
+  // const { hasDiscount, currentPrice } = useProductPrice(price, discount);
 
   const handleAddToBasket = () => {
     onAddToBasket?.(id);
