@@ -1,0 +1,67 @@
+.container {
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #242424;
+  line-height: 150%;
+  margin-bottom: 8px;
+}
+
+.datesContainer {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.dateCard {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  height: 70px;
+  width: 83px;
+  border: 1px solid #BDBDBD;
+  cursor: pointer;
+  transition: all 150ms;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: #999;
+  }
+}
+
+.dateCardSelected {
+  border: 1px solid #242424;
+
+  &:hover {
+    border-color: #242424;
+  }
+}
+
+.dateNumber {
+  font-size: 14px;
+  font-weight: 500;
+  color: #242424;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.dayOfWeek {
+  font-size: 14px;
+  color: #666;
+  text-transform: capitalize;
+}
+

@@ -11,8 +11,8 @@ export const getBasket = async (customerId: TCustomerId) => {
 };
 
 export const addToBasket = async (
-  customerId: TCustomerId, 
-  productId: TProductId, 
+  customerId: TCustomerId,
+  productId: TProductId,
   quantity: number,
 ) => {
   return customFetch<IAddToBasketResponse>({

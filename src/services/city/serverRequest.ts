@@ -5,7 +5,6 @@ import { ICity, ICityState } from '@/store/city/interfaces';
 
 export async function getUserCityFromHeaders(): Promise<ICity | null> {
   const headersList = await headers();
-  console.log('headersList: ', headersList);
   const cityName = headersList.get('x-vercel-ip-city');
   console.log('cityName: ', cityName);
 

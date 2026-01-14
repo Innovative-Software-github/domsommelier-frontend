@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ariakit/react": "^0.4.17",
+    "@pbe/react-yandex-maps": "^1.2.5",
     "@reduxjs/toolkit": "^2.2.7",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -29,5 +30,10 @@
     "@types/react-dom": "^19",
     "prettier": "2.7.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@pbe/react-yandex-maps": {
+      "react": "^19.0.0"
+    }
   }
 }

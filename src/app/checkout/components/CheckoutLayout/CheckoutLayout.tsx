@@ -14,12 +14,31 @@ import { OrderSummary } from "../../../../components/OrderSummary/OrderSummary";
 import { Promocode } from "../Promocode/Promocode";
 import { PickupFromStore } from "../PickupFromStore/PickupFromStore";
 
+// TODO: Подключить правильный интерфейс когда будем доставать магазины с сервера
+interface ISelectedStore {
+  id: string;
+  name: string;
+  address: string;
+  workingHours: string;
+}
+
+interface ICheckoutResponse {
+  deliveryMethod: TDeliveryOptionType;
+  paymentMethod: TPaymentOptionType;
+  customerName: string;
+  customerPhone: string;
+  selectedStore?: ISelectedStore;
+  pickupDate?: Date;
+}
+
 export const CheckoutLayout: React.FC = () => {
-  const [checkoutResponse, setCheckoutResponse] = React.useState<{ deliveryMethod: TDeliveryOptionType; paymentMethod: TPaymentOptionType; customerName: string; customerPhone: string }>({
+  const [checkoutResponse, setCheckoutResponse] = React.useState<ICheckoutResponse>({
     deliveryMethod: 'pickup',
     paymentMethod: 'onsite',
     customerName: '',
     customerPhone: '',
+    selectedStore: undefined,
+    pickupDate: undefined,
   });
 
   const checkoutResponseUpdater = createObjectUpdater(setCheckoutResponse);
@@ -32,7 +51,12 @@ export const CheckoutLayout: React.FC = () => {
           onSelectType={(type) => checkoutResponseUpdater('deliveryMethod', type)}
         />
 
-        <PickupFromStore />
+        <PickupFromStore
+          selectedStore={checkoutResponse.selectedStore}
+          onStoreSelect={(store) => checkoutResponseUpdater('selectedStore', store)}
+          selectedDate={checkoutResponse.pickupDate}
+          onDateSelect={(date) => checkoutResponseUpdater('pickupDate', date)}
+        />
 
         <PaymentMethod
           selectedType={checkoutResponse.paymentMethod}
