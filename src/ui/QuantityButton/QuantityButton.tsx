@@ -6,6 +6,7 @@ import { Icon } from "../Icon/Icon";
 import { IconType } from "../Icon/IconsMapping";
 import cls from './QuantityButton.module.scss';
 import { MAX_PRODUCT_QUANTITY } from '../../constants/constants';
+import { Spinner } from '../Spinner/Spinner';
 
 export interface IQuantityButtonProps {
   theme?: 'gray' | 'white';
@@ -17,6 +18,7 @@ export interface IQuantityButtonProps {
   showLabel?: boolean;
   label?: string;
   className?: string;
+  isLoading?: boolean;
   onChange: (value: number) => void;
 }
 
@@ -30,6 +32,7 @@ export const QuantityButton: React.FC<IQuantityButtonProps> = ({
   step = 1,
   showLabel = true,
   label = 'шт',
+  isLoading = false,
   className,
 }) => {
   const handleDecrease = () => {
@@ -62,7 +65,8 @@ export const QuantityButton: React.FC<IQuantityButtonProps> = ({
     >
       <button 
         className={clsx(cls.operationButton, {
-          [cls.disabled]: isDecreaseDisabled,
+          [cls.loading]: isLoading,
+          [cls.disabled]: isDecreaseDisabled || isLoading,
       })}
         onClick={handleDecrease}
         disabled={isDecreaseDisabled}
@@ -73,7 +77,12 @@ export const QuantityButton: React.FC<IQuantityButtonProps> = ({
       </button>
       
       <span className={cls.currentQuantity}>
-        {value}{showLabel ? ` ${label}` : ''}
+        {isLoading ?
+        (<Spinner className={cls.spinner} size="s" />) : (
+          <>
+            {value}{showLabel ? ` ${label}` : ''}
+          </>
+        )}
       </span>
       
       <button 

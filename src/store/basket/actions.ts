@@ -9,7 +9,7 @@ export const getBasketRequest = createAsyncThunk<
   TCustomerId,
   IAsyncThunkConfig
 >(
-  'basket/fetchCart',
+  'basket/fetchBasket',
   async (customerId, { rejectWithValue }) => {
     try {
       return await getBasket(customerId);
@@ -24,7 +24,7 @@ export const addToBasketThunk = createAsyncThunk<
   IAddToCartThunkArgs,
   IAsyncThunkConfig
 >(
-  'basket/addToCart',
+  'basket/addToBasket',
   async ({ customerId, productId, quantity = 1 }, { rejectWithValue }) => {
     try {
       return await addToBasket(customerId, productId, quantity);
@@ -39,7 +39,7 @@ export const removeFromBasketThunk = createAsyncThunk<
   IRemoveFromCartThunkArgs,
   IAsyncThunkConfig
 >(
-  'basket/removeFromCart',
+  'basket/removeFromBasket',
   async ({ customerId, productId }, { rejectWithValue }) => {
     try {
       return await removeFromBasket(customerId, productId);
@@ -54,7 +54,7 @@ export const clearBasketThunk = createAsyncThunk<
   TCustomerId,
   IAsyncThunkConfig
 >(
-  'basket/clearCart',
+  'basket/clearBasket',
   async (customerId, { rejectWithValue }) => {
     try {
       return await clearBasket(customerId);

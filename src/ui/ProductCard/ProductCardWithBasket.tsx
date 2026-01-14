@@ -14,16 +14,17 @@ export const ProductCardWithBasket = memo<IProductCardWithBasketProps>(({
   option,
   className,
 }) => {
-  const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange } = useProductBasket(option.id);
+  const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange, isProductInBasketLoading } = useProductBasket(option.id);
 
   return (
     <ProductCard
       option={option}
       className={className}
-      onAddToBasket={handleAddToBasket}
-      onUpdateQuantity={(quantity) => handleQuantityChange(quantity)}
       currentQuantity={currentQuantity}
       isInBasket={isInBasket}
+      onAddToBasket={handleAddToBasket}
+      onUpdateQuantity={(quantity) => handleQuantityChange(quantity)}
+      isProductInBasketLoading={isProductInBasketLoading}
     />
   );
 });

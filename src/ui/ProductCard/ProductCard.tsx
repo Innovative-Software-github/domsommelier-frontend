@@ -16,6 +16,7 @@ interface IProductCardProps {
   className?: string;
   currentQuantity: number;
   isInBasket: boolean;
+  isProductInBasketLoading: boolean;
   onAddToBasket: (productId: string) => void;
   onUpdateQuantity: (quantity: number) => void;
 }
@@ -27,6 +28,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   onUpdateQuantity,
   currentQuantity = 0,
   isInBasket = false,
+  isProductInBasketLoading,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
 
@@ -76,12 +78,14 @@ export const ProductCard: React.FC<IProductCardProps> = ({
           value={currentQuantity}
           className={cls.quantityButton}
           onChange={handleQuantityChange}
+          isLoading={isProductInBasketLoading}
         />
       ) : (
         <Button
           aria-label={`Добавить «${name}» в корзину`}
           className={cls.button}
           onClick={handleAddToBasket}
+          isLoading={isProductInBasketLoading}
         >
           В корзину
         </Button>
