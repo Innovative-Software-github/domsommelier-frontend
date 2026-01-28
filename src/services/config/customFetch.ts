@@ -125,7 +125,11 @@ export async function customFetch<
     const response = await fetch(url, {
       method,
       body,
-      headers: [...headers, ['Content-Type', contentType]],
+      headers: [
+        ...headers,
+        ['Content-Type', contentType],
+        ['Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJub3NvZmYuNG5kckB5YW5kZXgucnUiLCJpZCI6IjZjNWY5ODVkLWIwYmYtNGJiNS1iYTBlLTFkODdmYzkzZDVjOSIsImlhdCI6MTc2OTYzNTYzNSwiZXhwIjoxNzY5NzIyMDM1fQ.RF5a5Po0r8VcP3C68TjHWfFGD_KlbPnaAoi0NalG5eU'],
+      ],
       credentials: withCredentials ? 'include' : 'omit',
       cache: cacheStrategy?.cache || 'no-store',
       next: {
