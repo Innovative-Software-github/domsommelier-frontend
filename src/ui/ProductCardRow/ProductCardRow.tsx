@@ -5,7 +5,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { QuantityButton } from '../QuantityButton/QuantityButton';
 import { formatProductCardDescription } from '../ProductCard/utils';
-import { ROUTES } from '../../constants/routes';
+import { getProductUrl, ROUTES } from '../../constants/routes';
 import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCardRow.module.scss';
 import { Button } from '../Button/Button';
@@ -38,9 +38,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   isFavorite = false,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
-  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
-
-  console.log(hasDiscount, currentPrice);
+  // const { hasDiscount, currentPrice } = useProductPrice(price, discount);
 
   const handleAddToBasket = () => {
     onAddToBasket?.(id);
@@ -62,7 +60,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
     <article className={clsx(cls.card, className)}>
       <div className={cls.imageSection}>
         <Link
-          href={`${ROUTES.product}/${id}`}
+          href={getProductUrl(id)}
           aria-label={`Перейти к странице товара «${name}»`}
           className={cls.imageLink}
         >
@@ -81,7 +79,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
 
       <div className={cls.contentSection}>
         <Link
-          href={`${ROUTES.product}/${id}`}
+          href={getProductUrl(id)}
           aria-label={`Перейти к странице товара «${name}»`}
           className={cls.contentLink}
         >
@@ -118,7 +116,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
           className={cls.actionButton}
           onClick={handleToggleFavorite}
         >
-          <Icon 
+          <Icon
             type={IconType.Heart_24}
             width={24}
             height={24}

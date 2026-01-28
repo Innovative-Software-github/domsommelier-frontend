@@ -1,0 +1,42 @@
+.container {
+  all: unset;
+  padding: 20px 16px;
+  width: 100%;
+  border-bottom: 1px solid #D9D9D9;
+  transition: background-color 150ms;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #F7F7F7;
+  }
+}
+
+.selected {
+  background-color: #F7F7F7;
+}
+
+.title {
+  font-size: 16px;
+  color: #242424;
+  margin-bottom: 8px;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.address {
+  font-size: 14px;
+  color: #242424;
+  margin-bottom: 8px;
+}
+
+.openingHours {
+  font-size: 14px;
+  color: #242424;
+  margin-bottom: 4px;
+}
+
+.phone {
+  font-size: 14px;
+  color: #8B2323;
+  font-weight: 500;
+}

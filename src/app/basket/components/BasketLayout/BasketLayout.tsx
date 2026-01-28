@@ -3,7 +3,7 @@
 import { useSelector } from "react-redux";
 import { ContentContainer } from "../../../../ui/ContentContainer/ContentContainer";
 import { BasketProductsList } from "./BasketProductsList/BasketProductsList";
-import { BasketSummary } from "./BasketSummary/BasketSummary";
+import { OrderSummary } from "../../../../components/OrderSummary/OrderSummary";
 import { basketIsEmptySelector } from "../../../../store/basket/selectors";
 import { BasketProductsEmptyList } from "./BasketProductsList/BasketProductsEmptyList/BasketProductsEmptyList";
 import cls from './BasketLayout.module.scss';
@@ -22,7 +22,7 @@ export const BasketLayout: React.FC = () => {
   return (
     <ContentContainer className={cls.container}>
       <BasketProductsList />
-      <BasketSummary />
+      <OrderSummary actionText="Перейти к оформлению" />
     </ContentContainer>
   );
 };

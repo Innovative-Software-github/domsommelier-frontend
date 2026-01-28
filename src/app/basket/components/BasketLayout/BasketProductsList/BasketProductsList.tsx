@@ -5,8 +5,9 @@ import { basketProductsSelector } from "../../../../../store/basket/selectors";
 import { ProductCardRow } from "../../../../../ui/ProductCardRow/ProductCardRow";
 import { useBasket } from "../../../../../hooks/basket/useBasket";
 import cls from './BasketProductsList.module.scss';
+import { BlockContainer } from "../../../../../ui/BlockContainer/BlockContainer";
 
-export interface IBasketProductsListProps {}
+export interface IBasketProductsListProps { }
 
 export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
   const products = useSelector(basketProductsSelector);
@@ -17,7 +18,7 @@ export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
   };
 
   return (
-    <div className={cls.productsList}>
+    <BlockContainer className={cls.productsList}>
       {products.map((product) => (
         <ProductCardRow
           key={product.product.id}
@@ -28,6 +29,6 @@ export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
           onRemoveFromBasket={() => removeFromBasket(product.product.id)}
         />
       ))}
-    </div>
+    </BlockContainer>
   );
 };

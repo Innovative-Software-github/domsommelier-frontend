@@ -1,0 +1,47 @@
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #242424;
+  margin-bottom: 24px;
+}
+
+.button[class] {
+  width: 250px;
+  margin-bottom: 16px;
+}
+
+.modalTitle {
+  color: #242424;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 115%;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.storeInformationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 16px;
+}
+
+.storeName {
+  font-size: 16px;
+  color: #242424;
+  margin-bottom: 8px;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+.address {
+  font-size: 14px;
+  color: #242424;
+  margin-bottom: 8px;
+}
+
+.openingHours {
+  font-size: 14px;
+  color: #242424;
+  margin-bottom: 4px;
+}

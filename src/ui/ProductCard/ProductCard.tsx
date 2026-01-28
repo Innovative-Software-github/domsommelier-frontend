@@ -7,7 +7,7 @@ import { Button } from '../Button/Button';
 import { QuantityButton } from '../QuantityButton/QuantityButton';
 import { formatProductCardDescription } from './utils';
 import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
-import { ROUTES } from '../../constants/routes';
+import { getProductUrl, ROUTES } from '../../constants/routes';
 import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCard.module.scss';
 
@@ -16,6 +16,7 @@ interface IProductCardProps {
   className?: string;
   currentQuantity: number;
   isInBasket: boolean;
+  isProductInBasketLoading: boolean;
   onAddToBasket: (productId: string) => void;
   onUpdateQuantity: (quantity: number) => void;
 }
@@ -27,6 +28,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   onUpdateQuantity,
   currentQuantity = 0,
   isInBasket = false,
+  isProductInBasketLoading,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
 
@@ -41,7 +43,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   return (
     <article className={clsx(cls.card, className)}>
       <Link
-        href={`${ROUTES.product}/${id}`}
+        href={getProductUrl(id)}
         target="_blank"
         aria-label={`Перейти к странице товара «${name}»`}
         className={cls.link}
@@ -76,12 +78,14 @@ export const ProductCard: React.FC<IProductCardProps> = ({
           value={currentQuantity}
           className={cls.quantityButton}
           onChange={handleQuantityChange}
+          isLoading={isProductInBasketLoading}
         />
       ) : (
         <Button
           aria-label={`Добавить «${name}» в корзину`}
           className={cls.button}
           onClick={handleAddToBasket}
+          isLoading={isProductInBasketLoading}
         >
           В корзину
         </Button>

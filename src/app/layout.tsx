@@ -11,6 +11,7 @@ import { getFiltersConfig } from '../services/filters/serverRequest';
 import { IServerData } from '../store/interfaces';
 import { createBasketInitialState } from '../store/basket/utils';
 import { getBasket } from '../services/basket/requests';
+import { getCityInitialState } from '../services/city/serverRequest';
 
 const gilroy = localFont({
   src: [
@@ -46,16 +47,6 @@ const forum = Forum({
 
 export const TEMP_CUSTOMER_ID = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
-export const TEMP_BASKET_LIST = {
-  customerId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  items: [
-  
-  ],
-  totalPrice: 7100,
-  discount: 0,
-  discountedPrice: 7100
-}
-
 // export const metadata: Metadata = {
 //   title: 'Дом сомелье',
 //   description: 'Винный бутик Дом сомелье',
@@ -66,14 +57,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const [filtersConfig, basket] = await Promise.all([
-    // getFiltersConfig(),
-    // getBasket(TEMP_CUSTOMER_ID),
-  // ]);
+  const [filtersConfig, basket, cityInitialState] = await Promise.all([
+    getFiltersConfig(),
+    getBasket(TEMP_CUSTOMER_ID),
+    getCityInitialState(),
+  ]);
 
   const reduxPreloadedState: IServerData = {
-    filtersConfig: {},
-    basketReducer: createBasketInitialState(TEMP_BASKET_LIST),
+    filtersConfig: filtersConfig,
+    basketReducer: createBasketInitialState(basket),
+    city: cityInitialState,
   };
 
   return (

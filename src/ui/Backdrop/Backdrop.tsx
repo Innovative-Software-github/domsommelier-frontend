@@ -7,7 +7,7 @@ import { IconType } from '../Icon/IconsMapping';
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useBackdropClose } from '../../hooks/useBackdropClose';
 
-export type TBackdropAnimation = 'none' | 'rightSide';
+export type TBackdropAnimation = 'none' | 'rightSide' | 'center';
 
 export interface IBackdrop extends React.PropsWithChildren {
   isOpen: boolean;
@@ -19,6 +19,9 @@ export interface IBackdrop extends React.PropsWithChildren {
 
   withCancelIcon?: boolean;
   onClickCancelIcon?: () => void;
+
+  title?: string;
+  titleClassName?: string;
 }
 
 export const Backdrop = React.forwardRef<HTMLDivElement, IBackdrop>(
@@ -30,6 +33,8 @@ export const Backdrop = React.forwardRef<HTMLDivElement, IBackdrop>(
       animation = 'none',
       withCancelIcon,
       onClickCancelIcon,
+      title,
+      titleClassName,
       children,
     },
     ref,
@@ -72,6 +77,7 @@ export const Backdrop = React.forwardRef<HTMLDivElement, IBackdrop>(
         className={clsx(cls.backdrop, backdropClassName, {
           [cls.open]: isOpen,
         })}
+        data-animation={animation}
         role="dialog"
         aria-modal="true"
         aria-labelledby="Backdrop-modal"
@@ -85,6 +91,7 @@ export const Backdrop = React.forwardRef<HTMLDivElement, IBackdrop>(
         >
           {withCancelIcon && (
             <header className={cls.header}>
+              {title && <h2 className={clsx(cls.title, titleClassName)}>{title}</h2>}
               <button
                 type="button"
                 className={cls.closeButton}
