@@ -13,6 +13,11 @@ export const ApiEndpoint = {
     getEventById: '/api/v1/events',
   },
 
+  auth: {
+    initiate: '/api/v1/auth/initiate',
+    confirm: '/api/v1/auth/confirm',
+  },
+
   basket: {
     getBasket: (customerId: string) => `/api/v1/basket/${customerId}`,
     // TODO: Засинхрониться с беком и перенести в body кверю

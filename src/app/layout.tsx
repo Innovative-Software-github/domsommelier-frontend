@@ -57,21 +57,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [filtersConfig, basket, cityInitialState] = await Promise.all([
+  const [filtersConfig, cityInitialState] = await Promise.all([
     getFiltersConfig(),
-    getBasket(TEMP_CUSTOMER_ID),
+    // getBasket(TEMP_CUSTOMER_ID),
     getCityInitialState(),
   ]);
 
   const reduxPreloadedState: IServerData = {
     filtersConfig: filtersConfig,
-    basketReducer: createBasketInitialState(basket),
+    // basketReducer: createBasketInitialState(basket),
     city: cityInitialState,
   };
 
   return (
     <html
-      lang="en"
+      lang="ru"
       className={clsx(saol.className, forum.className, gilroy.className)}
     >
       <body>

@@ -13,6 +13,7 @@ export const ROUTES = {
   checkout: '/checkout',
   search: '/search',
   product: '/product',
+  profile: '/profile',
 } as const;
 
 export const PRODUCT_TYPES_SEGMENTS = {

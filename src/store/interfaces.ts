@@ -3,6 +3,7 @@ import { IFiltersConfigResponse } from "../services/filters/interfaces";
 import { IProductCardsState } from "./products/reducers";
 import { IBasketReducer } from "./basket/reducers";
 import { ICityState } from "./city/interfaces";
+import { IAuthState } from "./auth/interfaces";
 
 export type TAPIErrorDescriptor = {
   code: number;
@@ -25,6 +26,7 @@ export interface IServerData {
 
 export interface IStore extends IServerData {
   productCards: IProductCardsState;
+  auth: IAuthState;
 }
 
 export interface IStoreItemState {

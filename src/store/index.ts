@@ -8,6 +8,7 @@ import { filtersConfig } from './filters/reducers';
 import productCards from './products/reducers';
 import basketReducer from './basket/reducers';
 import { cityReducer } from './city/reducers';
+import { authReducer } from './auth/reducers';
 
 export function createStore(preloadedState?: IServerData) {
   return configureStore({
@@ -17,6 +18,7 @@ export function createStore(preloadedState?: IServerData) {
       productCards,
       basketReducer,
       city: cityReducer,
+      auth: authReducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

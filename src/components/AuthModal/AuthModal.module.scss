@@ -1,0 +1,43 @@
+.modal[class] {
+  width: 100%;
+  max-width: 820px;
+  padding: 32px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 140%;
+  color: #717171;
+
+  strong {
+    color: #242424;
+  }
+}
+
+.backButton {
+  all: unset;
+  cursor: pointer;
+
+  align-self: center;
+  font-size: 14px;
+  color: #717171;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: #242424;
+  }
+}
+

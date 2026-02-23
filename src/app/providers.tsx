@@ -6,10 +6,18 @@ import NextTopLoader from 'nextjs-toploader';
 
 import { createStore } from '@/store';
 import { IServerData, TAppStore } from '@/store/interfaces';
+import { AuthModalProvider } from '@/components/AuthModal/AuthModalContext';
+import { AuthModal } from '@/components/AuthModal/AuthModal';
+import { useRestoreAuthSession } from '@/hooks/useRestoreAuthSession';
 
 interface IProvidersProps {
   children: ReactNode;
   reduxPreloadedState: IServerData;
+}
+
+function AuthSessionRestorer({ children }: { children: ReactNode }) {
+  useRestoreAuthSession();
+  return <>{children}</>;
 }
 
 export function Providers({ children, reduxPreloadedState }: IProvidersProps) {
@@ -22,8 +30,13 @@ export function Providers({ children, reduxPreloadedState }: IProvidersProps) {
 
   return (
     <ReduxProvider store={storeRef.current}>
-      <NextTopLoader color="#680A08" showSpinner={false} />
-      {children}
+      <AuthSessionRestorer>
+        <AuthModalProvider>
+          <NextTopLoader color="#680A08" showSpinner={false} />
+          {children}
+          <AuthModal />
+        </AuthModalProvider>
+      </AuthSessionRestorer>
     </ReduxProvider>
   );
 }

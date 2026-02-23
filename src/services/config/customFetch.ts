@@ -1,6 +1,7 @@
 import { TAPIError } from '@/store/interfaces';
 import { getBackendHost } from '@/utils/getBackendHost';
 import { stringifySearchParams } from '@/utils/stringifySearchParams';
+import { tokenStorage } from '@/services/auth/tokenStorage';
 
 export type THTTPRequestMethod =
   | 'HEAD'
@@ -122,14 +123,21 @@ export async function customFetch<
 
     const url = `${scheme}://${host}${port ? `:${port}` : ''}${path}${query}`;
 
+    const token = tokenStorage.getToken();
+
+    const requestHeaders: [string, string][] = [
+      ...headers,
+      ['Content-Type', contentType],
+    ];
+
+    if (token) {
+      requestHeaders.push(['Authorization', `Bearer ${token}`]);
+    }
+
     const response = await fetch(url, {
       method,
       body,
-      headers: [
-        ...headers,
-        ['Content-Type', contentType],
-        ['Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJub3NvZmYuNG5kckB5YW5kZXgucnUiLCJpZCI6IjZjNWY5ODVkLWIwYmYtNGJiNS1iYTBlLTFkODdmYzkzZDVjOSIsImlhdCI6MTc2OTYzNTYzNSwiZXhwIjoxNzY5NzIyMDM1fQ.RF5a5Po0r8VcP3C68TjHWfFGD_KlbPnaAoi0NalG5eU'],
-      ],
+      headers: requestHeaders,
       credentials: withCredentials ? 'include' : 'omit',
       cache: cacheStrategy?.cache || 'no-store',
       next: {

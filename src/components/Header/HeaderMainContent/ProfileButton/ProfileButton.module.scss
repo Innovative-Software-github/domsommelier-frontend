@@ -1,0 +1,14 @@
+.button {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popoverText {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-grey-1);
+  white-space: nowrap;
+}

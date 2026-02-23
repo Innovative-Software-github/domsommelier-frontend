@@ -6,6 +6,7 @@ import cls from './HeaderMainContent.module.scss';
 import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLink';
+import { ProfileButton } from '@/components/Header/HeaderMainContent/ProfileButton/ProfileButton';
 import { Button } from '../../../ui/Button/Button';
 import { Backdrop } from '../../../ui/Backdrop/Backdrop';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
@@ -60,7 +61,7 @@ export const HeaderMainContent: React.FC = () => {
           showBadge
         />
         <IconLink href="/" iconType={IconType.Heart_24} />
-        <IconLink href="/" iconType={IconType.Profile_24} />
+        <ProfileButton />
       </div>
 
       <Backdrop
