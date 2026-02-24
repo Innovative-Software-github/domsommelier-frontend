@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Forum } from 'next/font/google';
 
+import { cookies } from 'next/headers';
+
 import { Providers } from '@/app/providers';
+import { CUSTOMER_ID_COOKIE } from '@/services/auth/constants';
 
 import '@/styles/globals.scss';
 import '@/styles/reset.scss';
@@ -45,8 +48,6 @@ const forum = Forum({
   display: 'swap',
 });
 
-export const TEMP_CUSTOMER_ID = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
-
 // export const metadata: Metadata = {
 //   title: 'Дом сомелье',
 //   description: 'Винный бутик Дом сомелье',
@@ -57,15 +58,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [filtersConfig, cityInitialState] = await Promise.all([
+  const cookieStore = await cookies();
+  const customerId = cookieStore.get(CUSTOMER_ID_COOKIE)?.value;
+
+  const [filtersConfig, basket, cityInitialState] = await Promise.all([
     getFiltersConfig(),
-    // getBasket(TEMP_CUSTOMER_ID),
+    getBasket(customerId),
     getCityInitialState(),
   ]);
 
   const reduxPreloadedState: IServerData = {
     filtersConfig: filtersConfig,
-    // basketReducer: createBasketInitialState(basket),
+    basketReducer: createBasketInitialState(basket),
     city: cityInitialState,
   };
 

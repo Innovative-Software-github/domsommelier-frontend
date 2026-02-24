@@ -12,10 +12,10 @@ export const useRestoreAuthSession = () => {
 
   useEffect(() => {
     const token = tokenStorage.getToken();
-    const user = tokenStorage.getUser();
+    const customer = tokenStorage.getCustomer();
 
-    if (token && user) {
-      dispatch(restoreSessionAction(user));
+    if (token && customer) {
+      dispatch(restoreSessionAction(customer));
     }
   }, [dispatch]);
 };

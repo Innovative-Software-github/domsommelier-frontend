@@ -2,6 +2,46 @@ import { TAPIError } from '@/store/interfaces';
 import { getBackendHost } from '@/utils/getBackendHost';
 import { stringifySearchParams } from '@/utils/stringifySearchParams';
 import { tokenStorage } from '@/services/auth/tokenStorage';
+import { AUTH_TOKEN_COOKIE } from '@/services/auth/constants';
+
+const isServer = typeof window === 'undefined';
+
+async function resolveAuthToken(): Promise<string | null> {
+  const clientToken = tokenStorage.getToken();
+
+  if (clientToken) return clientToken;
+
+  if (isServer) {
+    try {
+      const { cookies } = await import('next/headers');
+      const cookieStore = await cookies();
+
+      return cookieStore.get(AUTH_TOKEN_COOKIE)?.value ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
+}
+
+async function resolveAuthHeaders(
+  headers: [string, string][],
+  contentType: string,
+): Promise<[string, string][]> {
+  const token = await resolveAuthToken();
+
+  const requestHeaders: [string, string][] = [
+    ...headers,
+    ['Content-Type', contentType],
+  ];
+
+  if (token) {
+    requestHeaders.push(['Authorization', `Bearer ${token}`]);
+  }
+
+  return requestHeaders;
+}
 
 export type THTTPRequestMethod =
   | 'HEAD'
@@ -123,16 +163,7 @@ export async function customFetch<
 
     const url = `${scheme}://${host}${port ? `:${port}` : ''}${path}${query}`;
 
-    const token = tokenStorage.getToken();
-
-    const requestHeaders: [string, string][] = [
-      ...headers,
-      ['Content-Type', contentType],
-    ];
-
-    if (token) {
-      requestHeaders.push(['Authorization', `Bearer ${token}`]);
-    }
+    const requestHeaders = await resolveAuthHeaders(headers, contentType);
 
     const response = await fetch(url, {
       method,
@@ -149,6 +180,8 @@ export async function customFetch<
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({}));
+
+      // console.log('errpr: ', url, error, response.status)
 
       throw error;
     }

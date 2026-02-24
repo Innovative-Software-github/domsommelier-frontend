@@ -5,7 +5,7 @@ import { IAsyncThunkConfig, TAPIError } from "../interfaces";
 import { IAddToCartThunkArgs, IRemoveFromCartThunkArgs } from "./interfaces";
 
 export const getBasketRequest = createAsyncThunk<
-  IGetBasketResponse,
+  IGetBasketResponse | null,
   TCustomerId,
   IAsyncThunkConfig
 >(

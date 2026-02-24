@@ -72,11 +72,11 @@ export const useAuthForm = (onSuccess: () => void) => {
       return;
     }
 
-    const { token, firstName, secondName } = response.data;
+    const { token, customerId, firstName, secondName } = response.data;
 
     dispatch(loginAction({
       token,
-      user: { email, firstName, secondName },
+      customer: { id: customerId, email, firstName, secondName },
     }));
 
     onSuccess();

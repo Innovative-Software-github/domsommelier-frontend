@@ -7,14 +7,14 @@ import {
 } from '../../store/basket/actions';
 import { basketIsLoadingSelector } from '../../store/basket/selectors';
 import { TProductId } from '../../services/basket/interfaces';
-import { TEMP_CUSTOMER_ID } from '../../app/layout';
 import { useAppDispatch } from '../../store/hooks';
+import { authCustomerSelector } from '../../store/auth/selectors';
 
 export const useBasket = () => {
   const dispatch = useAppDispatch();
   const isBasketLoading = useSelector(basketIsLoadingSelector);
-  // TODO: Заменить customerId когда пояится регистрация
-  const customerId = TEMP_CUSTOMER_ID;
+  const customer = useSelector(authCustomerSelector);
+  const customerId = customer?.id;
   
   // Состояние загрузки для конкретных продуктов
   const [productLoadingStates, setProductLoadingStates] = useState<Map<TProductId, boolean>>(new Map());

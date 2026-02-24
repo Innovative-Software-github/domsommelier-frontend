@@ -1,7 +1,7 @@
 import { IBasketBase } from '../../services/basket/interfaces';
 import { IBasketReducer, initialBasketState } from './reducers';
 
-export const createBasketInitialState = (preloadedBasket?: IBasketBase): IBasketReducer => {
+export const createBasketInitialState = (preloadedBasket?: IBasketBase | null): IBasketReducer => {
   if (preloadedBasket) {
     return {
       ...initialBasketState,

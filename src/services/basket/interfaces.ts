@@ -1,7 +1,7 @@
 import { IBaseProduct, TProductCard } from "../products/interfaces/base";
+import { ICustomer } from "../customer/interfaces";
 
-// TODO: сделать типизирование наследуясь от сущности user 
-export type TCustomerId = string;
+export type TCustomerId = ICustomer['id'];
 export type TProductId = IBaseProduct<any, any>['id'];
 
 export interface IBasketItem {

@@ -1,11 +1,6 @@
-export interface IAuthUser {
-  email: string;
-  firstName: string;
-  secondName: string;
-}
+import { ICustomer } from '@/services/customer/interfaces';
 
 export interface IAuthState {
-  user: IAuthUser | null;
+  customer: Partial<ICustomer> | null;
   isAuthenticated: boolean;
 }
-

@@ -4,7 +4,7 @@ import { tokenStorage } from '@/services/auth/tokenStorage';
 import { IAuthState } from './interfaces';
 
 const initialState: IAuthState = {
-  user: null,
+  customer: null,
   isAuthenticated: false,
 };
 
@@ -12,20 +12,19 @@ export const authReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loginAction, (state, { payload }) => {
       tokenStorage.setToken(payload.token);
-      tokenStorage.setUser(payload.user);
+      tokenStorage.setCustomer(payload.customer);
 
-      state.user = payload.user;
+      state.customer = payload.customer;
       state.isAuthenticated = true;
     })
     .addCase(logoutAction, (state) => {
       tokenStorage.clear();
 
-      state.user = null;
+      state.customer = null;
       state.isAuthenticated = false;
     })
     .addCase(restoreSessionAction, (state, { payload }) => {
-      state.user = payload;
+      state.customer = payload;
       state.isAuthenticated = true;
     });
 });
-

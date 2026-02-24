@@ -1,13 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
-import { IAuthUser } from './interfaces';
+import { ICustomer } from '@/services/customer/interfaces';
 
-export const loginAction = createAction<{ token: string; user: IAuthUser }>(
-  'auth/login',
-);
+export const loginAction = createAction<{
+  token: string;
+  customer: Partial<ICustomer>;
+}>('auth/login');
 
 export const logoutAction = createAction('auth/logout');
 
-export const restoreSessionAction = createAction<IAuthUser>(
+export const restoreSessionAction = createAction<Partial<ICustomer>>(
   'auth/restoreSession',
 );
-

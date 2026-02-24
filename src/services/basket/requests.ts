@@ -2,7 +2,9 @@ import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
 import { IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, TCustomerId, TProductId } from './interfaces';
 
-export const getBasket = async (customerId: TCustomerId) => {
+export const getBasket = async (customerId?: TCustomerId) => {
+  if (!customerId) return null;
+
   return customFetch<IGetBasketResponse>({
     path: ApiEndpoint.basket.getBasket(customerId),
     method: 'GET',

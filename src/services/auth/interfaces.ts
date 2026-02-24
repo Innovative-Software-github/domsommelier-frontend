@@ -2,6 +2,10 @@ export interface IAuthInitiateRequest {
   email: string;
 }
 
+export interface IAuthInitiateResponse {
+  success: string;
+}
+
 export interface IAuthConfirmRequest {
   email: string;
   code: string;
@@ -9,13 +13,7 @@ export interface IAuthConfirmRequest {
 
 export interface IAuthConfirmResponse {
   token: string;
+  customerId: string;
   firstName: string;
   secondName: string;
 }
-
-export interface IAuthUser {
-  email: string;
-  firstName: string;
-  secondName: string;
-}
-

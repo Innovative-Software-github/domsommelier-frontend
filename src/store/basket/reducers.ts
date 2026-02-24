@@ -10,7 +10,7 @@ import {
 } from './actions';
 
 export interface IBasketReducer extends IStoreItemState {
-  basket: IBasketBase;
+  basket: IBasketBase | null;
 }
 
 export const initialBasketState: IBasketReducer = {

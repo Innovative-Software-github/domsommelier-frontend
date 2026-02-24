@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { AUTH_TOKEN_COOKIE } from '@/services/auth/constants';
 
 /**
  * Роуты, требующие авторизации.
@@ -19,7 +20,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get('auth_token')?.value;
+  const token = request.cookies.get(AUTH_TOKEN_COOKIE)?.value;
 
   if (!token) {
     const url = request.nextUrl.clone();
