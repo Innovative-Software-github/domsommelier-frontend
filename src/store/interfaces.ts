@@ -2,6 +2,7 @@ import { AnyAction, createStore, Dispatch, ThunkDispatch } from "@reduxjs/toolki
 import { IFiltersConfigResponse } from "../services/filters/interfaces";
 import { IProductCardsState } from "./products/reducers";
 import { IBasketReducer } from "./basket/reducers";
+import { ISavedReducer } from "./saved/reducers";
 import { ICityState } from "./city/interfaces";
 import { IAuthState } from "./auth/interfaces";
 
@@ -21,6 +22,7 @@ export type TAPIError =
 export interface IServerData {
   filtersConfig: IFiltersConfigResponse;
   basketReducer: IBasketReducer;
+  savedReducer: ISavedReducer;
   city?: ICityState;
 }
 

@@ -10,10 +10,9 @@ export const basketSelector = createSelector(
 
 export const basketProductsSelector = createSelector(
   [basketSelector],
-  (basket) => basket.items
+  (basket) => basket?.items ?? [],
 );
 
-// Мемоизированный селектор для Map товаров в корзине
 export const basketProductsMapSelector = createSelector(
   [basketProductsSelector],
   (items) => {
@@ -22,39 +21,37 @@ export const basketProductsMapSelector = createSelector(
       itemsMap.set(item.product.id, item);
     });
     return itemsMap;
-  }
+  },
 );
 
-// Быстрая проверка наличия товара в корзине
 export const isProductInBasketSelector = createSelector(
   [basketProductsMapSelector, (_, productId: string) => productId],
-  (itemsMap, productId) => itemsMap.has(productId)
+  (itemsMap, productId) => itemsMap.has(productId),
 );
 
-// Получение количества товара в корзине
 export const getProductQuantitySelector = createSelector(
   [basketProductsMapSelector, (_, productId: string) => productId],
-  (itemsMap, productId) => itemsMap.get(productId)?.quantity || 0
+  (itemsMap, productId) => itemsMap.get(productId)?.quantity || 0,
 );
 
 export const basketTotalPriceSelector = createSelector(
   [basketSelector],
-  (basket) => basket.totalPrice
+  (basket) => basket?.totalPrice ?? 0,
 );
 
 export const basketDiscountSelector = createSelector(
   [basketSelector],
-  (basket) => basket.discount
+  (basket) => basket?.discount ?? 0,
 );
 
 export const basketDiscountedPriceSelector = createSelector(
   [basketSelector],
-  (basket) => basket.discountedPrice
+  (basket) => basket?.discountedPrice ?? 0,
 );
 
 export const basketCustomerIdSelector = createSelector(
   [basketSelector],
-  (basket) => basket.customerId
+  (basket) => basket?.customerId ?? '',
 );
 
 export const basketProductsCountSelector = createSelector(

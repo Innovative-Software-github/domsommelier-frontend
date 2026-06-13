@@ -20,6 +20,7 @@ export interface IProductCardRowProps {
   currentQuantity: number;
   isInBasket?: boolean;
   isFavorite?: boolean;
+  isFavoriteLoading?: boolean;
   onAddToBasket?: (productId: string) => void;
   onUpdateQuantity: (quantity: number) => void;
   onRemoveFromBasket?: (productId: string) => void;
@@ -36,6 +37,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   currentQuantity = 0,
   isInBasket = false,
   isFavorite = false,
+  isFavoriteLoading = false,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
   // const { hasDiscount, currentPrice } = useProductPrice(price, discount);
@@ -115,8 +117,10 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
           aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
           className={cls.actionButton}
           onClick={handleToggleFavorite}
+          disabled={isFavoriteLoading}
         >
           <Icon
+            className={clsx(cls.heartIcon, isFavorite && cls.heartIconActive)}
             type={IconType.Heart_24}
             width={24}
             height={24}

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { Button } from '../Button/Button';
 import { QuantityButton } from '../QuantityButton/QuantityButton';
+import { Icon } from '../Icon/Icon';
+import { IconType } from '../Icon/IconsMapping';
 import { formatProductCardDescription } from './utils';
 import { ProductCardPrices } from './ProductCardPrices/ProductCardPrices';
 import { getProductUrl, ROUTES } from '../../constants/routes';
@@ -19,6 +21,9 @@ interface IProductCardProps {
   isProductInBasketLoading: boolean;
   onAddToBasket: (productId: string) => void;
   onUpdateQuantity: (quantity: number) => void;
+  isSaved?: boolean;
+  isProductSavedLoading?: boolean;
+  onToggleFavorite?: () => void;
 }
 
 export const ProductCard: React.FC<IProductCardProps> = ({
@@ -26,9 +31,12 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   className,
   onAddToBasket,
   onUpdateQuantity,
+  onToggleFavorite,
   currentQuantity = 0,
   isInBasket = false,
   isProductInBasketLoading,
+  isSaved = false,
+  isProductSavedLoading = false,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
 
@@ -40,15 +48,37 @@ export const ProductCard: React.FC<IProductCardProps> = ({
     onUpdateQuantity(newQuantity);
   };
 
+  const handleToggleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    onToggleFavorite?.();
+  };
+
   return (
     <article className={clsx(cls.card, className)}>
-      <Link
-        href={getProductUrl(id)}
-        target="_blank"
-        aria-label={`Перейти к странице товара «${name}»`}
-        className={cls.link}
-      >
-        <div className={cls.imageWrapper}>
+      <div className={cls.imageWrapper}>
+        {onToggleFavorite && (
+          <button
+            type="button"
+            aria-label={isSaved ? 'Удалить из избранного' : 'Добавить в избранное'}
+            className={cls.favoriteButton}
+            onClick={handleToggleFavorite}
+            disabled={isProductSavedLoading}
+          >
+            <Icon
+              className={clsx(cls.heartIcon, isSaved && cls.heartIconActive)}
+              type={IconType.Heart_24}
+              width={24}
+              height={24}
+            />
+          </button>
+        )}
+        <Link
+          href={getProductUrl(id)}
+          target="_blank"
+          aria-label={`Перейти к странице товара «${name}»`}
+          className={cls.imageLink}
+        >
           <Image
             src={productPhoto[0]?.url || '/wineBottleCard.png'}
             alt={name}
@@ -57,8 +87,15 @@ export const ProductCard: React.FC<IProductCardProps> = ({
             priority
             sizes="(max-width: 768px) 100vw, 305px"
           />
-        </div>
+        </Link>
+      </div>
 
+      <Link
+        href={getProductUrl(id)}
+        target="_blank"
+        aria-label={`Перейти к странице товара «${name}»`}
+        className={cls.link}
+      >
         <header className={cls.header}>
           <h3 className={cls.title}>{name}</h3>
 

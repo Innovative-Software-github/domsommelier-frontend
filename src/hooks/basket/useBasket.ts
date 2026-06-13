@@ -8,15 +8,13 @@ import {
 import { basketIsLoadingSelector } from '../../store/basket/selectors';
 import { TProductId } from '../../services/basket/interfaces';
 import { useAppDispatch } from '../../store/hooks';
-import { authCustomerSelector } from '../../store/auth/selectors';
+import { useRequireCustomerId } from '../useRequireCustomerId';
 
 export const useBasket = () => {
   const dispatch = useAppDispatch();
   const isBasketLoading = useSelector(basketIsLoadingSelector);
-  const customer = useSelector(authCustomerSelector);
-  const customerId = customer?.id;
-  
-  // Состояние загрузки для конкретных продуктов
+  const { requireCustomerId } = useRequireCustomerId();
+
   const [productLoadingStates, setProductLoadingStates] = useState<Map<TProductId, boolean>>(new Map());
 
   const setProductLoading = useCallback((productId: TProductId, isLoading: boolean) => {
@@ -32,90 +30,84 @@ export const useBasket = () => {
   }, []);
 
   const addToBasket = useCallback(async (productId: TProductId, quantity: number = 1) => {
+    const customerId = requireCustomerId();
     if (!customerId) {
-      throw new Error('Customer ID is not available');
+      return null;
     }
 
     setProductLoading(productId, true);
     try {
-      const result = await dispatch(addToBasketThunk({
+      return await dispatch(addToBasketThunk({
         customerId,
         productId,
         quantity,
       })).unwrap();
-      
-      return result;
     } catch (error) {
       console.error('Ошибка при добавлении товара в корзину:', error);
       throw error;
     } finally {
       setProductLoading(productId, false);
     }
-  }, [dispatch, customerId, setProductLoading]);
+  }, [dispatch, requireCustomerId, setProductLoading]);
 
   const updateQuantity = useCallback(async (productId: TProductId, quantity: number) => {
+    const customerId = requireCustomerId();
     if (!customerId) {
-      throw new Error('Customer ID is not available');
+      return null;
     }
 
     setProductLoading(productId, true);
     try {
-      // Если количество 0, удаляем товар из корзины
       if (quantity === 0) {
-        const result = await dispatch(removeFromBasketThunk({
+        return await dispatch(removeFromBasketThunk({
           customerId,
           productId,
         })).unwrap();
-        return result;
       }
 
-      // Иначе обновляем количество через addToCartThunk
-      const result = await dispatch(addToBasketThunk({
+      return await dispatch(addToBasketThunk({
         customerId,
         productId,
         quantity,
       })).unwrap();
-      
-      return result;
     } catch (error) {
       console.error('Ошибка при обновлении количества товара:', error);
       throw error;
     } finally {
       setProductLoading(productId, false);
     }
-  }, [dispatch, customerId, setProductLoading]);
+  }, [dispatch, requireCustomerId, setProductLoading]);
 
   const removeFromBasket = useCallback(async (productId: TProductId) => {
+    const customerId = requireCustomerId();
     if (!customerId) {
-      throw new Error('Customer ID is not available');
+      return null;
     }
 
     try {
-      const result = await dispatch(removeFromBasketThunk({
+      return await dispatch(removeFromBasketThunk({
         customerId,
         productId,
       })).unwrap();
-      
-      return result;
     } catch (error) {
       console.error('Ошибка при удалении товара из корзины:', error);
       throw error;
     }
-  }, [dispatch, customerId]);
+  }, [dispatch, requireCustomerId]);
 
   const clearBasket = useCallback(async () => {
+    const customerId = requireCustomerId();
     if (!customerId) {
-      throw new Error('Customer ID is not available');
+      return null;
     }
 
     try {
-      const result = await dispatch(clearBasketThunk(customerId)).unwrap();
-      return result;
+      return await dispatch(clearBasketThunk(customerId)).unwrap();
     } catch (error) {
       console.error('Ошибка при очистке корзины:', error);
       throw error;
     }
-  }, [dispatch, customerId]);
+  }, [dispatch, requireCustomerId]);
 
   return {
     addToBasket,

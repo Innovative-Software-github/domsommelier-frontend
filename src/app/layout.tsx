@@ -14,6 +14,8 @@ import { getFiltersConfig } from '../services/filters/serverRequest';
 import { IServerData } from '../store/interfaces';
 import { createBasketInitialState } from '../store/basket/utils';
 import { getBasket } from '../services/basket/requests';
+import { createSavedInitialState } from '../store/saved/utils';
+import { getSaved } from '../services/saved/requests';
 import { getCityInitialState } from '../services/city/serverRequest';
 
 const gilroy = localFont({
@@ -61,15 +63,17 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const customerId = cookieStore.get(CUSTOMER_ID_COOKIE)?.value;
 
-  const [filtersConfig, basket, cityInitialState] = await Promise.all([
+  const [filtersConfig, basket, saved, cityInitialState] = await Promise.all([
     getFiltersConfig(),
     getBasket(customerId),
+    getSaved(customerId),
     getCityInitialState(),
   ]);
 
   const reduxPreloadedState: IServerData = {
     filtersConfig: filtersConfig,
     basketReducer: createBasketInitialState(basket),
+    savedReducer: createSavedInitialState(saved),
     city: cityInitialState,
   };
 

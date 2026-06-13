@@ -5,6 +5,7 @@ import { tokenStorage } from '@/services/auth/tokenStorage';
 import { AUTH_TOKEN_COOKIE } from '@/services/auth/constants';
 
 const isServer = typeof window === 'undefined';
+const API_PROXY_PREFIX = '/api-back';
 
 async function resolveAuthToken(): Promise<string | null> {
   const clientToken = tokenStorage.getToken();
@@ -152,6 +153,7 @@ export async function customFetch<
 ): Promise<IResponse<TResponsePayload> | TResponsePayload> {
   const makeRequest = async (): Promise<TResponsePayload> => {
     const host = getBackendHost() || '194.87.190.20:8080';
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 
     if (!host) {
       throw new Error('Backend host is not defined');
@@ -161,7 +163,9 @@ export async function customFetch<
       data && method === 'GET' ? `?${stringifySearchParams(data)}` : '';
     const body = data && method !== 'GET' ? JSON.stringify(data) : undefined;
 
-    const url = `${scheme}://${host}${port ? `:${port}` : ''}${path}${query}`;
+    const url = isServer
+      ? `${scheme}://${host}${port ? `:${port}` : ''}${normalizedPath}${query}`
+      : `${API_PROXY_PREFIX}${normalizedPath}${query}`;
 
     const requestHeaders = await resolveAuthHeaders(headers, contentType);
 
@@ -180,8 +184,6 @@ export async function customFetch<
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({}));
-
-      // console.log('errpr: ', url, error, response.status)
 
       throw error;
     }

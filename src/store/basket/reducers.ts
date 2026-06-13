@@ -30,7 +30,7 @@ export const basketReducer = createReducer(initialBasketState, (builder) => {
     .addCase(getBasketRequest.pending, addPendingState)
     .addCase(getBasketRequest.rejected, addRejectState)
     .addCase(getBasketRequest.fulfilled, (state, { payload }) => {
-      state.basket = payload
+      state.basket = payload ?? initialBasketState.basket;
       addFulfilledState(state);
     })
     
@@ -50,7 +50,7 @@ export const basketReducer = createReducer(initialBasketState, (builder) => {
     
     .addCase(clearBasketThunk.pending, addPendingState)
     .addCase(clearBasketThunk.fulfilled, (state) => {
-      state = initialBasketState;
+      state.basket = initialBasketState.basket;
       addFulfilledState(state);
     })
     .addCase(clearBasketThunk.rejected, addRejectState);

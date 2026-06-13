@@ -13,6 +13,7 @@ import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
 import { SearchModal } from './SearchModal/SearchModal';
 import { ROUTES } from '../../../constants/routes';
 import { basketProductsCountSelector } from '../../../store/basket/selectors';
+import { savedProductsCountSelector } from '../../../store/saved/selectors';
 
 export const HeaderMainContent: React.FC = () => {
   const [isCatalogMenuModalOpen, setIsCatalogMenuModalOpen] =
@@ -20,6 +21,7 @@ export const HeaderMainContent: React.FC = () => {
   const [isSearchModalOpen, setIsSearchModalOpen] = React.useState(false);
   
   const cartTotalItems = useSelector(basketProductsCountSelector);
+  const savedTotalItems = useSelector(savedProductsCountSelector);
 
   return (
     <div className={cls.container}>
@@ -60,7 +62,7 @@ export const HeaderMainContent: React.FC = () => {
           badgeCount={cartTotalItems}
           showBadge
         />
-        <IconLink href="/" iconType={IconType.Heart_24} />
+        <IconLink href={ROUTES.saved} iconType={IconType.Heart_24} badgeCount={savedTotalItems} showBadge />
         <ProfileButton />
       </div>
 

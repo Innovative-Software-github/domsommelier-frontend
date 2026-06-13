@@ -3,6 +3,7 @@
 import React, { memo } from 'react';
 import { ProductCard } from './ProductCard';
 import { useProductBasket } from '../../hooks/basket/useProductBasket';
+import { useProductSaved } from '../../hooks/saved/useProductSaved';
 import { TProductCard } from '../../services/products/interfaces/base';
 
 interface IProductCardWithBasketProps {
@@ -14,7 +15,14 @@ export const ProductCardWithBasket = memo<IProductCardWithBasketProps>(({
   option,
   className,
 }) => {
-  const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange, isProductInBasketLoading } = useProductBasket(option.id);
+  const {
+    isInBasket,
+    currentQuantity,
+    handleAddToBasket,
+    handleQuantityChange,
+    isProductInBasketLoading,
+  } = useProductBasket(option.id);
+  const { isSaved, handleToggleSaved, isProductSavedLoading } = useProductSaved(option.id);
 
   return (
     <ProductCard
@@ -25,6 +33,9 @@ export const ProductCardWithBasket = memo<IProductCardWithBasketProps>(({
       onAddToBasket={handleAddToBasket}
       onUpdateQuantity={(quantity) => handleQuantityChange(quantity)}
       isProductInBasketLoading={isProductInBasketLoading}
+      isSaved={isSaved}
+      isProductSavedLoading={isProductSavedLoading}
+      onToggleFavorite={handleToggleSaved}
     />
   );
 });

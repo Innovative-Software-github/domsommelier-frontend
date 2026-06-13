@@ -26,5 +26,14 @@ export const ApiEndpoint = {
     removeFromBasket: (customerId: string, productId: string) =>
       `/api/v1/basket/${customerId}/remove/${productId}`,
     clearBasket: (customerId: string) => `/api/v1/basket/${customerId}/clear`,
-  }
+  },
+
+  saved: {
+    getSaved: (customerId: string) => `/api/v1/saved/${customerId}`,
+    addToSaved: (customerId: string, productId: string) =>
+      `/api/v1/saved/${customerId}/add/${productId}`,
+    removeFromSaved: (customerId: string, productId: string) =>
+      `/api/v1/saved/${customerId}/remove/${productId}`,
+    clearSaved: (customerId: string) => `/api/v1/saved/${customerId}/clear`,
+  },
 } as const;

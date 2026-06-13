@@ -1,23 +1,25 @@
 import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
-import { IAuthConfirmResponse } from './interfaces';
+import { IAuthConfirmResponse, IAuthInitiateResponse } from './interfaces';
 
 export const authInitiate = (email: string) => {
-  return customFetch<void>(
+  return customFetch<IAuthInitiateResponse, { email: string }>(
     {
-      path: `${ApiEndpoint.auth.initiate}?email=${encodeURIComponent(email)}`,
+      path: ApiEndpoint.auth.initiate,
       method: 'POST',
       withErrorHandling: true,
     },
+    { email },
   );
 };
 
 export const authConfirm = (email: string, code: string) => {
-  return customFetch<IAuthConfirmResponse>(
+  return customFetch<IAuthConfirmResponse, { email: string; code: string }>(
     {
-      path: `${ApiEndpoint.auth.confirm}?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`,
+      path: ApiEndpoint.auth.confirm,
       method: 'POST',
       withErrorHandling: true,
     },
+    { email, code },
   );
 };

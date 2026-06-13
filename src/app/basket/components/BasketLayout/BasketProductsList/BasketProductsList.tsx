@@ -1,32 +1,20 @@
 'use client';
 
-import { useSelector } from "react-redux";
-import { basketProductsSelector } from "../../../../../store/basket/selectors";
-import { ProductCardRow } from "../../../../../ui/ProductCardRow/ProductCardRow";
-import { useBasket } from "../../../../../hooks/basket/useBasket";
+import { useSelector } from 'react-redux';
+import { basketProductsSelector } from '../../../../../store/basket/selectors';
 import cls from './BasketProductsList.module.scss';
-import { BlockContainer } from "../../../../../ui/BlockContainer/BlockContainer";
+import { BlockContainer } from '../../../../../ui/BlockContainer/BlockContainer';
+import { BasketProductRow } from './BasketProductRow/BasketProductRow';
 
-export interface IBasketProductsListProps { }
-
-export const BasketProductsList: React.FC<IBasketProductsListProps> = () => {
+export const BasketProductsList: React.FC = () => {
   const products = useSelector(basketProductsSelector);
-  const { updateQuantity, removeFromBasket } = useBasket();
-
-  const handleUpdateQuantity = async (productId: string, quantity: number) => {
-    await updateQuantity(productId, quantity);
-  };
 
   return (
     <BlockContainer className={cls.productsList}>
       {products.map((product) => (
-        <ProductCardRow
+        <BasketProductRow
           key={product.product.id}
-          option={product.product}
-          isInBasket={true}
-          currentQuantity={product.quantity}
-          onUpdateQuantity={(quantity) => handleUpdateQuantity(product.product.id, quantity)}
-          onRemoveFromBasket={() => removeFromBasket(product.product.id)}
+          product={product}
         />
       ))}
     </BlockContainer>

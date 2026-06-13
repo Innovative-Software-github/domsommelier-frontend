@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import clsx from 'clsx';
 
 import cls from './ProductActionPanel.module.scss';
 import { Button } from '../../../../../../ui/Button/Button';
@@ -9,6 +10,7 @@ import { IconType } from '../../../../../../ui/Icon/IconsMapping';
 import { QuantityButton } from '../../../../../../ui/QuantityButton/QuantityButton';
 import { useProductPrice } from '../../../../../../hooks/useProductPrice';
 import { useProductBasket } from '../../../../../../hooks/basket/useProductBasket';
+import { useProductSaved } from '../../../../../../hooks/saved/useProductSaved';
 
 export interface IProductActionPanelProps {
   productId: string;
@@ -23,14 +25,21 @@ export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
 }) => {
   const { hasDiscount, currentPrice } = useProductPrice(price, discount);
   const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange } = useProductBasket(productId);
+  const { isSaved, handleToggleSaved, isProductSavedLoading } = useProductSaved(productId);
 
   return (
     <div className={cls.container}>
       {hasDiscount && <div className={cls.oldPrice}>{price} ₽</div>}
       <div className={cls.price}>{currentPrice} ₽</div>
       <div className={cls.actions}>
-        <Button className={cls.favoriteButton} variant="darkOutlined">
-          <Icon className={cls.heartIcon} type={IconType.Heart_24} />
+        <Button
+          className={cls.favoriteButton}
+          variant="darkOutlined"
+          onClick={handleToggleSaved}
+          isLoading={isProductSavedLoading}
+          isDisabled={isProductSavedLoading}
+        >
+          <Icon className={clsx(cls.heartIcon, isSaved && cls.heartIconActive)} type={IconType.Heart_24} />
         </Button>
         
         {isInBasket ? (

@@ -9,6 +9,7 @@ import { IServerData, TAppStore } from '@/store/interfaces';
 import { AuthModalProvider } from '@/components/AuthModal/AuthModalContext';
 import { AuthModal } from '@/components/AuthModal/AuthModal';
 import { useRestoreAuthSession } from '@/hooks/useRestoreAuthSession';
+import { useSyncCartOnAuth } from '@/hooks/useSyncCartOnAuth';
 
 interface IProvidersProps {
   children: ReactNode;
@@ -17,6 +18,7 @@ interface IProvidersProps {
 
 function AuthSessionRestorer({ children }: { children: ReactNode }) {
   useRestoreAuthSession();
+  useSyncCartOnAuth();
   return <>{children}</>;
 }
 
