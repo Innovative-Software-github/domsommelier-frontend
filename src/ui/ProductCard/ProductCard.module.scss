@@ -47,13 +47,21 @@
   }
 }
 
+.favoriteButtonActive {
+  background: rgba(104, 10, 8, 0.1);
+
+  .heartIcon {
+    color: #680a08;
+  }
+}
+
 .heartIcon {
   color: #bdbdbd;
   transition: color 150ms;
 }
 
 .heartIconActive {
-  color: #242424;
+  color: #680a08;
 }
 
 .image {

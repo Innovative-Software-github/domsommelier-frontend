@@ -17,7 +17,13 @@ export const savedProductsMapSelector = createSelector(
   [savedProductsSelector],
   (items) => {
     const map = new Map<string, true>();
-    items.forEach((item) => map.set(item.product.id, true));
+    items.forEach((item) => {
+      const productId = item.product?.id;
+
+      if (productId) {
+        map.set(productId, true);
+      }
+    });
     return map;
   },
 );

@@ -21,9 +21,9 @@ export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
   const dispatch = useDispatch();
   const { filters, updateFilterArray, applyFilters } = useFilters(productType);
 
-  React.useMemo(() => {
+  React.useEffect(() => {
     dispatch(setInitialProductCards(initialProductCards));
-  }, []);
+  }, [dispatch, initialProductCards]);
 
   return (
     <>

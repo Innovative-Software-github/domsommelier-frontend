@@ -61,7 +61,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
           <button
             type="button"
             aria-label={isSaved ? 'Удалить из избранного' : 'Добавить в избранное'}
-            className={cls.favoriteButton}
+            className={clsx(cls.favoriteButton, isSaved && cls.favoriteButtonActive)}
             onClick={handleToggleFavorite}
             disabled={isProductSavedLoading}
           >

@@ -18,11 +18,11 @@ export const getFilteredProducts = async (
       path: `${ApiEndpoint.products.getFilteredProducts}?category=${category}`,
       method: 'POST',
     },
-    filters
+    filters,
   );
 
   return response;
-}
+};
 
 export const getProductById = async (id: string) => {
   const response = await customFetch<TProduct, { id: string }>(

@@ -55,7 +55,7 @@
 
 // quantity section
 .quantitySection {
-  flex: 0 0 175px;
+  flex: 0 0 234px;
   padding: 0 30px 0 40px;
 }
 // quantity section end
@@ -101,3 +101,7 @@
   color: #242424;
 }
 // actions section end
+
+.addButton[class] {
+  padding: 12px
+}

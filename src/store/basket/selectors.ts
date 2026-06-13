@@ -17,8 +17,12 @@ export const basketProductsMapSelector = createSelector(
   [basketProductsSelector],
   (items) => {
     const itemsMap = new Map();
-    items.forEach(item => {
-      itemsMap.set(item.product.id, item);
+    items.forEach((item) => {
+      const productId = item.product?.id;
+
+      if (productId) {
+        itemsMap.set(productId, item);
+      }
     });
     return itemsMap;
   },

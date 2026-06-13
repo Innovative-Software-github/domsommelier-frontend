@@ -183,9 +183,11 @@ export async function customFetch<
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
+      const errorBody = await response.json().catch(() => null);
 
-      throw error;
+      throw new Error(
+        `API ${method} ${url} failed with ${response.status}${errorBody ? `: ${JSON.stringify(errorBody)}` : ''}`,
+      );
     }
 
     return response.json();

@@ -126,17 +126,19 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
             height={24}
           />
         </button>
-        <button
-          aria-label="Удалить из корзины"
-          className={cls.actionButton}
-          onClick={handleRemoveFromBasket}
-        >
-          <Icon
-            type={IconType.Cancel_24}
-            width={24}
-            height={24}
-          />
-        </button>
+        {onRemoveFromBasket && (
+          <button
+            aria-label="Удалить из корзины"
+            className={cls.actionButton}
+            onClick={handleRemoveFromBasket}
+          >
+            <Icon
+              type={IconType.Cancel_24}
+              width={24}
+              height={24}
+            />
+          </button>
+        )}
       </div>
     </article>
   );
