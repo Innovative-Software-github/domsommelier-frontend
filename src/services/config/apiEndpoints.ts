@@ -18,6 +18,10 @@ export const ApiEndpoint = {
     confirm: '/api/v1/auth/confirm',
   },
 
+  customer: {
+    getProfile: '/customer/profile',
+  },
+
   basket: {
     getBasket: (customerId: string) => `/api/v1/basket/${customerId}`,
     // TODO: Засинхрониться с беком и перенести в body кверю
@@ -35,5 +39,15 @@ export const ApiEndpoint = {
     removeFromSaved: (customerId: string, productId: string) =>
       `/api/v1/saved/${customerId}/remove/${productId}`,
     clearSaved: (customerId: string) => `/api/v1/saved/${customerId}/clear`,
+  },
+
+  wineStores: {
+    getAll: (page = 0, size = 50) => `/api/v1/wine-stores?page=${page}&size=${size}`,
+    getById: (id: number) => `/api/v1/wine-stores/${id}`,
+  },
+
+  orders: {
+    checkout: (customerId: string, wineStoreId: number) =>
+      `/api/v1/basket/${customerId}/checkout/${wineStoreId}`,
   },
 } as const;

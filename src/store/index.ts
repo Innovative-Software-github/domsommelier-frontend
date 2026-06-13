@@ -10,6 +10,7 @@ import basketReducer from './basket/reducers';
 import savedReducer from './saved/reducers';
 import { cityReducer } from './city/reducers';
 import { authReducer } from './auth/reducers';
+import checkoutReducer from './checkout/reducers';
 
 export function createStore(preloadedState?: IServerData) {
   return configureStore({
@@ -21,6 +22,7 @@ export function createStore(preloadedState?: IServerData) {
       savedReducer,
       city: cityReducer,
       auth: authReducer,
+      checkout: checkoutReducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

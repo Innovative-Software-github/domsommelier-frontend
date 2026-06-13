@@ -3,20 +3,22 @@
 import React from 'react';
 import cls from './PickupStoreModalList.module.scss';
 import { PickupStoreModalListItem } from './PickupStoreModalListItem/PickupStoreModalListItem';
-import { MOCK_STORES } from '../utils';
+import { IWineStore } from '../../../../../../services/wine-stores/interfaces';
 
 interface PickupStoreModalListProps {
-  selectedStoreId: string | null;
-  onStoreSelect: (storeId: string) => void;
+  stores: IWineStore[];
+  selectedStoreId: number | null;
+  onStoreSelect: (storeId: number) => void;
 }
 
 export const PickupStoreModalList: React.FC<PickupStoreModalListProps> = ({
+  stores,
   selectedStoreId,
   onStoreSelect,
 }) => {
   return (
     <div className={cls.container}>
-      {MOCK_STORES.map((store) => (
+      {stores.map((store) => (
         <PickupStoreModalListItem
           key={store.id}
           store={store}
@@ -27,4 +29,3 @@ export const PickupStoreModalList: React.FC<PickupStoreModalListProps> = ({
     </div>
   );
 };
-

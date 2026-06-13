@@ -12,6 +12,7 @@ export const ROUTES = {
   basket: '/basket',
   saved: '/saved',
   checkout: '/checkout',
+  checkoutSuccess: '/checkout/success',
   search: '/search',
   product: '/product',
   profile: '/profile',

@@ -1,6 +1,8 @@
 'use client'
 
 import React from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 import { ContentContainer } from "../../../../ui/ContentContainer/ContentContainer";
 import { DeliveryMethod } from "../DeliveryMethod/DeliveryMethod";
 import { PaymentMethod } from "../PaymentMethod/PaymentMethod";
@@ -13,16 +15,19 @@ import { CustomerInfo } from "../CustomerInfo/CustomerInfo";
 import { OrderSummary } from "../../../../components/OrderSummary/OrderSummary";
 import { Promocode } from "../Promocode/Promocode";
 import { PickupFromStore } from "../PickupFromStore/PickupFromStore";
+import { useCheckout } from "../../../../hooks/checkout/useCheckout";
+import { basketIsEmptySelector } from "../../../../store/basket/selectors";
+import { authCustomerSelector } from "../../../../store/auth/selectors";
+import { ROUTES } from "../../../../constants/routes";
 
-// TODO: Подключить правильный интерфейс когда будем доставать магазины с сервера
 interface ISelectedStore {
-  id: string;
+  id: number;
   name: string;
   address: string;
   workingHours: string;
 }
 
-interface ICheckoutResponse {
+interface ICheckoutFormState {
   deliveryMethod: TDeliveryOptionType;
   paymentMethod: TPaymentOptionType;
   customerName: string;
@@ -32,46 +37,75 @@ interface ICheckoutResponse {
 }
 
 export const CheckoutLayout: React.FC = () => {
-  const [checkoutResponse, setCheckoutResponse] = React.useState<ICheckoutResponse>({
+  const router = useRouter();
+  const authCustomer = useSelector(authCustomerSelector);
+  const isBasketEmpty = useSelector(basketIsEmptySelector);
+  const { checkout, isSubmitting } = useCheckout();
+
+  const [formState, setFormState] = React.useState<ICheckoutFormState>({
     deliveryMethod: 'pickup',
     paymentMethod: 'onsite',
-    customerName: '',
+    customerName: authCustomer
+      ? `${authCustomer.firstName ?? ''} ${authCustomer.secondName ?? ''}`.trim()
+      : '',
     customerPhone: '',
     selectedStore: undefined,
     pickupDate: undefined,
   });
 
-  const checkoutResponseUpdater = createObjectUpdater(setCheckoutResponse);
+  React.useEffect(() => {
+    if (isBasketEmpty) {
+      router.replace(ROUTES.basket);
+    }
+  }, [isBasketEmpty, router]);
+
+  const formUpdater = createObjectUpdater(setFormState);
+
+  const isFormValid =
+    !!formState.selectedStore &&
+    !!formState.pickupDate &&
+    formState.customerName.trim().length > 0 &&
+    formState.customerPhone.trim().length > 0;
+
+  const handleSubmit = () => {
+    if (!formState.selectedStore || !isFormValid) return;
+    checkout(formState.selectedStore.id);
+  };
 
   return (
     <ContentContainer className={cls.container}>
       <div className={cls.registrationInfo}>
         <DeliveryMethod
-          selectedType={checkoutResponse.deliveryMethod}
-          onSelectType={(type) => checkoutResponseUpdater('deliveryMethod', type)}
+          selectedType={formState.deliveryMethod}
+          onSelectType={(type) => formUpdater('deliveryMethod', type)}
         />
 
         <PickupFromStore
-          selectedStore={checkoutResponse.selectedStore}
-          onStoreSelect={(store) => checkoutResponseUpdater('selectedStore', store)}
-          selectedDate={checkoutResponse.pickupDate}
-          onDateSelect={(date) => checkoutResponseUpdater('pickupDate', date)}
+          selectedStore={formState.selectedStore}
+          onStoreSelect={(store) => formUpdater('selectedStore', store)}
+          selectedDate={formState.pickupDate}
+          onDateSelect={(date) => formUpdater('pickupDate', date)}
         />
 
         <PaymentMethod
-          selectedType={checkoutResponse.paymentMethod}
-          onSelectType={(type) => checkoutResponseUpdater('paymentMethod', type)}
+          selectedType={formState.paymentMethod}
+          onSelectType={(type) => formUpdater('paymentMethod', type)}
         />
 
         <CustomerInfo
-          name={checkoutResponse.customerName}
-          phone={checkoutResponse.customerPhone}
-          onChangeName={(value) => checkoutResponseUpdater('customerName', value)}
-          onChangePhone={(value) => checkoutResponseUpdater('customerPhone', value)}
+          name={formState.customerName}
+          phone={formState.customerPhone}
+          onChangeName={(value) => formUpdater('customerName', value)}
+          onChangePhone={(value) => formUpdater('customerPhone', value)}
         />
       </div>
       <div className={cls.orderInfo}>
-        <OrderSummary actionText="Оформить заказ" />
+        <OrderSummary
+          actionText="Оформить заказ"
+          onActionClick={handleSubmit}
+          isActionLoading={isSubmitting}
+          isActionDisabled={!isFormValid || isSubmitting}
+        />
         <Promocode />
       </div>
     </ContentContainer>

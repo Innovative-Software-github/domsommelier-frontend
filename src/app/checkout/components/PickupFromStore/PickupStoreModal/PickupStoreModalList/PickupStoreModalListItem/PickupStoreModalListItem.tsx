@@ -1,10 +1,10 @@
 import React from 'react';
 import cls from './PickupStoreModalListItem.module.scss';
 import clsx from 'clsx';
+import { IWineStore } from '../../../../../../../services/wine-stores/interfaces';
 
 export interface IPickupStoreModalListItemProps {
-  // TODO:уточнить тип когда подключим к серверу
-  store: any;
+  store: IWineStore;
   isSelected: boolean;
   onClick: () => void;
 }
@@ -15,7 +15,7 @@ export const PickupStoreModalListItem: React.FC<IPickupStoreModalListItemProps> 
   onClick,
 }) => {
   return (
-    <button 
+    <button
       className={clsx(cls.container, {
         [cls.selected]: isSelected,
       })}

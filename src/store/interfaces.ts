@@ -5,6 +5,7 @@ import { IBasketReducer } from "./basket/reducers";
 import { ISavedReducer } from "./saved/reducers";
 import { ICityState } from "./city/interfaces";
 import { IAuthState } from "./auth/interfaces";
+import { ICheckoutState } from "./checkout/interfaces";
 
 export type TAPIErrorDescriptor = {
   code: number;
@@ -29,6 +30,7 @@ export interface IServerData {
 export interface IStore extends IServerData {
   productCards: IProductCardsState;
   auth: IAuthState;
+  checkout: ICheckoutState;
 }
 
 export interface IStoreItemState {

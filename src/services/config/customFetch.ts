@@ -183,6 +183,11 @@ export async function customFetch<
     });
 
     if (!response.ok) {
+      if (response.status === 401 && !isServer) {
+        tokenStorage.clear();
+        window.dispatchEvent(new CustomEvent('auth:session-expired'));
+      }
+
       const errorBody = await response.json().catch(() => null);
 
       throw new Error(

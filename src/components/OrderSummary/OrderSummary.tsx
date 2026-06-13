@@ -12,11 +12,17 @@ import { OrderSummaryTotal } from './OrderSummaryTotal/OrderSummaryTotal';
 export interface IOrderSummaryProps {
   actionHref?: string;
   actionText: string;
+  onActionClick?: () => void;
+  isActionLoading?: boolean;
+  isActionDisabled?: boolean;
 }
 
 export const OrderSummary: React.FC<IOrderSummaryProps> = ({
   actionHref = ROUTES.checkout,
   actionText,
+  onActionClick,
+  isActionLoading,
+  isActionDisabled,
 }) => {
   const totalPrice = useSelector(basketTotalPriceSelector);
   const discount = useSelector(basketDiscountSelector);
@@ -45,7 +51,10 @@ export const OrderSummary: React.FC<IOrderSummaryProps> = ({
 
       <Button
         className={cls.button}
-        href={actionHref}
+        href={onActionClick ? undefined : actionHref}
+        onClick={onActionClick}
+        isLoading={isActionLoading}
+        isDisabled={isActionDisabled}
       >
         {actionText}
       </Button>

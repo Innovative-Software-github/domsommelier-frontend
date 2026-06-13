@@ -10,9 +10,8 @@ import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
 import { PickupStoreModal } from './PickupStoreModal/PickupStoreMap';
 import { PickupFromStoreDate } from './PickupFromStoreDate/PickupFromStoreDate';
 
-// TODO: Подключить правильный интерфейс когда будем доставать магазины с сервера
 export interface ISelectedStore {
-  id: string;
+  id: number;
   name: string;
   address: string;
   workingHours: string;

@@ -1,7 +1,9 @@
 'use client';
 
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import NextTopLoader from 'nextjs-toploader';
 
 import { createStore } from '@/store';
@@ -10,6 +12,8 @@ import { AuthModalProvider } from '@/components/AuthModal/AuthModalContext';
 import { AuthModal } from '@/components/AuthModal/AuthModal';
 import { useRestoreAuthSession } from '@/hooks/useRestoreAuthSession';
 import { useSyncCartOnAuth } from '@/hooks/useSyncCartOnAuth';
+import { logoutAction } from '@/store/auth/actions';
+import { ROUTES } from '@/constants/routes';
 
 interface IProvidersProps {
   children: ReactNode;
@@ -17,8 +21,23 @@ interface IProvidersProps {
 }
 
 function AuthSessionRestorer({ children }: { children: ReactNode }) {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   useRestoreAuthSession();
   useSyncCartOnAuth();
+
+  useEffect(() => {
+    const handler = () => {
+      dispatch(logoutAction());
+      router.replace(ROUTES.home);
+    };
+
+    window.addEventListener('auth:session-expired', handler);
+
+    return () => window.removeEventListener('auth:session-expired', handler);
+  }, [dispatch, router]);
+
   return <>{children}</>;
 }
 

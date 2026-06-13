@@ -1,36 +1,52 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cls from './PickupStoreMap.module.scss';
 import { PickupStoreModalList } from './PickupStoreModalList/PickupStoreModalList';
 import { PickupStoreModalMap } from './PickupStoreModalMap/PickupStoreModalMap';
-import { MOCK_STORES, DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, SELECTED_STORE_ZOOM } from './utils';
+import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, SELECTED_STORE_ZOOM } from './utils';
 import { ISelectedStore } from '../PickupFromStore';
+import { getWineStores } from '../../../../../services/wine-stores/requests';
+import { IWineStore } from '../../../../../services/wine-stores/interfaces';
 
 export interface IPickupStoreModalProps {
   selectedStore?: ISelectedStore;
   onStoreSelect: (store: ISelectedStore) => void;
 }
 
-export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({ 
+export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
   selectedStore,
-  onStoreSelect 
+  onStoreSelect,
 }) => {
-  const [selectedStoreId, setSelectedStoreId] = useState<string | null>(
-    selectedStore?.id || MOCK_STORES[0].id
+  const [stores, setStores] = useState<IWineStore[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedStoreId, setSelectedStoreId] = useState<number | null>(
+    selectedStore?.id ?? null,
   );
   const [mapState, setMapState] = useState({
     center: DEFAULT_MAP_CENTER,
     zoom: DEFAULT_MAP_ZOOM,
   });
 
-  const handleStoreSelect = (storeId: string) => {
+  useEffect(() => {
+    getWineStores()
+      .then((page) => {
+        setStores(page.content);
+        if (selectedStoreId === null && page.content.length > 0) {
+          setSelectedStoreId(page.content[0].id);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  const handleStoreSelect = (storeId: number) => {
     setSelectedStoreId(storeId);
-    
-    const store = MOCK_STORES.find(s => s.id === storeId);
+
+    const store = stores.find((s) => s.id === storeId);
     if (store) {
       setMapState({
-        center: store.coordinates as [number, number],
+        center: [store.location.latitude, store.location.longitude],
         zoom: SELECTED_STORE_ZOOM,
       });
 
@@ -43,13 +59,19 @@ export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
     }
   };
 
+  if (isLoading) {
+    return <div className={cls.wrapper}><p>Загрузка винотек...</p></div>;
+  }
+
   return (
     <div className={cls.wrapper}>
-      <PickupStoreModalList 
+      <PickupStoreModalList
+        stores={stores}
         selectedStoreId={selectedStoreId}
         onStoreSelect={handleStoreSelect}
       />
-      <PickupStoreModalMap 
+      <PickupStoreModalMap
+        stores={stores}
         selectedStoreId={selectedStoreId}
         mapState={mapState}
         onStoreSelect={handleStoreSelect}
