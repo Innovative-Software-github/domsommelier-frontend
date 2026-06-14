@@ -18,7 +18,9 @@ import { PickupFromStore } from "../PickupFromStore/PickupFromStore";
 import { useCheckout } from "../../../../hooks/checkout/useCheckout";
 import { basketIsEmptySelector } from "../../../../store/basket/selectors";
 import { authCustomerSelector } from "../../../../store/auth/selectors";
-import { ROUTES } from "../../../../constants/routes";
+import { ROUTES } from '../../../../constants/routes';
+import { getProfile } from '@/services/customer/requests';
+import { getCustomerDisplayName } from '@/services/customer/utils';
 
 interface ISelectedStore {
   id: number;
@@ -45,13 +47,27 @@ export const CheckoutLayout: React.FC = () => {
   const [formState, setFormState] = React.useState<ICheckoutFormState>({
     deliveryMethod: 'pickup',
     paymentMethod: 'onsite',
-    customerName: authCustomer
-      ? `${authCustomer.firstName ?? ''} ${authCustomer.secondName ?? ''}`.trim()
-      : '',
+    customerName: authCustomer ? getCustomerDisplayName(authCustomer) : '',
     customerPhone: '',
     selectedStore: undefined,
     pickupDate: undefined,
   });
+
+  React.useEffect(() => {
+    if (!authCustomer?.id) return;
+
+    getProfile()
+      .then((profile) => {
+        const displayName = getCustomerDisplayName(profile);
+        if (!displayName) return;
+
+        setFormState((prev) => {
+          if (prev.customerName.trim()) return prev;
+          return { ...prev, customerName: displayName };
+        });
+      })
+      .catch(() => {});
+  }, [authCustomer?.id]);
 
   React.useEffect(() => {
     if (isBasketEmpty) {

@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #242424;
+}
+
+.actionButton {
+  width: auto;
+  min-width: 160px;
+}

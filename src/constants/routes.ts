@@ -16,6 +16,7 @@ export const ROUTES = {
   search: '/search',
   product: '/product',
   profile: '/profile',
+  profileOrders: '/profile/orders',
 } as const;
 
 export const PRODUCT_TYPES_SEGMENTS = {
@@ -32,4 +33,8 @@ export type TProductTypesSegments =
 
 export const getProductUrl = (productId: string): string => {
   return `${ROUTES.product}/${productId}`;
+};
+
+export const getOrderUrl = (orderId: string): string => {
+  return `${ROUTES.profileOrders}/${orderId}`;
 };

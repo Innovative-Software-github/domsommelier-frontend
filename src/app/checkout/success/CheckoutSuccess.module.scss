@@ -25,6 +25,13 @@
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
   margin-top: 24px;
+}
+
+.actionButton[class] {
+  width: auto;
+  min-width: 200px;
 }

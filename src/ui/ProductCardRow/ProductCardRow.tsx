@@ -5,24 +5,26 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { QuantityButton } from '../QuantityButton/QuantityButton';
 import { formatProductCardDescription } from '../ProductCard/utils';
-import { getProductUrl, ROUTES } from '../../constants/routes';
+import { getProductUrl } from '../../constants/routes';
 import { TProductCard } from '../../services/products/interfaces/base';
 import cls from './ProductCardRow.module.scss';
 import { Button } from '../Button/Button';
 import { Icon } from '../Icon/Icon';
 import { IconType } from '../Icon/IconsMapping';
-import { useProductPrice } from '../../hooks/useProductPrice';
 import { ProductCardRowPrice } from './ProductCardRowPrice/ProductCardRowPrice';
+import { formatPrice } from '../../utils/formatPrice';
 
 export interface IProductCardRowProps {
   option: TProductCard;
   className?: string;
-  currentQuantity: number;
+  currentQuantity?: number;
   isInBasket?: boolean;
   isFavorite?: boolean;
   isFavoriteLoading?: boolean;
+  readOnly?: boolean;
+  lineTotal?: number;
   onAddToBasket?: (productId: string) => void;
-  onUpdateQuantity: (quantity: number) => void;
+  onUpdateQuantity?: (quantity: number) => void;
   onRemoveFromBasket?: (productId: string) => void;
   onToggleFavorite?: (productId: string) => void;
 }
@@ -38,6 +40,8 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   isInBasket = false,
   isFavorite = false,
   isFavoriteLoading = false,
+  readOnly = false,
+  lineTotal,
 }) => {
   const { id, name, price, discount, productPhoto } = option;
   // const { hasDiscount, currentPrice } = useProductPrice(price, discount);
@@ -47,7 +51,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   };
 
   const handleQuantityChange = (newQuantity: number) => {
-    onUpdateQuantity(newQuantity);
+    onUpdateQuantity?.(newQuantity);
   };
 
   const handleRemoveFromBasket = () => {
@@ -93,7 +97,9 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
       </div>
 
       <div className={cls.quantitySection}>
-        {isInBasket ? (
+        {readOnly ? (
+          <p className={cls.readOnlyQuantity}>{currentQuantity} шт.</p>
+        ) : isInBasket ? (
           <QuantityButton
             value={currentQuantity}
             onChange={handleQuantityChange}
@@ -110,9 +116,16 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
         )}
       </div>
 
-      <ProductCardRowPrice price={price} discount={discount} />
+      {readOnly && lineTotal != null ? (
+        <div className={cls.readOnlyPriceSection}>
+          <p className={cls.readOnlyPrice}>{formatPrice(lineTotal)} ₽</p>
+        </div>
+      ) : (
+        <ProductCardRowPrice price={price} discount={discount} />
+      )}
 
-      <div className={cls.actionsSection}>
+      {!readOnly && (
+        <div className={cls.actionsSection}>
         <button
           aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
           className={cls.actionButton}
@@ -140,6 +153,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
           </button>
         )}
       </div>
+      )}
     </article>
   );
 };

@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 40px 0 60px;
+}
+
+.emptyContainer {
+  background: #fff;
+  padding: 80px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #242424;
+  text-transform: uppercase;
+}
+
+.emptyDescription {
+  font-size: 15px;
+  color: #717171;
+  margin-bottom: 8px;
+}
+
+.emptyButton {
+  min-width: 200px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+  background: #fff;
+}
+
+.errorText {
+  text-align: center;
+  padding: 60px 32px;
+  font-size: 15px;
+  color: #b71c1c;
+  background: #fff;
+}

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Layout } from '@/ui/Layout/Layout';
 import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 import { Button } from '@/ui/Button/Button';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES, getOrderUrl } from '@/constants/routes';
 import cls from './CheckoutSuccess.module.scss';
 
 function CheckoutSuccessContent() {
@@ -24,8 +24,28 @@ function CheckoutSuccessContent() {
             </p>
           )}
           <div className={cls.actions}>
-            <Button href={ROUTES.home}>На главную</Button>
-            <Button variant="outlined" href={ROUTES.catalog}>В каталог</Button>
+            <Button className={cls.actionButton} href={ROUTES.home}>
+              На главную
+            </Button>
+            {orderId ? (
+              <Button
+                className={cls.actionButton}
+                variant="outlined"
+                href={getOrderUrl(orderId)}
+                height="H-36"
+              >
+                Детали заказа
+              </Button>
+            ) : (
+              <Button
+                className={cls.actionButton}
+                variant="outlined"
+                href={ROUTES.profileOrders}
+                height="H-36"
+              >
+                Мои заказы
+              </Button>
+            )}
           </div>
         </div>
       </ContentContainer>

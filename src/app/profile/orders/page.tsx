@@ -1,14 +1,14 @@
 import { Layout } from '@/ui/Layout/Layout';
 import { HeaderTitle } from '@/ui/HeaderTitle/HeaderTitle';
 import { AuthGuard } from '@/components/AuthModal/AuthGuard';
-import { ProfileLayout } from './components/ProfileLayout/ProfileLayout';
+import { OrdersLayout } from './components/OrdersLayout/OrdersLayout';
 
-export default function ProfilePage() {
+export default function ProfileOrdersPage() {
   return (
     <Layout backgroundTheme="gray">
       <AuthGuard>
-        <HeaderTitle title="Личный кабинет" />
-        <ProfileLayout />
+        <HeaderTitle title="Мои заказы" />
+        <OrdersLayout />
       </AuthGuard>
     </Layout>
   );

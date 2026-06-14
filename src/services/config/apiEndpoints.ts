@@ -20,6 +20,7 @@ export const ApiEndpoint = {
 
   customer: {
     getProfile: '/customer/profile',
+    updateProfile: '/customer/profile',
   },
 
   basket: {
@@ -49,5 +50,8 @@ export const ApiEndpoint = {
   orders: {
     checkout: (customerId: string, wineStoreId: number) =>
       `/api/v1/basket/${customerId}/checkout/${wineStoreId}`,
+    list: (page = 0, size = 10) => `/api/v1/orders?page=${page}&size=${size}`,
+    getById: (id: string) => `/api/v1/orders/${id}`,
+    cancel: (id: string) => `/api/v1/orders/${id}/cancel`,
   },
 } as const;

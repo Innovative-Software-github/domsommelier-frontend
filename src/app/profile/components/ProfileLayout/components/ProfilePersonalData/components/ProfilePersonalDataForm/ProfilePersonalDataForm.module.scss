@@ -1,0 +1,16 @@
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.actionButton {
+  width: auto;
+  min-width: 160px;
+}
+
+.feedbackText {
+  font-size: 13px;
+  margin-top: 4px;
+  color: #b71c1c;
+}

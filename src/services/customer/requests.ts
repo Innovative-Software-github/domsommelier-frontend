@@ -9,3 +9,11 @@ export const getProfile = () => {
     withErrorHandling: false,
   });
 };
+
+export const updateProfile = (data: Partial<Pick<ICustomer, 'firstName' | 'secondName' | 'middleName'>>) => {
+  return customFetch<ICustomer>({
+    path: ApiEndpoint.customer.updateProfile,
+    method: 'PUT',
+    withCredentials: true,
+  }, data);
+};

@@ -22,12 +22,10 @@ export const useRestoreAuthSession = () => {
 
     dispatch(restoreSessionAction(customer));
 
-    getProfile()
+      getProfile()
       .then((profile) => {
-        if (profile.id !== customer.id) {
-          tokenStorage.setCustomer(profile);
-          dispatch(restoreSessionAction(profile));
-        }
+        tokenStorage.setCustomer(profile);
+        dispatch(restoreSessionAction(profile));
       })
       .catch(() => {
         tokenStorage.clear();
