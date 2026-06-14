@@ -22,13 +22,9 @@ export const useCheckout = () => {
       const customerId = requireCustomerId();
       if (!customerId) return;
 
-      try {
-        const orderId = await dispatch(checkoutThunk({ customerId, wineStoreId })).unwrap();
-        await dispatch(getBasketRequest(customerId));
-        router.push(`${ROUTES.checkoutSuccess}?orderId=${orderId}`);
-      } catch {
-        // error записывается в Redux store через rejected action
-      }
+      const orderId = await dispatch(checkoutThunk({ customerId, wineStoreId })).unwrap();
+      await dispatch(getBasketRequest(customerId));
+      router.push(`${ROUTES.checkoutSuccess}?orderId=${orderId}`);
     },
     [dispatch, requireCustomerId, router],
   );
