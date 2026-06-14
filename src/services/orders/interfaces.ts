@@ -27,6 +27,7 @@ export interface IOrderFull {
   totalAmount: number;
   items: IOrderedProduct[];
   customerPhone?: string;
+  customerName?: string;
   pickupDate?: string;
   paymentMethod?: string;
 }

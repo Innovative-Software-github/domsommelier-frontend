@@ -60,6 +60,13 @@ export const OrderDetailInfoSection: React.FC<IOrderDetailInfoSectionProps> = ({
           </>
         )}
 
+        {order.customerName && (
+          <>
+            <span className={cls.metaLabel}>Имя</span>
+            <span className={cls.metaValue}>{order.customerName}</span>
+          </>
+        )}
+
         {order.customerPhone && (
           <>
             <span className={cls.metaLabel}>Телефон</span>

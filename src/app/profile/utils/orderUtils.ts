@@ -34,8 +34,8 @@ export function formatPickupDate(dateStr: string): string {
 }
 
 export const PAYMENT_METHOD_LABELS: Record<string, string> = {
-  ONSITE: 'При получении',
-  ONLINE: 'Онлайн',
+  onsite: 'При получении',
+  online: 'Онлайн',
 };
 
 export function formatAmount(amount: number): string {
