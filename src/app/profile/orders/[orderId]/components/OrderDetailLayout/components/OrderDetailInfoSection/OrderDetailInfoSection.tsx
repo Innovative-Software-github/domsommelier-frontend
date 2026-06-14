@@ -7,6 +7,8 @@ import {
   STATUS_CLASS_KEYS,
   STATUS_LABELS,
   formatDate,
+  formatPickupDate,
+  PAYMENT_METHOD_LABELS,
 } from '@/app/profile/utils/orderUtils';
 import { OrderCancelBlock } from '../OrderCancelBlock/OrderCancelBlock';
 import cls from './OrderDetailInfoSection.module.scss';
@@ -44,10 +46,33 @@ export const OrderDetailInfoSection: React.FC<IOrderDetailInfoSectionProps> = ({
         <span className={cls.metaLabel}>Дата оформления</span>
         <span className={cls.metaValue}>{formatDate(order.date)}</span>
 
+        {order.pickupDate && (
+          <>
+            <span className={cls.metaLabel}>Дата самовывоза</span>
+            <span className={cls.metaValue}>{formatPickupDate(order.pickupDate)}</span>
+          </>
+        )}
+
         {order.pickupAddress && (
           <>
             <span className={cls.metaLabel}>Самовывоз из</span>
             <span className={cls.metaValue}>{order.pickupAddress}</span>
+          </>
+        )}
+
+        {order.customerPhone && (
+          <>
+            <span className={cls.metaLabel}>Телефон</span>
+            <span className={cls.metaValue}>{order.customerPhone}</span>
+          </>
+        )}
+
+        {order.paymentMethod && (
+          <>
+            <span className={cls.metaLabel}>Оплата</span>
+            <span className={cls.metaValue}>
+              {PAYMENT_METHOD_LABELS[order.paymentMethod] ?? order.paymentMethod}
+            </span>
           </>
         )}
       </div>

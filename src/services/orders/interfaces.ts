@@ -26,6 +26,9 @@ export interface IOrderFull {
   pickupAddress: string;
   totalAmount: number;
   items: IOrderedProduct[];
+  customerPhone?: string;
+  pickupDate?: string;
+  paymentMethod?: string;
 }
 
 export interface IOrdersPage {

@@ -23,6 +23,21 @@ export function formatDate(dateStr: string): string {
   });
 }
 
+export function formatPickupDate(dateStr: string): string {
+  // Backend возвращает LocalDate в формате YYYY-MM-DD
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+export const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  ONSITE: 'При получении',
+  ONLINE: 'Онлайн',
+};
+
 export function formatAmount(amount: number): string {
   return `${amount.toLocaleString('ru-RU')} ₽`;
 }

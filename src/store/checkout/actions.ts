@@ -4,9 +4,9 @@ import { ICheckoutThunkArgs } from './interfaces';
 
 export const checkoutThunk = createAsyncThunk<string, ICheckoutThunkArgs>(
   'checkout/submit',
-  async ({ customerId, wineStoreId }, { rejectWithValue }) => {
+  async ({ customerId, wineStoreId, checkoutData }, { rejectWithValue }) => {
     try {
-      return await checkoutBasket(customerId, wineStoreId);
+      return await checkoutBasket(customerId, wineStoreId, checkoutData);
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

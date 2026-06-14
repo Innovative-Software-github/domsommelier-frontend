@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../store/hooks';
 import { useRequireCustomerId } from '../useRequireCustomerId';
 import { getBasketRequest } from '../../store/basket/actions';
 import { ROUTES } from '../../constants/routes';
+import { ICheckoutData } from '../../store/checkout/interfaces';
 
 export const useCheckout = () => {
   const dispatch = useAppDispatch();
@@ -18,11 +19,11 @@ export const useCheckout = () => {
   const { requireCustomerId } = useRequireCustomerId();
 
   const checkout = useCallback(
-    async (wineStoreId: number) => {
+    async (wineStoreId: number, checkoutData: ICheckoutData) => {
       const customerId = requireCustomerId();
       if (!customerId) return;
 
-      const orderId = await dispatch(checkoutThunk({ customerId, wineStoreId })).unwrap();
+      const orderId = await dispatch(checkoutThunk({ customerId, wineStoreId, checkoutData })).unwrap();
       await dispatch(getBasketRequest(customerId));
       router.push(`${ROUTES.checkoutSuccess}?orderId=${orderId}`);
     },

@@ -94,11 +94,19 @@ export const CheckoutLayout: React.FC = () => {
   if (!isPhoneValid) validationHints.push('укажите корректный номер телефона');
 
   const handleSubmit = () => {
-    if (!formState.selectedStore || !isFormValid) return;
+    if (!formState.selectedStore || !isFormValid || !formState.pickupDate) return;
+
+    // Синхронизируем телефон в профиль параллельно (fire-and-forget)
     if (formState.customerPhone.trim()) {
       updateProfile({ phone: formState.customerPhone }).catch(() => {});
     }
-    checkout(formState.selectedStore.id);
+
+    checkout(formState.selectedStore.id, {
+      customerName: formState.customerName,
+      customerPhone: formState.customerPhone,
+      pickupDate: formState.pickupDate.toISOString().split('T')[0],
+      paymentMethod: formState.paymentMethod,
+    });
   };
 
   return (
