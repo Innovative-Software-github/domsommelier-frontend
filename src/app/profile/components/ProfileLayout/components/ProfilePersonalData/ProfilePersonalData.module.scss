@@ -9,3 +9,26 @@
   gap: 24px;
   max-width: 520px;
 }
+
+.loadError {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 520px;
+}
+
+.loadErrorText {
+  font-size: 14px;
+  color: #c0392b;
+}
+
+.retryButton {
+  align-self: flex-start;
+  font-size: 14px;
+  color: #242424;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}

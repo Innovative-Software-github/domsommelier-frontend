@@ -4,5 +4,6 @@ export interface ICustomer {
   secondName: string;
   middleName: string;
   email: string;
+  phone: string;
 }
 

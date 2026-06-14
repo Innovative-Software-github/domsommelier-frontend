@@ -18,3 +18,15 @@
   flex-direction: column;
   gap: 32px;
 }
+
+.validationHint {
+  font-size: 13px;
+  color: #888;
+  margin-top: -16px;
+}
+
+.errorMessage {
+  font-size: 13px;
+  color: #c0392b;
+  margin-top: -16px;
+}

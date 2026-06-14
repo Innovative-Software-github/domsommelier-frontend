@@ -43,6 +43,13 @@ export const ProfilePersonalDataForm: React.FC<IProfilePersonalDataFormProps> = 
         value={form.middleName}
         onChange={(e) => onFormChange('middleName', e.target.value)}
       />
+      <Input
+        theme="gray"
+        placeholder="Телефон"
+        type="tel"
+        value={form.phone}
+        onChange={(e) => onFormChange('phone', e.target.value)}
+      />
       {error && <p className={cls.feedbackText}>{error}</p>}
       <div className={cls.actions}>
         <Button className={cls.actionButton} height="H-42" onClick={onSave} isLoading={isSaving}>

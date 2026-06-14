@@ -13,8 +13,12 @@ import {
   getProfileFormFromCustomer,
   TProfileForm,
 } from './utils';
+import { useAppDispatch } from '@/store/hooks';
+import { restoreSessionAction } from '@/store/auth/actions';
+import { tokenStorage } from '@/services/auth/tokenStorage';
 
 export const ProfileLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [customer, setCustomer] = useState<ICustomer | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [form, setForm] = useState(EMPTY_PROFILE_FORM);
@@ -29,10 +33,13 @@ export const ProfileLayout: React.FC = () => {
     page,
     isLoading: isOrdersLoading,
     error: ordersError,
+    loadOrders,
     handlePageChange,
   } = useProfileOrders();
 
-  useEffect(() => {
+  const loadProfile = React.useCallback(() => {
+    setIsProfileLoading(true);
+    setProfileError(null);
     getProfile()
       .then((data) => {
         setCustomer(data);
@@ -41,6 +48,10 @@ export const ProfileLayout: React.FC = () => {
       .catch(() => setProfileError('Не удалось загрузить профиль'))
       .finally(() => setIsProfileLoading(false));
   }, []);
+
+  useEffect(() => {
+    loadProfile();
+  }, [loadProfile]);
 
   const handleFormChange = (field: keyof TProfileForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -53,6 +64,8 @@ export const ProfileLayout: React.FC = () => {
     try {
       const updated = await updateProfile(form);
       setCustomer(updated);
+      tokenStorage.setCustomer(updated);
+      dispatch(restoreSessionAction(updated));
       setIsEditing(false);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
@@ -80,12 +93,14 @@ export const ProfileLayout: React.FC = () => {
           isLoading={isProfileLoading}
           isEditing={isEditing}
           isSaving={isSaving}
-          error={profileError}
+          error={!isEditing ? null : profileError}
+          loadError={isProfileLoading ? null : (!customer ? profileError : null)}
           success={success}
           onStartEdit={() => setIsEditing(true)}
           onFormChange={handleFormChange}
           onSave={handleSave}
           onCancel={handleCancel}
+          onRetryLoad={loadProfile}
         />
 
         <ProfileOrders
@@ -95,6 +110,7 @@ export const ProfileLayout: React.FC = () => {
           isLoading={isOrdersLoading}
           error={ordersError}
           onPageChange={handlePageChange}
+          onRetry={() => loadOrders(page)}
         />
       </div>
     </ContentContainer>

@@ -31,6 +31,7 @@ export const CustomerInfo: React.FC<ICustomerInfoProps> = ({
         <Input
           theme="gray"
           placeholder="Номер телефона"
+          type="tel"
           value={phone}
           onChange={(e) => onChangePhone(e.target.value)}
         />

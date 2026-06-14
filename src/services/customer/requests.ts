@@ -10,7 +10,7 @@ export const getProfile = () => {
   });
 };
 
-export const updateProfile = (data: Partial<Pick<ICustomer, 'firstName' | 'secondName' | 'middleName'>>) => {
+export const updateProfile = (data: Partial<Pick<ICustomer, 'firstName' | 'secondName' | 'middleName' | 'phone'>>) => {
   return customFetch<ICustomer>({
     path: ApiEndpoint.customer.updateProfile,
     method: 'PUT',

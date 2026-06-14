@@ -1,40 +1,25 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 import { Pagination } from '@/ui/Pagination/Pagination';
 import { Button } from '@/ui/Button/Button';
+import { Spinner } from '@/ui/Spinner/Spinner';
 import { ROUTES } from '@/constants/routes';
-import { getOrders } from '@/services/orders/requests';
-import { IOrderHistoryItem } from '@/services/orders/interfaces';
+import { useProfileOrders } from '@/hooks/profile/useProfileOrders';
 import { OrderHistoryCard } from '@/app/profile/components/OrderHistoryCard/OrderHistoryCard';
 import cls from './OrdersLayout.module.scss';
 
 export const OrdersLayout: React.FC = () => {
-  const [orders, setOrders] = useState<IOrderHistoryItem[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-    getOrders(page - 1, 10)
-      .then((data) => {
-        setOrders(data.content);
-        setTotalPages(data.totalPages);
-      })
-      .catch(() => setError('Не удалось загрузить список заказов'))
-      .finally(() => setIsLoading(false));
-  }, [page]);
+  const { orders, totalPages, page, isLoading, error, loadOrders, handlePageChange } =
+    useProfileOrders();
 
   if (isLoading) {
     return (
       <ContentContainer>
         <div className={cls.wrapper}>
-          <div className={cls.emptyContainer}>
-            <p>Загрузка...</p>
+          <div className={cls.loadingContainer}>
+            <Spinner size="m" />
           </div>
         </div>
       </ContentContainer>
@@ -44,7 +29,12 @@ export const OrdersLayout: React.FC = () => {
   if (error) {
     return (
       <ContentContainer>
-        <p className={cls.errorText}>{error}</p>
+        <div className={cls.errorContainer}>
+          <p className={cls.errorText}>{error}</p>
+          <button className={cls.retryButton} onClick={() => loadOrders(page)} type="button">
+            Повторить
+          </button>
+        </div>
       </ContentContainer>
     );
   }
@@ -77,7 +67,7 @@ export const OrdersLayout: React.FC = () => {
               count={totalPages}
               siblingCount={1}
               boundaryCount={2}
-              onChange={setPage}
+              onChange={handlePageChange}
             />
           </div>
         )}

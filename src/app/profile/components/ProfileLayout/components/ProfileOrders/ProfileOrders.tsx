@@ -15,6 +15,7 @@ export interface IProfileOrdersProps {
   isLoading: boolean;
   error: string | null;
   onPageChange: (page: number) => void;
+  onRetry?: () => void;
 }
 
 export const ProfileOrders: React.FC<IProfileOrdersProps> = ({
@@ -24,6 +25,7 @@ export const ProfileOrders: React.FC<IProfileOrdersProps> = ({
   isLoading,
   error,
   onPageChange,
+  onRetry,
 }) => {
   const hasOrders = !isLoading && !error && orders.length > 0;
 
@@ -32,7 +34,7 @@ export const ProfileOrders: React.FC<IProfileOrdersProps> = ({
       <h2 className={cls.sectionTitle}>Мои заказы</h2>
 
       {isLoading && <ProfileOrdersLoading />}
-      {!isLoading && error && <ProfileOrdersError message={error} />}
+      {!isLoading && error && <ProfileOrdersError message={error} onRetry={onRetry} />}
       {!isLoading && !error && orders.length === 0 && <ProfileOrdersEmpty />}
       {hasOrders && (
         <ProfileOrdersContent

@@ -19,7 +19,7 @@ import { useCheckout } from "../../../../hooks/checkout/useCheckout";
 import { basketIsEmptySelector } from "../../../../store/basket/selectors";
 import { authCustomerSelector } from "../../../../store/auth/selectors";
 import { ROUTES } from '../../../../constants/routes';
-import { getProfile } from '@/services/customer/requests';
+import { getProfile, updateProfile } from '@/services/customer/requests';
 import { getCustomerDisplayName } from '@/services/customer/utils';
 
 interface ISelectedStore {
@@ -42,7 +42,7 @@ export const CheckoutLayout: React.FC = () => {
   const router = useRouter();
   const authCustomer = useSelector(authCustomerSelector);
   const isBasketEmpty = useSelector(basketIsEmptySelector);
-  const { checkout, isSubmitting } = useCheckout();
+  const { checkout, isSubmitting, error: checkoutError } = useCheckout();
 
   const [formState, setFormState] = React.useState<ICheckoutFormState>({
     deliveryMethod: 'pickup',
@@ -50,7 +50,7 @@ export const CheckoutLayout: React.FC = () => {
     customerName: authCustomer ? getCustomerDisplayName(authCustomer) : '',
     customerPhone: '',
     selectedStore: undefined,
-    pickupDate: undefined,
+    pickupDate: new Date(),
   });
 
   React.useEffect(() => {
@@ -58,12 +58,13 @@ export const CheckoutLayout: React.FC = () => {
 
     getProfile()
       .then((profile) => {
-        const displayName = getCustomerDisplayName(profile);
-        if (!displayName) return;
-
         setFormState((prev) => {
-          if (prev.customerName.trim()) return prev;
-          return { ...prev, customerName: displayName };
+          const displayName = getCustomerDisplayName(profile);
+          return {
+            ...prev,
+            customerName: prev.customerName.trim() ? prev.customerName : (displayName || prev.customerName),
+            customerPhone: prev.customerPhone.trim() ? prev.customerPhone : (profile.phone || prev.customerPhone),
+          };
         });
       })
       .catch(() => {});
@@ -77,14 +78,26 @@ export const CheckoutLayout: React.FC = () => {
 
   const formUpdater = createObjectUpdater(setFormState);
 
+  const isPhoneValid = /^(\+7|8|7)?[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/.test(
+    formState.customerPhone.trim(),
+  );
+
   const isFormValid =
     !!formState.selectedStore &&
     !!formState.pickupDate &&
     formState.customerName.trim().length > 0 &&
-    formState.customerPhone.trim().length > 0;
+    isPhoneValid;
+
+  const validationHints: string[] = [];
+  if (!formState.selectedStore) validationHints.push('выберите винотеку');
+  if (!formState.customerName.trim()) validationHints.push('укажите имя');
+  if (!isPhoneValid) validationHints.push('укажите корректный номер телефона');
 
   const handleSubmit = () => {
     if (!formState.selectedStore || !isFormValid) return;
+    if (formState.customerPhone.trim()) {
+      updateProfile({ phone: formState.customerPhone }).catch(() => {});
+    }
     checkout(formState.selectedStore.id);
   };
 
@@ -122,6 +135,12 @@ export const CheckoutLayout: React.FC = () => {
           isActionLoading={isSubmitting}
           isActionDisabled={!isFormValid || isSubmitting}
         />
+        {!isFormValid && validationHints.length > 0 && (
+          <p className={cls.validationHint}>Чтобы оформить заказ: {validationHints.join(', ')}.</p>
+        )}
+        {checkoutError && (
+          <p className={cls.errorMessage}>Не удалось оформить заказ. Попробуйте ещё раз.</p>
+        )}
         <Promocode />
       </div>
     </ContentContainer>

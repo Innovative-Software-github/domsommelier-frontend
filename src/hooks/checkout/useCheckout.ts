@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { checkoutThunk } from '../../store/checkout/actions';
-import { checkoutIsSubmittingSelector } from '../../store/checkout/selectors';
+import { checkoutErrorSelector, checkoutIsSubmittingSelector } from '../../store/checkout/selectors';
 import { useAppDispatch } from '../../store/hooks';
 import { useRequireCustomerId } from '../useRequireCustomerId';
 import { getBasketRequest } from '../../store/basket/actions';
@@ -14,6 +14,7 @@ export const useCheckout = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const isSubmitting = useSelector(checkoutIsSubmittingSelector);
+  const error = useSelector(checkoutErrorSelector);
   const { requireCustomerId } = useRequireCustomerId();
 
   const checkout = useCallback(
@@ -25,12 +26,12 @@ export const useCheckout = () => {
         const orderId = await dispatch(checkoutThunk({ customerId, wineStoreId })).unwrap();
         await dispatch(getBasketRequest(customerId));
         router.push(`${ROUTES.checkoutSuccess}?orderId=${orderId}`);
-      } catch (error) {
-        console.error('Ошибка при оформлении заказа:', error);
+      } catch {
+        // error записывается в Redux store через rejected action
       }
     },
     [dispatch, requireCustomerId, router],
   );
 
-  return { checkout, isSubmitting };
+  return { checkout, isSubmitting, error };
 };

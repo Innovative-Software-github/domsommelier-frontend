@@ -15,11 +15,13 @@ export interface IProfilePersonalDataProps {
   isEditing: boolean;
   isSaving: boolean;
   error: string | null;
+  loadError: string | null;
   success: boolean;
   onStartEdit: () => void;
   onFormChange: (field: keyof TProfileForm, value: string) => void;
   onSave: () => void;
   onCancel: () => void;
+  onRetryLoad: () => void;
 }
 
 export const ProfilePersonalData: React.FC<IProfilePersonalDataProps> = ({
@@ -29,22 +31,31 @@ export const ProfilePersonalData: React.FC<IProfilePersonalDataProps> = ({
   isEditing,
   isSaving,
   error,
+  loadError,
   success,
   onStartEdit,
   onFormChange,
   onSave,
   onCancel,
+  onRetryLoad,
 }) => {
   return (
     <div className={cls.section}>
       <ProfilePersonalDataHeader
         isLoading={isLoading}
         isEditing={isEditing}
-        onStartEdit={onStartEdit}
+        onStartEdit={!loadError ? onStartEdit : undefined}
       />
 
       {isLoading ? (
         <ProfilePersonalDataLoading />
+      ) : loadError ? (
+        <div className={cls.loadError}>
+          <p className={cls.loadErrorText}>{loadError}</p>
+          <button className={cls.retryButton} onClick={onRetryLoad} type="button">
+            Повторить
+          </button>
+        </div>
       ) : (
         <div className={cls.fieldGroup}>
           <ProfilePersonalDataContent

@@ -7,7 +7,7 @@ import cls from './ProfilePersonalDataHeader.module.scss';
 export interface IProfilePersonalDataHeaderProps {
   isLoading: boolean;
   isEditing: boolean;
-  onStartEdit: () => void;
+  onStartEdit?: () => void;
 }
 
 export const ProfilePersonalDataHeader: React.FC<IProfilePersonalDataHeaderProps> = ({

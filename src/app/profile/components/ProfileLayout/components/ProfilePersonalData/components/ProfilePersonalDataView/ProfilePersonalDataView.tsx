@@ -31,6 +31,11 @@ export const ProfilePersonalDataView: React.FC<IProfilePersonalDataViewProps> = 
         value={customer?.middleName ?? ''}
         emptyText="Не указано"
       />
+      <ProfilePersonalDataField
+        label="Телефон"
+        value={customer?.phone ?? ''}
+        emptyText="Не указан"
+      />
       {success && <p className={cls.feedbackText}>Данные успешно сохранены</p>}
     </>
   );
