@@ -1,3 +1,5 @@
+import type { UserRole } from '../auth/roles';
+
 export interface ICustomer {
   id: string;
   firstName: string;
@@ -5,5 +7,6 @@ export interface ICustomer {
   middleName: string;
   email: string;
   phone: string;
+  role?: UserRole;
 }
 

@@ -1,3 +1,5 @@
+import type { UserRole } from './roles';
+
 export interface IAuthInitiateRequest {
   email: string;
 }
@@ -16,4 +18,5 @@ export interface IAuthConfirmResponse {
   customerId: string;
   firstName: string;
   secondName: string;
+  role: UserRole;
 }
