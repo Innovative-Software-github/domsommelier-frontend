@@ -10,7 +10,6 @@ export interface IEvent {
   largeCover: string;
   city: string;
   address: string;
-  wineryIndex: string;
   description: string;
   registrationLink: string;
 }
