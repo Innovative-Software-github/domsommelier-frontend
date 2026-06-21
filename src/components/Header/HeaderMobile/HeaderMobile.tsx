@@ -2,14 +2,14 @@ import React from 'react';
 import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 import cls from './HeaderMobile.module.scss';
 import Image from 'next/image';
-import { Input } from '../../../ui/Input/Input';
+import { SearchInput } from '@/features/search/components/SearchInput/SearchInput';
 import { Icon } from '../../../ui/Icon/Icon';
 import { IconType } from '../../../ui/Icon/IconsMapping';
 import { MobileMenu } from './MobileMenu/MobileMenu';
 
 export const HeaderMobile: React.FC = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
-  const inputPrefix = <Icon type={IconType.Search_24} width={24} height={24} />;
+  const [query, setQuery] = React.useState('');
 
   return (
     <header className={cls.header}>
@@ -20,10 +20,12 @@ export const HeaderMobile: React.FC = () => {
           width={72}
           height={72}
         />
-        <Input
+        <SearchInput
           className={cls.input}
-          elPrefix={inputPrefix}
-          placeholder="Вино"
+          value={query}
+          onChange={setQuery}
+          onSubmit={() => {}}
+          theme="wineRed"
         />
 
         <button

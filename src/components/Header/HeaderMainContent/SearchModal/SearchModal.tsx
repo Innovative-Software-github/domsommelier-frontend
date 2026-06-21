@@ -2,14 +2,9 @@ import React from 'react';
 
 import cls from './SearchModal.module.scss';
 import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
-import { Input } from '../../../../ui/Input/Input';
-import { IconType } from '../../../../ui/Icon/IconsMapping';
-import { Icon } from '../../../../ui/Icon/Icon';
 import { ContentContainer } from '../../../../ui/ContentContainer/ContentContainer';
-import { Button } from '../../../../ui/Button/Button';
 import { SearchModalHeader } from './SearchModalHeader/SearchModalHeader';
 import { SearchModalBody } from './SearchModalBody/SearchModalBody';
-import { useBodyScrollLock } from '../../../../hooks/useBodyScrollLock';
 import { useBackdropClose } from '../../../../hooks/useBackdropClose';
 
 export interface ISearchModalProps {
@@ -21,9 +16,15 @@ export const SearchModal: React.FC<ISearchModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  useBodyScrollLock(isOpen);
+  const [query, setQuery] = React.useState('');
 
   const backdropRef = useBackdropClose(onClose);
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      setQuery('');
+    }
+  }, [isOpen]);
 
   const handleKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
@@ -53,8 +54,13 @@ export const SearchModal: React.FC<ISearchModalProps> = ({
       isOpen={isOpen}
     >
       <ContentContainer className={cls.container}>
-        <SearchModalHeader onClose={onClose} />
-        <SearchModalBody />
+        <SearchModalHeader
+          query={query}
+          onQueryChange={setQuery}
+          autoFocus={isOpen}
+          onClose={onClose}
+        />
+        <SearchModalBody query={query} />
       </ContentContainer>
     </Backdrop>
   );

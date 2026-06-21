@@ -1,3 +1,4 @@
+import { IPaginatedResponse } from '@/services/common/interfaces';
 import { TEventTypes } from "../../constants/events";
 
 export interface IEvent {
@@ -35,11 +36,7 @@ export interface IGetEventsRequest {
   size: number;
 }
 
-export interface IGetEventsResponse {
-  content: IEvent[];
-  totalPages: number;
-  totalElements: number;
-}
+export interface IGetEventsResponse extends IPaginatedResponse<IEvent> {}
 
 export type TGetEventByIdRequest = string;
 

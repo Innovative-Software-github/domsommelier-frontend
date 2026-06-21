@@ -6,6 +6,7 @@ export const ApiEndpoint = {
   products: {
     getProductById: '/api/v1/products',
     getFilteredProducts: '/api/v1/products/filter',
+    search: '/api/v1/products/search',
   },
 
   events: {

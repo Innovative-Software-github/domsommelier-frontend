@@ -1,36 +1,35 @@
-import * as React from 'react';
+'use client';
 
-import { Input } from '../../../../../ui/Input/Input';
-import { Icon } from '../../../../../ui/Icon/Icon';
-import { IconType } from '../../../../../ui/Icon/IconsMapping';
+import React from 'react';
+
+import { SearchInput } from '@/features/search/components/SearchInput/SearchInput';
 import { Button } from '../../../../../ui/Button/Button';
 import cls from './SearchModalHeader.module.scss';
-import { useRouter } from 'next/navigation';
-import { ROUTES } from '../../../../../constants/routes';
 
 export interface ISearchModalHeaderProps {
+  query: string;
+  onQueryChange: (value: string) => void;
+  autoFocus?: boolean;
   onClose: () => void;
 }
 
 export const SearchModalHeader: React.FC<ISearchModalHeaderProps> = ({
+  query,
+  onQueryChange,
+  autoFocus = false,
   onClose,
 }) => {
-  const router = useRouter();
+  const handleSubmit = () => {
+    onClose();
+  };
 
   return (
     <div className={cls.header}>
-      <Input
-        theme="gray"
-        elPrefix={<Icon type={IconType.Search_24} width={24} height={24} />}
-        placeholder="Поиск по каталогу"
-        onPressEnter={(e) => {
-          const text = e.currentTarget.value.trim();
-
-          if (text) {
-            router.push(`${ROUTES.search}?q=${encodeURIComponent(text)}`);
-          }
-          onClose();
-        }}
+      <SearchInput
+        value={query}
+        onChange={onQueryChange}
+        onSubmit={handleSubmit}
+        autoFocus={autoFocus}
       />
       <Button
         className={cls.closeButton}
