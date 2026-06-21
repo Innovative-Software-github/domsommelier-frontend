@@ -29,6 +29,8 @@ export interface IGetEventsRequest {
   priceMin?: number;
   priceMax?: number;
   type?: TEventTypes;
+  /** slug выбранного города — мероприятия по всем винотекам города. */
+  city?: string;
   page: number;
   size: number;
 }

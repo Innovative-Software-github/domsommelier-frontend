@@ -1,11 +1,13 @@
 'use client';
 
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { IGetEventsRequest, IGetEventsResponse } from "../../../../services/events/interfaces";
 import { EventBoard } from "../EventBoard/EventBoard";
 import { EventDatePicker } from "../EventDatePicker/EventDatePicker";
 import { EventFilters } from "../EventFilters/EventFilters";
 import { getEvents } from "../../../../services/events/requests";
+import { currentCitySelector } from "../../../../store/city/selectors";
 import { useDebouncedCallback } from "../../../../hooks/useDebouncedCallback";
 import { DEFAULT_EVENTS_PAGE, DEFAULT_EVENTS_SIZE } from "../../constants";
 import { EventEmptyList } from "../EventEmptyList/EventEmptyList";
@@ -22,16 +24,25 @@ export interface IFilters extends Omit<IGetEventsRequest, 'dateStart' | 'dateEnd
 export const EventsClient: React.FC<IEventsClientProps> = ({
   initialEvents,
 }) => {
+  const currentCity = useSelector(currentCitySelector);
+
   const [events, setEvents] = React.useState<IGetEventsResponse>(initialEvents);
   const [filters, setFilters] = React.useState<IFilters>({
     page: DEFAULT_EVENTS_PAGE,
     size: DEFAULT_EVENTS_SIZE,
   });
 
+  // Смена города в шапке делает router.refresh() → новый SSR initialEvents.
+  // Синхронизируем локальное состояние, чтобы список пересобрался под новый город.
+  React.useEffect(() => {
+    setEvents(initialEvents);
+  }, [initialEvents]);
+
   const fetchEvents = React.useCallback(async (nextFilters: IFilters) => {
     try {
       const response = await getEvents({
         ...nextFilters,
+        city: currentCity?.slug,
         dateStart: nextFilters.dateStart
           ? nextFilters.dateStart.toISOString()
           : undefined,
@@ -44,7 +55,7 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [currentCity?.slug]);
 
   const debouncedFetchEvents = useDebouncedCallback(fetchEvents, 500);
   const immediateFetchEvents = useDebouncedCallback(fetchEvents, 0);

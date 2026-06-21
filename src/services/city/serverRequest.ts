@@ -17,12 +17,16 @@ function resolveCurrentCity(cities: ICity[], cookieSlug: string | undefined): IC
 }
 
 export async function getSelectedCitySlug(): Promise<string | undefined> {
+  // cookies() вне try/catch: его DynamicServerError должен дойти до Next (роут динамический).
+  const cookieStore = await cookies();
+  const cookieSlug = cookieStore.get(CITY_COOKIE)?.value;
+
   try {
-    const [cities, cookieStore] = await Promise.all([getCities(), cookies()]);
-    return resolveCurrentCity(cities, cookieStore.get(CITY_COOKIE)?.value)?.slug;
+    const cities = await getCities();
+    return resolveCurrentCity(cities, cookieSlug)?.slug;
   } catch (error) {
     console.warn('Failed to resolve current city slug:', error);
-    return undefined;
+    return cookieSlug;
   }
 }
 
@@ -34,9 +38,12 @@ export async function getSelectedCitySlug(): Promise<string | undefined> {
  * (IP-геолокацию можно добавить здесь же как подсказку при отсутствии cookie.)
  */
 export async function getCityInitialState(): Promise<ICityState | undefined> {
+  const cookieStore = await cookies();
+  const cookieSlug = cookieStore.get(CITY_COOKIE)?.value;
+
   try {
-    const [cities, cookieStore] = await Promise.all([getCities(), cookies()]);
-    const currentCity = resolveCurrentCity(cities, cookieStore.get(CITY_COOKIE)?.value);
+    const cities = await getCities();
+    const currentCity = resolveCurrentCity(cities, cookieSlug);
 
     return { currentCity, cities };
   } catch (error) {
