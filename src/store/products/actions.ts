@@ -11,7 +11,7 @@ IAsyncThunkConfig
   'products/getFilteredProductsRequest',
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await getFilteredProducts(payload.filters, payload.productType);
+      const response = await getFilteredProducts(payload.filters, payload.productType, payload.city);
 
       return response;
     } catch (err) {

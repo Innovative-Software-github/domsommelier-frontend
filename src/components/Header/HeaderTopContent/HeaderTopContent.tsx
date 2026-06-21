@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { headerTopContentLinks } from '@/components/Header/HeaderTopContent/utils';
+import { CitySelector } from '@/components/CitySelector/CitySelector';
 import cls from './HeaderTopContent.module.scss';
 
 export const HeaderTopContent: React.FC = () => {
@@ -14,8 +15,7 @@ export const HeaderTopContent: React.FC = () => {
         ))}
       </div>
       <div className={cls.contacts}>
-        {/* todo: Сейчас тут моки, будут полноценный компонент с выпадающим списоком */}
-        <p className={cls.location}>Комсомольский проспект д.14</p>
+        <CitySelector />
         <p className={cls.photo}>+7 (342) 202 05 55</p>
       </div>
     </div>

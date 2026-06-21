@@ -7,15 +7,20 @@ import { TProduct, TProductCard } from "./interfaces/base";
 export interface IGetFilteredProductsRequest {
   filters: IFiltersState;
   productType: TProductType;
+  /** slug выбранного города — ограничивает выдачу доступным в городе ассортиментом. */
+  city?: string;
 }
 
 export const getFilteredProducts = async (
   filters: IGetFilteredProductsRequest['filters'],
   category: IGetFilteredProductsRequest['productType'],
+  city?: IGetFilteredProductsRequest['city'],
 ) => {
+  const cityQuery = city ? `&city=${encodeURIComponent(city)}` : '';
+
   const response = await customFetch<TProductCard[], IFiltersState>(
     {
-      path: `${ApiEndpoint.products.getFilteredProducts}?category=${category}`,
+      path: `${ApiEndpoint.products.getFilteredProducts}?category=${category}${cityQuery}`,
       method: 'POST',
     },
     filters,

@@ -2,6 +2,7 @@ import { TProductType } from '../../../constants/productTypes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
 import { getFilteredProducts } from '../../../services/products/requests';
+import { getSelectedCitySlug } from '../../../services/city/serverRequest';
 import { CatalogClientWrapper } from './components/CatalogClientWrapper/CatalogClientWrapper';
 import { parseFilterStateFromUrl } from './utils/parseFilterStateFromUrl';
 import { toUrlSearchParams } from './utils/toUrlSearchParams';
@@ -20,7 +21,9 @@ export default async function CatalogPage({
   const urlParams = await searchParams;
   const urlSearchParams = toUrlSearchParams(urlParams);
   const filters = parseFilterStateFromUrl(urlSearchParams);
-  const initialProductCards = await getFilteredProducts(filters, productType);
+
+  const citySlug = await getSelectedCitySlug();
+  const initialProductCards = await getFilteredProducts(filters, productType, citySlug);
 
   return (
     <Layout showCatalogLinks={false}>
