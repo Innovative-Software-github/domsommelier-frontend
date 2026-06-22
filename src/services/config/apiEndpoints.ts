@@ -57,4 +57,8 @@ export const ApiEndpoint = {
     getById: (id: string) => `/api/v1/orders/${id}`,
     cancel: (id: string) => `/api/v1/orders/${id}/cancel`,
   },
+
+  eventOrders: {
+    create: '/api/v1/event-orders',
+  },
 } as const;

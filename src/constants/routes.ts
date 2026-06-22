@@ -7,7 +7,7 @@ export const ROUTES = {
   events: '/events',
   contacts: '/contacts',
   degustation: '/degustation',
-  investments: '/investments',
+  privateEvents: '/private-events',
   privacyPolicy: '/privacy-policy',
   basket: '/basket',
   saved: '/saved',

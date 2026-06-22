@@ -10,7 +10,7 @@ export const headerTopContentLinks = [
     href: ROUTES.events,
   },
   {
-    label: 'Инвестиции',
-    href: ROUTES.investments,
+    label: 'Частные мероприятия',
+    href: ROUTES.privateEvents,
   },
 ] as const;

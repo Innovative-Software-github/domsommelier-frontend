@@ -22,7 +22,7 @@ export const footerNavigationRoutes = [
     href: ROUTES.degustation,
   },
   {
-    label: 'Инвестиции',
-    href: ROUTES.investments,
+    label: 'Частные мероприятия',
+    href: ROUTES.privateEvents,
   },
 ] as const;

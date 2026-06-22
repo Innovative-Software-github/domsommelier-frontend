@@ -5,6 +5,7 @@ import { MobileMenuItem } from './MobileMenuItem/MobileMenuItem';
 import { MobileMenuAccordion } from './MobileMenuAccordion/MobileMenuAccordion';
 import Link from 'next/link';
 import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
+import { ROUTES } from '../../../../constants/routes';
 
 export interface IMobileMenuProps {
   isOpen: boolean;
@@ -57,11 +58,8 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen, onClose }) => {
         <Link className={cls.link} href="/">
           О нас
         </Link>
-        <Link className={cls.link} href="/">
-          Инвестиции
-        </Link>
-        <Link className={cls.link} href="/">
-          Инвестиции
+        <Link className={cls.link} href={ROUTES.privateEvents}>
+          Частные мероприятия
         </Link>
       </div>
     </Backdrop>
