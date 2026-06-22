@@ -11,6 +11,7 @@ import { QuantityButton } from '../../../../../../ui/QuantityButton/QuantityButt
 import { useProductPrice } from '../../../../../../hooks/useProductPrice';
 import { useProductBasket } from '../../../../../../hooks/basket/useProductBasket';
 import { useProductSaved } from '../../../../../../hooks/saved/useProductSaved';
+import { Spinner } from '../../../../../../ui/Spinner/Spinner';
 
 export interface IProductActionPanelProps {
   productId: string;
@@ -33,13 +34,21 @@ export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
       <div className={cls.price}>{currentPrice} ₽</div>
       <div className={cls.actions}>
         <Button
-          className={cls.favoriteButton}
+          className={clsx(cls.favoriteButton, {
+            [cls.favoriteButtonSaved]: isSaved,
+          }) }
           variant="darkOutlined"
           onClick={handleToggleSaved}
-          isLoading={isProductSavedLoading}
           isDisabled={isProductSavedLoading}
         >
-          <Icon className={clsx(cls.heartIcon, isSaved && cls.heartIconActive)} type={IconType.Heart_24} />
+          {isProductSavedLoading ? (
+            <Spinner className={cls.spinner} size="l" />
+          ) : (
+          <Icon
+            className={clsx(cls.heartIcon, isSaved && cls.heartIconActive)}
+            type={IconType.Heart_24}
+            />
+          )}
         </Button>
         
         {isInBasket ? (

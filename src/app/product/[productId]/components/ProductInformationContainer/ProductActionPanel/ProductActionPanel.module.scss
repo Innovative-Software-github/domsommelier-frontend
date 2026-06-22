@@ -41,7 +41,7 @@
 }
 
 .heartIconActive {
-  color: #242424;
+  color: var(--color-red-accent);
 }
 
 .deliveryText {
@@ -49,6 +49,10 @@
   font-size: 14px;
   line-height: 140%;
   margin-bottom: 2px;
+}
+
+.favoriteButtonSaved[class] {
+  border-color: var(--color-red-accent);
 }
 
 @media (max-width: 1000px) {
