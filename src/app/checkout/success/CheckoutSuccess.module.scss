@@ -1,4 +1,4 @@
-.container {
+.fallback {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,22 +8,20 @@
   gap: 16px;
 }
 
-.title {
+.fallbackTitle {
+  margin: 0;
   font-size: 32px;
   font-weight: 600;
+  color: var(--color-red-accent);
 }
 
-.subtitle {
+.fallbackSubtitle {
+  margin: 0;
   font-size: 16px;
   color: #666;
 }
 
-.orderId {
-  font-size: 14px;
-  color: #999;
-}
-
-.actions {
+.fallbackActions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -31,7 +29,7 @@
   margin-top: 24px;
 }
 
-.actionButton[class] {
+.fallbackButton[class] {
   width: auto;
   min-width: 200px;
 }

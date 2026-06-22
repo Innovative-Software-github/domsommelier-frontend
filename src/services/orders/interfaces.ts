@@ -30,6 +30,10 @@ export interface IOrderFull {
   customerName?: string;
   pickupDate?: string;
   paymentMethod?: string;
+  storeName?: string;
+  storeAddress?: string;
+  storePhone?: string;
+  storeWorkingHours?: string;
 }
 
 export interface IOrdersPage {

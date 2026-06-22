@@ -9,8 +9,8 @@ import {
   formatDate,
   formatPickupDate,
   PAYMENT_METHOD_LABELS,
-} from '@/app/profile/utils/orderUtils';
-import { OrderCancelBlock } from '../OrderCancelBlock/OrderCancelBlock';
+} from '@/utils/order';
+import { OrderCancelBlock } from '@/components/order/OrderCancelBlock/OrderCancelBlock';
 import cls from './OrderDetailInfoSection.module.scss';
 
 export interface IOrderDetailInfoSectionProps {

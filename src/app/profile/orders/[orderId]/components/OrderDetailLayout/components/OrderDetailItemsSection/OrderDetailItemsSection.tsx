@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { formatAmount } from '@/app/profile/utils/orderUtils';
+import { formatAmount } from '@/utils/order';
 import {
   IOrderDisplayItem,
   OrderProductsList,
-} from '../OrderProductsList/OrderProductsList';
+} from '@/components/order/OrderProductsList/OrderProductsList';
 import cls from './OrderDetailItemsSection.module.scss';
 
 export interface IOrderDetailItemsSectionProps {

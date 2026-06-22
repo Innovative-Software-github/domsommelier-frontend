@@ -11,7 +11,7 @@ import {
   STATUS_LABELS,
   formatAmount,
   formatDate,
-} from '@/app/profile/utils/orderUtils';
+} from '@/utils/order';
 import cls from './OrderHistoryCard.module.scss';
 
 export interface IOrderHistoryCardProps {

@@ -1,16 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 import { Button } from '@/ui/Button/Button';
 import { Spinner } from '@/ui/Spinner/Spinner';
 import { ROUTES } from '@/constants/routes';
-import { getOrderById, cancelOrder } from '@/services/orders/requests';
-import { getProductById } from '@/services/products/requests';
-import { IOrderFull } from '@/services/orders/interfaces';
-import { mapOrderItemToProductCard } from '@/app/profile/utils/orderUtils';
-import { IOrderDisplayItem } from './components/OrderProductsList/OrderProductsList';
+import { useOrderDetail } from '@/hooks/order/useOrderDetail';
 import { OrderDetailInfoSection } from './components/OrderDetailInfoSection/OrderDetailInfoSection';
 import { OrderDetailItemsSection } from './components/OrderDetailItemsSection/OrderDetailItemsSection';
 import cls from './OrderDetailLayout.module.scss';
@@ -20,53 +16,17 @@ interface IOrderDetailLayoutProps {
 }
 
 export const OrderDetailLayout: React.FC<IOrderDetailLayoutProps> = ({ orderId }) => {
-  const [order, setOrder] = useState<IOrderFull | null>(null);
-  const [displayItems, setDisplayItems] = useState<IOrderDisplayItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isCancelling, setIsCancelling] = useState(false);
-  const [cancelError, setCancelError] = useState<string | null>(null);
-  const [cancelSuccess, setCancelSuccess] = useState(false);
-
-  const loadOrder = React.useCallback(() => {
-    setIsLoading(true);
-    setError(null);
-    getOrderById(orderId)
-      .then(async (orderData) => {
-        const items = await Promise.all(
-          orderData.items.map(async (item) => {
-            try {
-              const product = await getProductById(item.productId);
-              return { product: mapOrderItemToProductCard(item, product), quantity: item.quantity, sum: item.sum };
-            } catch {
-              return { product: mapOrderItemToProductCard(item), quantity: item.quantity, sum: item.sum };
-            }
-          }),
-        );
-        setOrder(orderData);
-        setDisplayItems(items);
-      })
-      .catch(() => setError('Не удалось загрузить заказ'))
-      .finally(() => setIsLoading(false));
-  }, [orderId]);
-
-  useEffect(() => {
-    loadOrder();
-  }, [loadOrder]);
-
-  const handleCancel = async () => {
-    setIsCancelling(true);
-    setCancelError(null);
-    try {
-      await cancelOrder(orderId);
-      setOrder((prev) => (prev ? { ...prev, statusName: 'CANCELLED' } : prev));
-      setCancelSuccess(true);
-    } catch {
-      setCancelError('Не удалось отменить заказ. Попробуйте ещё раз.');
-    } finally {
-      setIsCancelling(false);
-    }
-  };
+  const {
+    order,
+    displayItems,
+    isLoading,
+    error,
+    reload,
+    cancel,
+    isCancelling,
+    cancelError,
+    cancelSuccess,
+  } = useOrderDetail(orderId);
 
   if (isLoading) {
     return (
@@ -84,7 +44,7 @@ export const OrderDetailLayout: React.FC<IOrderDetailLayoutProps> = ({ orderId }
         <div className={cls.pageErrorContainer}>
           <p>{error ?? 'Заказ не найден'}</p>
           <div className={cls.errorActions}>
-            <Button variant="outlined" height="H-42" onClick={loadOrder}>
+            <Button variant="outlined" height="H-42" onClick={reload}>
               Повторить
             </Button>
             <Button variant="darkOutlined" height="H-42" href={ROUTES.profileOrders}>
@@ -108,7 +68,7 @@ export const OrderDetailLayout: React.FC<IOrderDetailLayoutProps> = ({ orderId }
           cancelSuccess={cancelSuccess}
           isCancelling={isCancelling}
           cancelError={cancelError}
-          onCancel={handleCancel}
+          onCancel={cancel}
         />
 
         <OrderDetailItemsSection
