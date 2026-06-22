@@ -1,6 +1,6 @@
 import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
-import { IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, TCustomerId, TProductId } from './interfaces';
+import { IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, IStoreAvailability, TCustomerId, TProductId } from './interfaces';
 
 export const getBasket = async (customerId?: TCustomerId) => {
   if (!customerId) return null;
@@ -9,6 +9,16 @@ export const getBasket = async (customerId?: TCustomerId) => {
     path: ApiEndpoint.basket.getBasket(customerId),
     method: 'GET',
     withCredentials: true,
+  });
+};
+
+/** Доступность корзины по винотекам — для блокировки выбора точки без нужных товаров. */
+export const getBasketStoreAvailability = async (customerId: TCustomerId) => {
+  return customFetch<IStoreAvailability[]>({
+    path: ApiEndpoint.basket.storeAvailability(customerId),
+    method: 'GET',
+    withCredentials: true,
+    silentError: true,
   });
 };
 

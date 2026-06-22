@@ -1,5 +1,6 @@
 import { TAPIError } from '@/store/interfaces';
 import { getBackendHost } from '@/utils/getBackendHost';
+import { notifyApiError } from '@/utils/apiError';
 import { stringifySearchParams } from '@/utils/stringifySearchParams';
 import { tokenStorage } from '@/services/auth/tokenStorage';
 import { AUTH_TOKEN_COOKIE } from '@/services/auth/constants';
@@ -62,6 +63,8 @@ export interface IHttpRequestConfig {
   contentType?: string;
   withCredentials?: boolean;
   withErrorHandling?: boolean;
+  /** Не показывать тост при ошибке запроса (когда вызывающий код сам обрабатывает ошибку). По умолчанию тост показывается. */
+  silentError?: boolean;
   signal?: AbortSignal;
   cacheStrategy?: {
     cache?: RequestCache;
@@ -146,6 +149,7 @@ export async function customFetch<
     contentType = 'application/json',
     withCredentials = true,
     withErrorHandling = false,
+    silentError = false,
     signal,
     cacheStrategy,
   }: IHttpRequestConfig,
@@ -189,6 +193,10 @@ export async function customFetch<
       }
 
       const errorBody = await response.json().catch(() => null);
+
+      if (!silentError) {
+        void notifyApiError(response.status, errorBody);
+      }
 
       throw new Error(
         `API ${method} ${url} failed with ${response.status}${errorBody ? `: ${JSON.stringify(errorBody)}` : ''}`,

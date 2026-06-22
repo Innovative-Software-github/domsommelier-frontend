@@ -26,6 +26,8 @@ export const ApiEndpoint = {
 
   basket: {
     getBasket: (customerId: string) => `/api/v1/basket/${customerId}`,
+    storeAvailability: (customerId: string) =>
+      `/api/v1/basket/${customerId}/availability`,
     // TODO: Засинхрониться с беком и перенести в body кверю
     addToBasket: (customerId: string, productId: string, quantity: number) =>
       `/api/v1/basket/${customerId}/add/${productId}?quantity=${quantity}`,

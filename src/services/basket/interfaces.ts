@@ -20,3 +20,10 @@ export interface IBasketBase {
 export interface IGetBasketResponse extends IBasketBase {}
 export interface IAddToBasketResponse extends IBasketBase {}
 export interface IRemoveFromBasketResponse extends IBasketBase {}
+
+/** Доступность корзины в конкретной винотеке (для модалки выбора винотеки). */
+export interface IStoreAvailability {
+  wineStoreId: number;
+  available: boolean;
+  unavailableProducts: string[];
+}
