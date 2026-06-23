@@ -11,19 +11,28 @@ import {
   TProductType,
 } from '../../../../../constants/productTypes';
 import { FilterControllers } from './FilterControllers/FilterControllers';
+import { CatalogPagination } from './CatalogPagination/CatalogPagination';
 import {
   productCardsInitialLoadedSelector,
+  productCardsLastSelector,
   productCardsLoadingSelector,
+  productCardsPageSelector,
   productCardsSelector,
+  productCardsTotalPagesSelector,
 } from '../../../../../store/products/selectors';
 import { IFiltersState } from '../FiltersPanel/FiltersFabric/interfaces';
 import { TProductCard } from '../../../../../services/products/interfaces/base';
+import { TSortOption } from '../../utils/catalogQuery';
 
 export interface ICatalogBoardProps {
   productType: TProductType;
   filters: IFiltersState;
   updateFilterArray: (field: string, value: any[]) => void;
   applyFilters: () => void;
+  sort: TSortOption;
+  setSort: (sort: TSortOption) => void;
+  loadMore: () => void;
+  goToPage: (page: number) => void;
 }
 
 export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
@@ -31,10 +40,20 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
   filters,
   updateFilterArray,
   applyFilters,
+  sort,
+  setSort,
+  loadMore,
+  goToPage,
 }) => {
   const productCards = useSelector(productCardsSelector);
   const isProductCardsLoading = useSelector(productCardsLoadingSelector);
   const isProductCardsInitialLoaded = useSelector(productCardsInitialLoadedSelector);
+  const page = useSelector(productCardsPageSelector);
+  const totalPages = useSelector(productCardsTotalPagesSelector);
+  const last = useSelector(productCardsLastSelector);
+
+  const hasItems = (productCards?.length ?? 0) > 0;
+  const isEmpty = !hasItems && isProductCardsInitialLoaded;
 
   return (
     <section className={cls.container}>
@@ -45,13 +64,15 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
         filters={filters}
         updateFilterArray={updateFilterArray}
         applyFilters={applyFilters}
+        sort={sort}
+        setSort={setSort}
       />
 
       <div className={clsx(cls.board, {
         [cls.isLoading]: isProductCardsLoading,
-        [cls.emptyState]: productCards.length === 0 && isProductCardsInitialLoaded,
+        [cls.emptyState]: isEmpty,
       })}>
-        {productCards.map((card: TProductCard) => (
+        {productCards?.map((card: TProductCard) => (
           <ProductCardWithBasket
             key={card.id}
             option={card}
@@ -59,12 +80,21 @@ export const CatalogBoard: React.FC<ICatalogBoardProps> = ({
           />
         ))}
 
-        {productCards.length === 0 && isProductCardsInitialLoaded && (
+        {isEmpty && (
           <div className={cls.emptyList}>
             <p>Ничего не найдено</p>
           </div>
         )}
       </div>
+
+      <CatalogPagination
+        page={page}
+        totalPages={totalPages}
+        last={last}
+        hasItems={hasItems}
+        onLoadMore={loadMore}
+        onGoToPage={goToPage}
+      />
     </section>
   );
 };

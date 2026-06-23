@@ -57,4 +57,17 @@ export type TProductCard =
   | IChampagneAndSparklingProductCard
   | ILowAlcoholProductCard;
 
-export type TGetFilteredProductsResponse = TProductCard[];
+/** Постраничный ответ бэкенда (Spring Page) — для каталога с пагинацией. */
+export interface IPagedResponse<T> {
+  content: T[];
+  /** Текущая страница (0-based). */
+  number: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  numberOfElements: number;
+}
+
+export type TGetFilteredProductsResponse = IPagedResponse<TProductCard>;

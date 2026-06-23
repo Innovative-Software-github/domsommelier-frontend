@@ -2,7 +2,7 @@
 
 import React from "react";
 import { TProductType } from "../../../../../constants/productTypes";
-import { TProductCard } from "../../../../../services/products/interfaces/base";
+import { TGetFilteredProductsResponse } from "../../../../../services/products/interfaces/base";
 import { CatalogBoard } from "../CatalogBoard/CatalogBoard";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useFilters } from "../../utils/useFilters";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 
 export interface ICatalogClientWrapperProps {
   productType: TProductType;
-  initialProductCards: TProductCard[];
+  initialProductCards: TGetFilteredProductsResponse;
 }
 
 export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
@@ -19,7 +19,8 @@ export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
   initialProductCards,
 }) => {
   const dispatch = useDispatch();
-  const { filters, updateFilterArray, applyFilters } = useFilters(productType);
+  const { filters, sort, updateFilterArray, applyFilters, setSort, loadMore, goToPage } =
+    useFilters(productType);
 
   React.useEffect(() => {
     dispatch(setInitialProductCards(initialProductCards));
@@ -36,8 +37,13 @@ export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
 
       <CatalogBoard
         productType={productType}
-        filters={filters} updateFilterArray={updateFilterArray}
+        filters={filters}
+        updateFilterArray={updateFilterArray}
         applyFilters={applyFilters}
+        sort={sort}
+        setSort={setSort}
+        loadMore={loadMore}
+        goToPage={goToPage}
       />
     </>
   );

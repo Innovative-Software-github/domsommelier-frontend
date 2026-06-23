@@ -8,15 +8,19 @@ import { MediaQuery } from '../../../../../../constants/media';
 import { Icon } from '../../../../../../ui/Icon/Icon';
 import { IconType } from '../../../../../../ui/Icon/IconsMapping';
 import { Backdrop } from '../../../../../../ui/Backdrop/Backdrop';
+import { Select, ISelectOptions } from '../../../../../../ui/Select/Select';
 import { FiltersPanel } from '../../FiltersPanel/FiltersPanel';
 import { TProductType } from '../../../../../../constants/productTypes';
 import { IFiltersState } from '../../FiltersPanel/FiltersFabric/interfaces';
+import { SORT_OPTIONS, TSortOption } from '../../../utils/catalogQuery';
 
 export interface IFilterControllersProps {
   productType: TProductType;
   filters: IFiltersState;
   updateFilterArray: (field: string, value: any[]) => void;
   applyFilters: () => void;
+  sort: TSortOption;
+  setSort: (sort: TSortOption) => void;
 }
 
 export const FilterControllers: React.FC<IFilterControllersProps> = ({
@@ -24,10 +28,16 @@ export const FilterControllers: React.FC<IFilterControllersProps> = ({
   filters,
   updateFilterArray,
   applyFilters,
+  sort,
+  setSort,
 }) => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = React.useState(false);
 
   const isTablet = useMediaContext(MediaQuery.Tablet) === 'mobile';
+
+  const selectedSort = SORT_OPTIONS.find((option) => option.key === sort);
+
+  const handleSelectSort = (option: ISelectOptions) => setSort(option.key as TSortOption);
 
   return (
     <>
@@ -42,10 +52,12 @@ export const FilterControllers: React.FC<IFilterControllersProps> = ({
             <Icon type={IconType.Filters_24} width={24} height={24} />
           </button>
         )}
-        <button type="button" className={cls.button}>
-          <span className={cls.text}>По популярности</span>
-          <Icon type={IconType.ArrowDown_24} width={24} height={24} />
-        </button>
+        <Select
+          anchor="Сортировка"
+          options={SORT_OPTIONS}
+          selectedOption={selectedSort}
+          onSelect={handleSelectSort}
+        />
       </section>
 
       {isTablet && (

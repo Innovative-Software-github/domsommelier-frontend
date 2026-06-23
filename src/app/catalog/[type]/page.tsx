@@ -6,6 +6,7 @@ import { getSelectedCitySlug } from '../../../services/city/serverRequest';
 import { CatalogClientWrapper } from './components/CatalogClientWrapper/CatalogClientWrapper';
 import { parseFilterStateFromUrl } from './utils/parseFilterStateFromUrl';
 import { toUrlSearchParams } from './utils/toUrlSearchParams';
+import { PAGE_SIZE, parsePageFromParams, parseSortFromParams } from './utils/catalogQuery';
 
 import cls from './CatalogPage.module.scss';
 
@@ -21,9 +22,15 @@ export default async function CatalogPage({
   const urlParams = await searchParams;
   const urlSearchParams = toUrlSearchParams(urlParams);
   const filters = parseFilterStateFromUrl(urlSearchParams);
+  const sort = parseSortFromParams(urlSearchParams);
+  const page = parsePageFromParams(urlSearchParams);
 
   const citySlug = await getSelectedCitySlug();
-  const initialProductCards = await getFilteredProducts(filters, productType, citySlug);
+  const initialProductCards = await getFilteredProducts(filters, productType, citySlug, {
+    page,
+    size: PAGE_SIZE,
+    sort,
+  });
 
   return (
     <Layout showCatalogLinks={false}>

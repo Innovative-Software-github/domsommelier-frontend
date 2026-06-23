@@ -1,7 +1,13 @@
+import { RESERVED_QUERY_KEYS } from './catalogQuery';
+
 export const parseFilterStateFromUrl = (searchParams: URLSearchParams) => {
   const filters: Record<string, any> = {};
 
   searchParams.forEach((value, key) => {
+    // page/sort — не фильтры товара, в тело запроса не идут
+    if (RESERVED_QUERY_KEYS.includes(key)) {
+      return;
+    }
     if (!filters[key]) {
       filters[key] = [];
     }
