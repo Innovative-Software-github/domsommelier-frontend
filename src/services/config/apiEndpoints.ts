@@ -14,6 +14,10 @@ export const ApiEndpoint = {
     getEventById: '/api/v1/events',
   },
 
+  news: {
+    getNews: '/api/v1/news',
+  },
+
   auth: {
     initiate: '/api/v1/auth/initiate',
     confirm: '/api/v1/auth/confirm',

@@ -2,62 +2,49 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import cls from './NewsSwiper.module.scss';
-import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
+import clsx from 'clsx';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Icon } from '../../../../ui/Icon/Icon';
 import { IconType } from '../../../../ui/Icon/IconsMapping';
-import clsx from 'clsx';
+import { INews } from '@/services/news/interfaces';
+import cls from './NewsSwiper.module.scss';
 
-export const NewsSwiper: React.FC = () => {
-  const [activeIndex, setActiveIndex] = React.useState<number | undefined>(0);
+/** Плейсхолдер, если у новости нет обложки или она не загрузилась. */
+const COVER_FALLBACK = '/eventImage.png';
+
+/** Относительный coverUrl (`/api/v1/news/{id}/cover`) проксируется через /api-back на бэкенд. */
+function resolveCoverSrc(coverUrl: string | null): string {
+  if (!coverUrl) {
+    return COVER_FALLBACK;
+  }
+  return coverUrl.startsWith('http') ? coverUrl : `/api-back${coverUrl}`;
+}
+
+export interface NewsSwiperProps {
+  items: INews[];
+}
+
+const NewsSlideImage: React.FC<{ news: INews; active: boolean }> = ({ news, active }) => {
+  const [src, setSrc] = React.useState(resolveCoverSrc(news.coverUrl));
+
+  return (
+    <Image
+      className={clsx(cls.image, { [cls.activeImage]: active })}
+      src={src}
+      alt={news.title}
+      width={845}
+      height={585}
+      priority
+      onError={() => setSrc(COVER_FALLBACK)}
+    />
+  );
+};
+
+export const NewsSwiper: React.FC<NewsSwiperProps> = ({ items }) => {
+  const [activeIndex, setActiveIndex] = React.useState(0);
   const swiperRef = React.useRef<SwiperRef>(null);
-
-  const mockImages = [
-    {
-      id: 1,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
-      text: 'Дегустация Wineгрет1',
-      description:
-        'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
-    },
-    {
-      id: 2,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
-      text: 'Дегустация Wineгрет2',
-      description:
-        'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
-    },
-    {
-      id: 3,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
-      text: 'Дегустация Wineгрет3',
-      description:
-        'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
-    },
-    {
-      id: 4,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
-      text: 'Дегустация Wineгрет4',
-      description:
-        'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
-    },
-    {
-      id: 5,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Z6tmXBAERFiSM9HiHXiHMiNJ9ByNIu2qicSgApG1l2wkgADgGfAItR6ouRZUge4b8Kj-834uIBkX6LHgg5~Uflss09mDt8EwQ-f18XtOfvex5DuwzrAMuSKj-T42XAPRKSuu-y4ym3V7BxHZqNH83y7u~kGX6T5C0F6HoYUvABGcK7eidLe49-sZG0PvG8aNwle12xX2GgOT5VRy1aAGWSQlWW4p3lAaE9-dEkVTzaUd2DWUfCF~9IJ8ZpVlMsRksbiJotdoS9poaBI4Rl2QK4mY3N99nERf0puISb3qczLp4nGn~AqfjF33OEAECPmBieG4uLacqCSYgAqnU7Kkhw__',
-      text: 'Дегустация Wineгрет6',
-      description:
-        'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
-    },
-    {
-      id: 6,
-      src: 'https://s3-alpha-sig.figma.com/img/634c/8b50/d7713c005d22626faaff9d1ad42626b3?Expires=1747612800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pQtlo24zuagSBRrRMmenBwM5~dKFejh2giYU2vjeiSEYalShV6zp3BdHJGkMIVQ4OP6Cy62KA2zeKxbGvKGWFDzC4l3nE3bLgsqbcqPokO6bZIj1hpNqK7AEmEvd2jJcIMgvxZV0DyhGoUP3oS5K9B2NzIxbSmsFMZgnCv9N2ppAbEYm0XVM7KApVKbclT4sO5-bQYwKRx7vc9hSLFtdzh1uksNcSIw6xn2BEpIYgh~yvYPVoJ7XbhDTozUpyRMihSr5RPzf9wBKurSLRUdK-uijpQ5dhGlvPxJN6N5q2dg~IqGlZw6n0zcVtkBZn8B-k-9GcjEd8ckk-0Oq-5vwJA__',
-      text: 'Дегустация Wineгрет6',
-      description:
-        'Вас ждёт невероятный сет из 𝟕 образцов от изысканного игристого до насыщенного энергией солнца красного. ',
-    },
-  ];
 
   return (
     <div className={cls.sliderContainer}>
@@ -65,40 +52,29 @@ export const NewsSwiper: React.FC = () => {
         ref={swiperRef}
         slidesPerView="auto"
         centeredSlides
-        loop
+        loop={items.length > 2}
         speed={650}
         spaceBetween={24}
         className={cls.customSwiper}
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
       >
-        {mockImages.map((image, index) => {
-          return (
-            <SwiperSlide key={image.id} className={cls.customSwiperSlide}>
-              <div className={cls.imageContainer}>
-                <Image
-                  className={clsx(cls.image, {
-                    [cls.activeImage]: index === activeIndex,
-                  })}
-                  src={image.src}
-                  alt="Фото новости"
-                  width={845}
-                  height={585}
-                  priority
-                />
+        {items.map((news, index) => (
+          <SwiperSlide key={news.id} className={cls.customSwiperSlide}>
+            <div className={cls.imageContainer}>
+              <NewsSlideImage news={news} active={index === activeIndex} />
+            </div>
+            <div
+              className={clsx(cls.slideText, {
+                [cls.activeText]: index === activeIndex,
+              })}
+            >
+              <div>
+                <div className={cls.text}>{news.title}</div>
+                {news.description && <div className={cls.description}>{news.description}</div>}
               </div>
-              <div
-                className={clsx(cls.slideText, {
-                  [cls.activeText]: index === activeIndex,
-                })}
-              >
-                <div>
-                  <div className={cls.text}>{image.text}</div>
-                  <div className={cls.description}>{image.description}</div>
-                </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
 
       <div className={cls.navigationWrapper}>
@@ -106,19 +82,13 @@ export const NewsSwiper: React.FC = () => {
           className={cls.swiperButtonPrev}
           onClick={() => swiperRef.current?.swiper.slidePrev()}
         >
-          <Icon
-            className={cls.buttonPrevIconArrow}
-            type={IconType.ArrowDown_24}
-          />
+          <Icon className={cls.buttonPrevIconArrow} type={IconType.ArrowDown_24} />
         </button>
         <button
           className={cls.swiperButtonNext}
           onClick={() => swiperRef.current?.swiper.slideNext()}
         >
-          <Icon
-            className={cls.buttonNextIconArrow}
-            type={IconType.ArrowDown_24}
-          />
+          <Icon className={cls.buttonNextIconArrow} type={IconType.ArrowDown_24} />
         </button>
       </div>
     </div>
