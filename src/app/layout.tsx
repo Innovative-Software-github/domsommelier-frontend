@@ -18,6 +18,7 @@ import { getBasket } from '../services/basket/requests';
 import { createSavedInitialState } from '../store/saved/utils';
 import { getSaved } from '../services/saved/requests';
 import { getCityInitialState } from '../services/city/serverRequest';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/site';
 
 const gilroy = localFont({
   src: [
@@ -51,10 +52,36 @@ const forum = Forum({
   display: 'swap',
 });
 
-// export const metadata: Metadata = {
-//   title: 'Дом сомелье',
-//   description: 'Винный бутик Дом сомелье',
-// };
+const DEFAULT_TITLE = `${SITE_NAME} — винный бутик: вино, шампанское, крепкий алкоголь`;
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'ru_RU',
+    url: SITE_URL,
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+};
 
 export default async function RootLayout({
   children,

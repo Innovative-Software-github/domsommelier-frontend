@@ -102,3 +102,13 @@ export const getProductById = async (id: string) => {
 
   return response;
 }
+
+/** Страница всех товаров (для генерации sitemap). Бэкенд отдаёт массив карточек. */
+export const getAllProducts = async (page: number, size: number): Promise<TProductCard[]> => {
+  const response = await customFetch<TProductCard[]>({
+    path: `/api/v1/products/all?page=${page}&size=${size}`,
+    method: 'GET',
+  });
+
+  return response;
+};
