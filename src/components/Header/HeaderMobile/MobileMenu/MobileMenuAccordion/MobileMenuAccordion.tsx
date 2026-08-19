@@ -11,16 +11,18 @@ export interface IMobileMenuAccordionOption {
 export interface IMobileMenuAccordionProps {
   option: IMobileMenuAccordionOption[];
   title: string;
+  onLinkClick?: () => void;
 }
 
 export const MobileMenuAccordion: React.FC<IMobileMenuAccordionProps> = ({
   option,
   title,
+  onLinkClick,
 }) => {
   return (
     <Accordion className={cls.accordion} bodyClassName={cls.body} title={title}>
       {option.map(({ name, href }) => (
-        <Link key={name} className={cls.link} href={href}>
+        <Link key={name} className={cls.link} href={href} onClick={onLinkClick}>
           {name}
         </Link>
       ))}
