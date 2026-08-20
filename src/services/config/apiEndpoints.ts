@@ -50,7 +50,8 @@ export const ApiEndpoint = {
   },
 
   wineStores: {
-    getAll: (page = 0, size = 50) => `/api/v1/wine-stores?page=${page}&size=${size}`,
+    getAll: (page = 0, size = 50, city?: string) =>
+      `/api/v1/wine-stores?page=${page}&size=${size}${city ? `&city=${encodeURIComponent(city)}` : ''}`,
     getById: (id: number) => `/api/v1/wine-stores/${id}`,
   },
 

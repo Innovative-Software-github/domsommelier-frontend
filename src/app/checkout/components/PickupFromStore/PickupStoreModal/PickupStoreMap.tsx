@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import cls from './PickupStoreMap.module.scss';
 import { PickupStoreModalList } from './PickupStoreModalList/PickupStoreModalList';
 import { PickupStoreModalMap } from './PickupStoreModalMap/PickupStoreModalMap';
@@ -11,6 +12,7 @@ import { IWineStore } from '../../../../../services/wine-stores/interfaces';
 import { getBasketStoreAvailability } from '../../../../../services/basket/requests';
 import { IStoreAvailability } from '../../../../../services/basket/interfaces';
 import { useRequireCustomerId } from '../../../../../hooks/useRequireCustomerId';
+import { currentCitySelector } from '../../../../../store/city/selectors';
 
 export interface IPickupStoreModalProps {
   selectedStore?: ISelectedStore;
@@ -22,6 +24,7 @@ export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
   onStoreSelect,
 }) => {
   const { customerId } = useRequireCustomerId();
+  const currentCity = useSelector(currentCitySelector);
   const [stores, setStores] = useState<IWineStore[]>([]);
   const [availabilityByStore, setAvailabilityByStore] = useState<
     Record<number, IStoreAvailability>
@@ -37,7 +40,7 @@ export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
 
   useEffect(() => {
     Promise.all([
-      getWineStores(),
+      getWineStores(0, 50, currentCity?.slug),
       customerId
         ? getBasketStoreAvailability(customerId)
         : Promise.resolve([] as IStoreAvailability[]),
@@ -56,13 +59,25 @@ export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
           const firstAvailable = page.content.find(
             (store) => map[store.id]?.available !== false,
           );
-          setSelectedStoreId(firstAvailable ? firstAvailable.id : null);
+
+          if (firstAvailable) {
+            setSelectedStoreId(firstAvailable.id);
+            // Центрируем карту на первой доступной винотеке текущего города,
+            // а не на захардкоженной точке — тогда это само подстроится
+            // под любой город, когда их снова станет несколько.
+            setMapState({
+              center: [firstAvailable.location.latitude, firstAvailable.location.longitude],
+              zoom: DEFAULT_MAP_ZOOM,
+            });
+          } else {
+            setSelectedStoreId(null);
+          }
         }
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customerId]);
+  }, [customerId, currentCity?.slug]);
 
   const handleStoreSelect = (storeId: number) => {
     // Не даём выбрать винотеку, в которой нет нужных товаров корзины

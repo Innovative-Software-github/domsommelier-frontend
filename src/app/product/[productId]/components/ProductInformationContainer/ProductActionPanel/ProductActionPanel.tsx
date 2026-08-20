@@ -11,6 +11,7 @@ import { QuantityButton } from '../../../../../../ui/QuantityButton/QuantityButt
 import { useProductPrice } from '../../../../../../hooks/useProductPrice';
 import { useProductBasket } from '../../../../../../hooks/basket/useProductBasket';
 import { useProductSaved } from '../../../../../../hooks/saved/useProductSaved';
+import { useNearestStore } from '../../../../../../hooks/useNearestStore';
 import { Spinner } from '../../../../../../ui/Spinner/Spinner';
 
 export interface IProductActionPanelProps {
@@ -27,6 +28,7 @@ export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
   const { hasDiscount, currentPrice } = useProductPrice(price, discount);
   const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange } = useProductBasket(productId);
   const { isSaved, handleToggleSaved, isProductSavedLoading } = useProductSaved(productId);
+  const { store: nearestStore, isLoading: isNearestStoreLoading } = useNearestStore();
 
   return (
     <div className={cls.container}>
@@ -64,10 +66,16 @@ export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
           </Button>
         )}
       </div>
-      <div className={cls.delivery}>
-        <div className={cls.deliveryText}>Способ получения</div>
-        <div className={cls.deliveryAdress}>Самовывоз ул. Первая, д.2</div>
-      </div>
+      {!isNearestStoreLoading && (
+        <div className={cls.delivery}>
+          <div className={cls.deliveryText}>Способ получения</div>
+          <div className={cls.deliveryAdress}>
+            {nearestStore
+              ? `Самовывоз ${nearestStore.address || nearestStore.name}`
+              : 'Уточните адрес винотеки при оформлении заказа'}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

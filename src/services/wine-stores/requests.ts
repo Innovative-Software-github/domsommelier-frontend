@@ -2,9 +2,10 @@ import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
 import { IWineStore, IWineStoresPage } from './interfaces';
 
-export const getWineStores = async (page = 0, size = 50) => {
+/** citySlug — ограничить винотеки текущим городом (см. currentCitySelector). Без него — все винотеки. */
+export const getWineStores = async (page = 0, size = 50, citySlug?: string) => {
   return customFetch<IWineStoresPage>({
-    path: ApiEndpoint.wineStores.getAll(page, size),
+    path: ApiEndpoint.wineStores.getAll(page, size, citySlug),
     method: 'GET',
     withCredentials: false,
   });
