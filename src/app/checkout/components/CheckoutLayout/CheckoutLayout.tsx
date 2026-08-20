@@ -13,7 +13,8 @@ import { TPaymentOptionType } from "../PaymentMethod/PaymentOption/PaymentOption
 import { createObjectUpdater } from "../../../../utils/createUpdaters";
 import { CustomerInfo } from "../CustomerInfo/CustomerInfo";
 import { OrderSummary } from "../../../../components/OrderSummary/OrderSummary";
-import { Promocode } from "../Promocode/Promocode";
+// TODO: промокоды временно скрыты из UI, см. Promocode.tsx
+// import { Promocode } from "../Promocode/Promocode";
 import { PickupFromStore } from "../PickupFromStore/PickupFromStore";
 import { useCheckout } from "../../../../hooks/checkout/useCheckout";
 import { basketIsEmptySelector } from "../../../../store/basket/selectors";
@@ -149,7 +150,8 @@ export const CheckoutLayout: React.FC = () => {
         {checkoutError && (
           <p className={cls.errorMessage}>Не удалось оформить заказ. Попробуйте ещё раз.</p>
         )}
-        <Promocode />
+        {/* TODO: промокоды временно скрыты из UI, см. Promocode.tsx */}
+        {/* <Promocode /> */}
       </div>
     </ContentContainer>
   );
