@@ -10,9 +10,7 @@ export const getFiltersConfig =
       path: ApiEndpoint.filters.getFiltersConfig,
       method: 'GET',
       cacheStrategy: {
-        cache: 'force-cache',
-        revalidate: 60 * 60 * 24,
-        tags: ['filtersConfig'],
+        cache: 'no-store',
       },
     });
 

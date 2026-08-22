@@ -23,10 +23,11 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
   applyFilters,
 }) => {
   const filtersConfig = useSelector(filtersConfigSelector);
+  const productTypeFiltersConfig = filtersConfig[productType] ?? {};
 
   return (
     <>
-      {Object.values(filtersConfig[productType]).map((filterConfig) => (
+      {Object.values(productTypeFiltersConfig).map((filterConfig) => (
         <div key={filterConfig.id} className={cls.filter}>
           <FilterFactory
             filterConfig={filterConfig}
