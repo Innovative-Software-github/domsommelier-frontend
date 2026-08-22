@@ -1,7 +1,10 @@
 # Клиентский сайт (Next.js) — standalone-сборка для продакшена.
-# BROWSER_BACKEND_SERVER не нужен на этапе сборки — next.config.ts читает его
-# в рантайме (сервер standalone-режима перечитывает env при старте контейнера),
-# поэтому передаём его через docker-compose environment, а не ARG/build-time.
+# BROWSER_BACKEND_SERVER нужен именно на этапе сборки: next.config.ts
+# вычисляет destination для rewrites() при загрузке конфига, а для
+# output: 'standalone' это происходит во время `next build` и записывается
+# в .next/routes-manifest.json — рантайм-переменная окружения контейнера
+# на уже собранный манифест не влияет (проверено на практике: без ARG
+# здесь rewrites() зашивал дефолтный хост из next.config.ts намертво).
 
 FROM node:20-alpine AS deps
 WORKDIR /app
@@ -10,6 +13,8 @@ RUN npm ci
 
 FROM node:20-alpine AS builder
 WORKDIR /app
+ARG BROWSER_BACKEND_SERVER
+ENV BROWSER_BACKEND_SERVER=$BROWSER_BACKEND_SERVER
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
