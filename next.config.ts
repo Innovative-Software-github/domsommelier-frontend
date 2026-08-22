@@ -6,6 +6,9 @@ const backendBaseUrl = (backendHost.startsWith('http')
   : `http://${backendHost}`).replace(/\/+$/, '');
 
 const nextConfig: NextConfig = {
+  // Самодостаточная сборка для Docker — .next/standalone содержит только
+  // нужные зависимости и свой server.js, без node_modules целиком.
+  output: 'standalone',
   images: {
     unoptimized: true,
   },

@@ -1,0 +1,48 @@
+name: Deploy
+
+# Пересобирает и перезапускает ТОЛЬКО контейнер витрины на сервере — сам
+# сервер и остальные сервисы (бэкенд, БД, nginx) поднимаются и настраиваются
+# из репозитория domsommelier-backend (см. его docker-compose.yaml и
+# .github/workflows/main.yml для самого первого деплоя на новый сервер).
+#
+# Секреты, которые нужно завести в Settings → Secrets репозитория:
+#   HOST, SSH_PASSWORD — те же, что у domsommelier-backend (тот же сервер).
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          username: root
+          host: ${{ secrets.HOST }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            REPO_DIR=~/projects/domsommelier-frontend
+            BACKEND_DIR=~/projects/domsommelier-backend
+
+            if [ -d "$REPO_DIR/.git" ]; then
+              cd "$REPO_DIR" && git fetch origin main && git reset --hard origin/main
+            else
+              mkdir -p ~/projects
+              git clone git@github.com:Innovative-Software-github/domsommelier-frontend.git "$REPO_DIR"
+            fi
+
+            cd "$BACKEND_DIR"
+            docker-compose build domsommelier-frontend
+            docker-compose up -d --no-deps domsommelier-frontend
+
+            sleep 5
+            if docker ps --filter "name=domsommelier-frontend" --filter "status=running" -q | grep -q .; then
+              echo "==> Деплой успешен: domsommelier-frontend запущен."
+            else
+              echo "==> Деплой FAILED: domsommelier-frontend не запустился."
+              docker-compose logs --tail=50 domsommelier-frontend
+              exit 1
+            fi
