@@ -1,15 +1,66 @@
-.content {
-  display: flex;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   width: 100%;
-  min-height: 200px;
+
+  // Мега-меню каталога скрыто целиком ниже 768px (см. Header.module.scss,
+  // ".desktopOnly") — mobile использует отдельное MobileMenu с аккордеоном.
+  // Этот шаг закрывает промежуточные "десктопные" ширины (планшеты,
+  // небольшие ноутбуки), где 355px категорий + 3 карточки по 305px уже
+  // не помещаются. Тот же паттерн (3 -> 2 колонки), что и в самом каталоге,
+  // см. CatalogBoard.module.scss.
+  @media (max-width: 1180px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.card {
-  width: 305px;
+.card[class] {
+  max-width: none;
 }
 
 .placeholder {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 200px;
   color: #bdbdbd;
+  font-size: 14px;
+}
+
+.skeletonCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeletonImage {
+  width: 100%;
+  aspect-ratio: 305 / 370;
+  border-radius: 4px;
+  background: #f0f0f0;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.skeletonLine,
+.skeletonLineShort {
+  height: 14px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.skeletonLineShort {
+  width: 60%;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

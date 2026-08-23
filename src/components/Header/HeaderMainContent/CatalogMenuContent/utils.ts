@@ -21,22 +21,22 @@ export const useCatalogMenuCategories = (): ICatalogMenuCategories[] =>
     label: productTypeLabels[productType],
   }));
 
+const FEATURED_PRODUCTS_COUNT = 3;
+
 /**
- * Карточка самого популярного товара выбранной категории — показывается
- * в мега-меню каталога справа от списка категорий. Загружается лениво:
+ * Карточки самых популярных товаров выбранной категории — показываются
+ * в мега-меню каталога справа от списка категорий. Загружаются лениво:
  * только пока меню открыто, и только один раз на категорию за время жизни
  * компонента (результат кэшируется в памяти, повторный hover не бьёт в API).
  */
-export const useCatalogFeaturedProduct = (
+export const useCatalogFeaturedProducts = (
   activeProductTypeKey: TProductType,
   isOpen: boolean,
 ) => {
   const currentCity = useSelector(currentCitySelector);
-  const cacheRef = useRef<Partial<Record<TProductType, TProductCard | null>>>(
-    {},
-  );
-  const [product, setProduct] = useState<TProductCard | null>(
-    cacheRef.current[activeProductTypeKey] ?? null,
+  const cacheRef = useRef<Partial<Record<TProductType, TProductCard[]>>>({});
+  const [products, setProducts] = useState<TProductCard[]>(
+    cacheRef.current[activeProductTypeKey] ?? [],
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,7 +45,7 @@ export const useCatalogFeaturedProduct = (
 
     const cached = cacheRef.current[activeProductTypeKey];
     if (cached !== undefined) {
-      setProduct(cached);
+      setProducts(cached);
       return;
     }
 
@@ -54,17 +54,16 @@ export const useCatalogFeaturedProduct = (
 
     getFilteredProducts({}, activeProductTypeKey, currentCity?.slug, {
       page: 0,
-      size: 1,
+      size: FEATURED_PRODUCTS_COUNT,
       sort: 'popular',
     })
       .then((response) => {
-        const featured = response.content[0] ?? null;
-        cacheRef.current[activeProductTypeKey] = featured;
-        if (!cancelled) setProduct(featured);
+        cacheRef.current[activeProductTypeKey] = response.content;
+        if (!cancelled) setProducts(response.content);
       })
       .catch(() => {
-        cacheRef.current[activeProductTypeKey] = null;
-        if (!cancelled) setProduct(null);
+        cacheRef.current[activeProductTypeKey] = [];
+        if (!cancelled) setProducts([]);
       })
       .finally(() => {
         if (!cancelled) setIsLoading(false);
@@ -75,5 +74,5 @@ export const useCatalogFeaturedProduct = (
     };
   }, [activeProductTypeKey, isOpen, currentCity?.slug]);
 
-  return { product, isLoading };
+  return { products, isLoading };
 };

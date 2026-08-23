@@ -5,7 +5,7 @@ import { ContentContainer } from '../../../../ui/ContentContainer/ContentContain
 import clsx from 'clsx';
 import { ProductTypeItem } from './ProductTypeItem/ProductTypeItem';
 import { ProductTypeContent } from './ProductTypeContent/ProductTypeContent';
-import { useCatalogFeaturedProduct, useCatalogMenuCategories } from './utils';
+import { useCatalogFeaturedProducts, useCatalogMenuCategories } from './utils';
 import { TProductType } from '../../../../constants/productTypes';
 
 export interface ICatalogMenuContentProps {
@@ -19,7 +19,7 @@ export const CatalogMenuContent: React.FC<ICatalogMenuContentProps> = ({
     React.useState<TProductType>('wine');
 
   const catalogMenuCategories = useCatalogMenuCategories();
-  const { product, isLoading } = useCatalogFeaturedProduct(
+  const { products, isLoading } = useCatalogFeaturedProducts(
     activeProductTypeKey,
     isOpen,
   );
@@ -37,7 +37,7 @@ export const CatalogMenuContent: React.FC<ICatalogMenuContentProps> = ({
         ))}
       </div>
 
-      <ProductTypeContent product={product} isLoading={isLoading} />
+      <ProductTypeContent products={products} isLoading={isLoading} />
     </ContentContainer>
   );
 };

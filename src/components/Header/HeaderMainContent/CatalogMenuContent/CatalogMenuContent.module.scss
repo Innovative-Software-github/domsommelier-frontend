@@ -12,10 +12,24 @@
 .container {
   display: flex;
   gap: 20px;
+
+  // Мега-меню целиком скрыто ниже 768px (см. Header.module.scss) — mobile
+  // использует отдельное MobileMenu. Ниже — промежуточные "десктопные"
+  // ширины (планшеты, компактные ноутбуки), где 355px под категории +
+  // карточки товаров в ряд уже не помещаются: список категорий уходит
+  // наверх на всю ширину, карточки — под ним.
+  @media (max-width: 991px) {
+    flex-direction: column;
+  }
 }
 
 .categories {
   min-width: 355px;
+
+  @media (max-width: 991px) {
+    min-width: 0;
+    width: 100%;
+  }
 }
 
 .content {
