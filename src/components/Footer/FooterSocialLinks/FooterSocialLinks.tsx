@@ -19,7 +19,7 @@ export const FooterSocialLinks: React.FC = () => {
       </div>
 
       <div className={cls.rulesContainer}>
-        <Link href={ROUTES.privacyPolicy}>{ROUTES.privacyPolicy}</Link>
+        <Link href={ROUTES.privacyPolicy}>Политика конфиденциальности</Link>
       </div>
     </div>
   );

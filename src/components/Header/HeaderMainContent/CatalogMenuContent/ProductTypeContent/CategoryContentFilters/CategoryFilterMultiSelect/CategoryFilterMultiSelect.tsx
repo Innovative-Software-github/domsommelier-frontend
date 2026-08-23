@@ -17,13 +17,13 @@ export const CategoryFilterMultiSelect: React.FC<
     <div className={cls.container}>
       <h3 className={cls.title}>{filter.name}</h3>
       <div className={cls.list}>
-        {filter.options.map(({ label, value }) => {
-          const params: Record<string, any> = {};
-          if (value !== null) {
-            params[filter.id] = [value];
-          }
-
-          const searchString = stringifySearchParams(params);
+        {filter.options.map(({ label }) => {
+          // Ключ — filter.field (не filter.id), значение — label (не value):
+          // именно так каталог матчит фильтры из URL, см. FilterFactory.tsx
+          // и MultiSelectFilter.tsx (сверяют по filterConfig.field / label).
+          const searchString = stringifySearchParams({
+            [filter.field]: [label],
+          });
 
           return (
             <Link
