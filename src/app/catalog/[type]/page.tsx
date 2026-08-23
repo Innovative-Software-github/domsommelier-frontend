@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { TProductType, productTypeLabels } from '../../../constants/productTypes';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
 import { Layout } from '../../../ui/Layout/Layout';
-import { getFilteredProducts } from '../../../services/products/requests';
+import { createEmptyProductsPage, getFilteredProducts } from '../../../services/products/requests';
 import { getSelectedCitySlug } from '../../../services/city/serverRequest';
 import { SITE_NAME } from '@/constants/site';
 import { CatalogClientWrapper } from './components/CatalogClientWrapper/CatalogClientWrapper';
@@ -56,10 +56,15 @@ export default async function CatalogPage({
   const page = parsePageFromParams(urlSearchParams);
 
   const citySlug = await getSelectedCitySlug();
+  // Сбой (сеть/таймаут) не должен ронять страницу — показываем пустой каталог
+  // вместо краша, CatalogClientWrapper уже отображает пустой список нормально.
   const initialProductCards = await getFilteredProducts(filters, productType, citySlug, {
     page,
     size: PAGE_SIZE,
     sort,
+  }).catch((error) => {
+    console.warn('Failed to load catalog products:', error);
+    return createEmptyProductsPage();
   });
 
   return (

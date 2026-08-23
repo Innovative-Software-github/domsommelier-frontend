@@ -28,3 +28,21 @@ export async function notifyApiError(status: number, errorBody: unknown): Promis
     // sonner недоступен — молча игнорируем, чтобы не ломать обработку запроса
   }
 }
+
+/**
+ * Показывает тост при сетевой ошибке (запрос не дошёл до сервера вообще: нет соединения,
+ * таймаут, DNS, CORS и т.п.) — в отличие от notifyApiError это не HTTP-статус, а сбой
+ * самого fetch(). Тоже только в браузере: на сервере (SSR) тостов нет, там сбой нужно
+ * гасить фолбэком на вызывающей стороне, а не пытаться уведомить пользователя.
+ */
+export async function notifyNetworkError(
+  message = 'Не удалось подключиться к серверу. Проверьте интернет-соединение и попробуйте ещё раз.',
+): Promise<void> {
+  if (typeof window === 'undefined') return;
+  try {
+    const { toast } = await import('sonner');
+    toast.error(message);
+  } catch {
+    // sonner недоступен — молча игнорируем, чтобы не ломать обработку запроса
+  }
+}

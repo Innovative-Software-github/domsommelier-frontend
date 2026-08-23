@@ -2,14 +2,24 @@ import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
 import { IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, IStoreAvailability, TCustomerId, TProductId } from './interfaces';
 
+/**
+ * Грузится в RootLayout на каждой странице сайта (SSR-преднаполнение) — сбой
+ * (сеть/таймаут) не должен ронять весь сайт, поэтому здесь фолбэк на null
+ * (createBasketInitialState трактует null как "корзины ещё нет").
+ */
 export const getBasket = async (customerId?: TCustomerId) => {
   if (!customerId) return null;
 
-  return customFetch<IGetBasketResponse>({
-    path: ApiEndpoint.basket.getBasket(customerId),
-    method: 'GET',
-    withCredentials: true,
-  });
+  try {
+    return await customFetch<IGetBasketResponse>({
+      path: ApiEndpoint.basket.getBasket(customerId),
+      method: 'GET',
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.warn('Failed to load basket:', error);
+    return null;
+  }
 };
 
 /** Доступность корзины по винотекам — для блокировки выбора точки без нужных товаров. */

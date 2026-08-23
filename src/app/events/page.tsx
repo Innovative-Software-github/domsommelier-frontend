@@ -21,12 +21,25 @@ export const metadata: Metadata = {
   },
 };
 
+const EMPTY_EVENTS_PAGE = {
+  content: [],
+  totalPages: 0,
+  totalElements: 0,
+  number: 0,
+  size: 0,
+};
+
 export default async function EventsPage() {
   const citySlug = await getSelectedCitySlug();
+  // Сбой (сеть/таймаут) не должен ронять страницу — пустой список мероприятий
+  // вместо краша, EventsClient уже отображает пустой список нормально.
   const events = await getEvents({
     page: DEFAULT_EVENTS_PAGE,
     size: DEFAULT_EVENTS_SIZE,
     city: citySlug,
+  }).catch((error) => {
+    console.warn('Failed to load events:', error);
+    return EMPTY_EVENTS_PAGE;
   });
 
   return (

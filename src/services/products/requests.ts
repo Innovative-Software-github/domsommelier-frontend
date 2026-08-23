@@ -4,6 +4,18 @@ import { customFetch } from "../config/customFetch";
 import { TProductType } from "../../constants/productTypes";
 import { TProduct, TProductCard, TGetFilteredProductsResponse, IPagedResponse } from "./interfaces/base";
 
+/** Пустая страница товаров — фолбэк для мест, где сбой запроса не должен ронять рендер. */
+export const createEmptyProductsPage = (): TGetFilteredProductsResponse => ({
+  content: [],
+  number: 0,
+  size: 0,
+  totalElements: 0,
+  totalPages: 0,
+  first: true,
+  last: true,
+  numberOfElements: 0,
+});
+
 export interface IGetFilteredProductsRequest {
   filters: IFiltersState;
   productType: TProductType;

@@ -1,6 +1,6 @@
 import { TAPIError } from '@/store/interfaces';
 import { getBackendHost } from '@/utils/getBackendHost';
-import { notifyApiError } from '@/utils/apiError';
+import { notifyApiError, notifyNetworkError } from '@/utils/apiError';
 import { stringifySearchParams } from '@/utils/stringifySearchParams';
 import { tokenStorage } from '@/services/auth/tokenStorage';
 import { AUTH_TOKEN_COOKIE } from '@/services/auth/constants';
@@ -173,18 +173,30 @@ export async function customFetch<
 
     const requestHeaders = await resolveAuthHeaders(headers, contentType);
 
-    const response = await fetch(url, {
-      method,
-      body,
-      headers: requestHeaders,
-      credentials: withCredentials ? 'include' : 'omit',
-      cache: cacheStrategy?.cache || 'no-store',
-      next: {
-        revalidate: cacheStrategy?.revalidate,
-        tags: cacheStrategy?.tags,
-      },
-      signal,
-    });
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        method,
+        body,
+        headers: requestHeaders,
+        credentials: withCredentials ? 'include' : 'omit',
+        cache: cacheStrategy?.cache || 'no-store',
+        next: {
+          revalidate: cacheStrategy?.revalidate,
+          tags: cacheStrategy?.tags,
+        },
+        signal,
+      });
+    } catch (networkError) {
+      // Запрос не дошёл до сервера вообще (нет соединения, таймаут, DNS, CORS) —
+      // это не HTTP-статус, response.ok тут ни при чём. На клиенте уведомляем тостом
+      // (тот же принцип, что и для notifyApiError ниже), на сервере (SSR) тоста нет —
+      // сбой должен гаситься фолбэком на стороне вызывающего кода.
+      if (!silentError) {
+        void notifyNetworkError();
+      }
+      throw networkError;
+    }
 
     if (!response.ok) {
       if (response.status === 401 && !isServer) {
