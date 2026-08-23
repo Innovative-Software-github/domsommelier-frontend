@@ -1,29 +1,29 @@
 import * as React from 'react';
 
 import cls from './ProductTypeContent.module.scss';
-import { TProductType } from '../../../../../constants/productTypes';
-import { IFilterConfig } from '../../../../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
-import { ProductTypeColumn } from './ProductTypeColumn/ProductTypeColumn';
+import { ProductCardWithBasket } from '../../../../../ui/ProductCard/ProductCardWithBasket';
+import { TProductCard } from '../../../../../services/products/interfaces/base';
 
 export interface IProductTypeContentProps {
-  activeProductTypeKey: TProductType;
-  getVisibleFiltersByKey: (key: TProductType) => IFilterConfig[];
+  product: TProductCard | null;
+  isLoading: boolean;
 }
 
 export const ProductTypeContent: React.FC<IProductTypeContentProps> = ({
-  activeProductTypeKey,
-  getVisibleFiltersByKey,
+  product,
+  isLoading,
 }) => {
-  const visibleFilters = getVisibleFiltersByKey(activeProductTypeKey);
-
   return (
     <div className={cls.content}>
-      {visibleFilters.map((filter, key) => (
-        <ProductTypeColumn
-          key={key}
-          filter={filter}
-        />
-      ))}
+      {isLoading && <div className={cls.placeholder}>Загрузка…</div>}
+
+      {!isLoading && product && (
+        <ProductCardWithBasket option={product} className={cls.card} />
+      )}
+
+      {!isLoading && !product && (
+        <div className={cls.placeholder}>В этой категории пока нет товаров</div>
+      )}
     </div>
   );
 };

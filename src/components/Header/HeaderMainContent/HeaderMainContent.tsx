@@ -70,7 +70,7 @@ export const HeaderMainContent: React.FC = () => {
         isOpen={isCatalogMenuModalOpen}
         onClickCancelIcon={() => setIsCatalogMenuModalOpen(false)}
       >
-        <CatalogMenuContent />
+        <CatalogMenuContent isOpen={isCatalogMenuModalOpen} />
       </Backdrop>
 
       <SearchModal

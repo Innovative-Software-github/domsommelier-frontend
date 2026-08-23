@@ -1,55 +1,79 @@
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { filtersConfigSelector } from '../../../../store/filters/selectors';
 import {
   productTypeArray,
   productTypeLabels,
   TProductType,
   TProductTypeLabels,
 } from '../../../../constants/productTypes';
-import { IFilterConfig } from '../../../../app/catalog/[type]/components/FiltersPanel/FiltersFabric/interfaces';
-
-// Поля соответствуют `field` из конфига фильтров на бэке. У аксессуаров
-// нет подходящего multi_select-фильтра для быстрой навигации (как и в
-// мобильном меню — см. QUICK_FILTER_FIELD_BY_TYPE в MobileMenu.tsx),
-// поэтому там пустой список.
-const catalogVisibleFilterKeys: Record<TProductType, string[]> = {
-  wine: ['color'],
-  spirit: ['subcategory'],
-  accessories: [],
-  snack: ['subcategory'],
-  low_alcohol: ['subcategory'],
-  champagne_and_sparkling: ['color'],
-} as const;
+import { getFilteredProducts } from '../../../../services/products/requests';
+import { TProductCard } from '../../../../services/products/interfaces/base';
+import { currentCitySelector } from '../../../../store/city/selectors';
 
 export interface ICatalogMenuCategories {
   key: TProductType;
   label: TProductTypeLabels;
 }
 
-export interface IUseCatalogMenuDataReturn {
-  catalogMenuCategories: ICatalogMenuCategories[];
-  getVisibleFiltersByKey: (key: TProductType) => IFilterConfig[];
-}
-
-export const useCatalogMenuData = () => {
-  const filterConfig = useSelector(filtersConfigSelector);
-
-  const catalogMenuCategories = productTypeArray.map((productType) => ({
+export const useCatalogMenuCategories = (): ICatalogMenuCategories[] =>
+  productTypeArray.map((productType) => ({
     key: productType,
     label: productTypeLabels[productType],
   }));
 
-  const getVisibleFiltersByKey = (key: TProductType) => {
-    const visibleFiltersKeys = catalogVisibleFilterKeys[key];
-    const categoryFilters = filterConfig[key] ?? {};
+/**
+ * Карточка самого популярного товара выбранной категории — показывается
+ * в мега-меню каталога справа от списка категорий. Загружается лениво:
+ * только пока меню открыто, и только один раз на категорию за время жизни
+ * компонента (результат кэшируется в памяти, повторный hover не бьёт в API).
+ */
+export const useCatalogFeaturedProduct = (
+  activeProductTypeKey: TProductType,
+  isOpen: boolean,
+) => {
+  const currentCity = useSelector(currentCitySelector);
+  const cacheRef = useRef<Partial<Record<TProductType, TProductCard | null>>>(
+    {},
+  );
+  const [product, setProduct] = useState<TProductCard | null>(
+    cacheRef.current[activeProductTypeKey] ?? null,
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-    return visibleFiltersKeys
-      .map((filterName) => categoryFilters[filterName])
-      .filter(Boolean);
-  };
+  useEffect(() => {
+    if (!isOpen) return;
 
-  return {
-    catalogMenuCategories,
-    getVisibleFiltersByKey,
-  };
+    const cached = cacheRef.current[activeProductTypeKey];
+    if (cached !== undefined) {
+      setProduct(cached);
+      return;
+    }
+
+    let cancelled = false;
+    setIsLoading(true);
+
+    getFilteredProducts({}, activeProductTypeKey, currentCity?.slug, {
+      page: 0,
+      size: 1,
+      sort: 'popular',
+    })
+      .then((response) => {
+        const featured = response.content[0] ?? null;
+        cacheRef.current[activeProductTypeKey] = featured;
+        if (!cancelled) setProduct(featured);
+      })
+      .catch(() => {
+        cacheRef.current[activeProductTypeKey] = null;
+        if (!cancelled) setProduct(null);
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeProductTypeKey, isOpen, currentCity?.slug]);
+
+  return { product, isLoading };
 };

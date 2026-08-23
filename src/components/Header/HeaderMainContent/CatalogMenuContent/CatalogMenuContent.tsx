@@ -5,17 +5,24 @@ import { ContentContainer } from '../../../../ui/ContentContainer/ContentContain
 import clsx from 'clsx';
 import { ProductTypeItem } from './ProductTypeItem/ProductTypeItem';
 import { ProductTypeContent } from './ProductTypeContent/ProductTypeContent';
-import { useCatalogMenuData } from './utils';
+import { useCatalogFeaturedProduct, useCatalogMenuCategories } from './utils';
 import { TProductType } from '../../../../constants/productTypes';
 
-export interface ICatalogMenuContentProps {}
+export interface ICatalogMenuContentProps {
+  isOpen: boolean;
+}
 
-export const CatalogMenuContent: React.FC<ICatalogMenuContentProps> = () => {
+export const CatalogMenuContent: React.FC<ICatalogMenuContentProps> = ({
+  isOpen,
+}) => {
   const [activeProductTypeKey, setActiveProductTypeKey] =
     React.useState<TProductType>('wine');
 
-  const { catalogMenuCategories, getVisibleFiltersByKey } =
-    useCatalogMenuData();
+  const catalogMenuCategories = useCatalogMenuCategories();
+  const { product, isLoading } = useCatalogFeaturedProduct(
+    activeProductTypeKey,
+    isOpen,
+  );
 
   return (
     <ContentContainer className={clsx(cls.scrollArea, cls.container)}>
@@ -30,10 +37,7 @@ export const CatalogMenuContent: React.FC<ICatalogMenuContentProps> = () => {
         ))}
       </div>
 
-      <ProductTypeContent
-        activeProductTypeKey={activeProductTypeKey}
-        getVisibleFiltersByKey={getVisibleFiltersByKey}
-      />
+      <ProductTypeContent product={product} isLoading={isLoading} />
     </ContentContainer>
   );
 };

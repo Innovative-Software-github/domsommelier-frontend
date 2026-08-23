@@ -1,6 +1,15 @@
 .content {
   display: flex;
-  gap: 16px;
-  justify-content: space-between;
   width: 100%;
+  min-height: 200px;
+}
+
+.card {
+  width: 305px;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  color: #bdbdbd;
 }
