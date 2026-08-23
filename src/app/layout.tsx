@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 
 import { Providers } from '@/app/providers';
 import { CUSTOMER_ID_COOKIE } from '@/services/auth/constants';
+import { ServerErrorToast } from '@/components/ServerErrorToast/ServerErrorToast';
 
 import '@/styles/globals.scss';
 import '@/styles/reset.scss';
@@ -91,18 +92,42 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const customerId = cookieStore.get(CUSTOMER_ID_COOKIE)?.value;
 
-  const [filtersConfig, basket, saved, cityInitialState] = await Promise.all([
-    getFiltersConfig(),
-    getBasket(customerId),
-    getSaved(customerId),
-    getCityInitialState(),
-  ]);
+  // allSettled, а не all: это грузится на КАЖДОЙ странице сайта (RootLayout),
+  // сбой одного из четырёх запросов не должен ронять весь сайт целиком.
+  // getCityInitialState уже отказоустойчив сам по себе (см. serverRequest.ts).
+  const [filtersResult, basketResult, savedResult, cityInitialState] =
+    await Promise.allSettled([
+      getFiltersConfig(),
+      getBasket(customerId),
+      getSaved(customerId),
+      getCityInitialState(),
+    ]);
+
+  const hadLoadError =
+    filtersResult.status === 'rejected' ||
+    basketResult.status === 'rejected' ||
+    savedResult.status === 'rejected';
+
+  if (filtersResult.status === 'rejected') {
+    console.warn('Failed to load filters config:', filtersResult.reason);
+  }
+  if (basketResult.status === 'rejected') {
+    console.warn('Failed to load basket:', basketResult.reason);
+  }
+  if (savedResult.status === 'rejected') {
+    console.warn('Failed to load saved:', savedResult.reason);
+  }
+
+  const filtersConfig =
+    filtersResult.status === 'fulfilled' ? filtersResult.value : ({} as IServerData['filtersConfig']);
+  const basket = basketResult.status === 'fulfilled' ? basketResult.value : null;
+  const saved = savedResult.status === 'fulfilled' ? savedResult.value : null;
 
   const reduxPreloadedState: IServerData = {
     filtersConfig: filtersConfig,
     basketReducer: createBasketInitialState(basket),
     savedReducer: createSavedInitialState(saved),
-    city: cityInitialState,
+    city: cityInitialState.status === 'fulfilled' ? cityInitialState.value : undefined,
   };
 
   return (
@@ -115,6 +140,9 @@ export default async function RootLayout({
           {children}
         </Providers>
         <Toaster position="top-right" richColors closeButton />
+        {hadLoadError && (
+          <ServerErrorToast message="Не удалось загрузить часть данных. Обновите страницу." />
+        )}
       </body>
     </html>
   );

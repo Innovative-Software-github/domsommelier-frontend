@@ -6,6 +6,7 @@ import { createEmptyProductsPage, getFilteredProducts } from '../../../services/
 import { getSelectedCitySlug } from '../../../services/city/serverRequest';
 import { SITE_NAME } from '@/constants/site';
 import { CatalogClientWrapper } from './components/CatalogClientWrapper/CatalogClientWrapper';
+import { ServerErrorToast } from '@/components/ServerErrorToast/ServerErrorToast';
 import { parseFilterStateFromUrl } from './utils/parseFilterStateFromUrl';
 import { toUrlSearchParams } from './utils/toUrlSearchParams';
 import { PAGE_SIZE, parsePageFromParams, parseSortFromParams } from './utils/catalogQuery';
@@ -58,12 +59,14 @@ export default async function CatalogPage({
   const citySlug = await getSelectedCitySlug();
   // Сбой (сеть/таймаут) не должен ронять страницу — показываем пустой каталог
   // вместо краша, CatalogClientWrapper уже отображает пустой список нормально.
+  let hadLoadError = false;
   const initialProductCards = await getFilteredProducts(filters, productType, citySlug, {
     page,
     size: PAGE_SIZE,
     sort,
   }).catch((error) => {
     console.warn('Failed to load catalog products:', error);
+    hadLoadError = true;
     return createEmptyProductsPage();
   });
 
@@ -75,6 +78,9 @@ export default async function CatalogPage({
           initialProductCards={initialProductCards}
         />
       </ContentContainer>
+      {hadLoadError && (
+        <ServerErrorToast message="Не удалось загрузить товары. Попробуйте обновить страницу." />
+      )}
     </Layout>
   );
 }

@@ -8,24 +8,18 @@ import {
   TSavedProductId,
 } from './interfaces';
 
-/**
- * Грузится в RootLayout на каждой странице сайта (SSR-преднаполнение) — сбой
- * (сеть/таймаут) не должен ронять весь сайт, поэтому здесь фолбэк на null
- * (createSavedInitialState трактует null как "избранного ещё нет").
- */
+// Используется и в RootLayout при SSR, и в getSavedRequest-thunk на клиенте
+// (см. store/saved/actions.ts) — thunk сам ловит исключение через
+// rejectWithValue, поэтому здесь ошибку не глушим, а пробрасываем. Фолбэк
+// на сбой при SSR — забота вызывающей стороны (см. layout.tsx).
 export const getSaved = async (customerId?: TSavedCustomerId) => {
   if (!customerId) return null;
 
-  try {
-    return await customFetch<IGetSavedResponse>({
-      path: ApiEndpoint.saved.getSaved(customerId),
-      method: 'GET',
-      withCredentials: true,
-    });
-  } catch (error) {
-    console.warn('Failed to load saved:', error);
-    return null;
-  }
+  return customFetch<IGetSavedResponse>({
+    path: ApiEndpoint.saved.getSaved(customerId),
+    method: 'GET',
+    withCredentials: true,
+  });
 };
 
 export const addToSaved = async (

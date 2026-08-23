@@ -2,24 +2,18 @@ import { customFetch } from '../config/customFetch';
 import { ApiEndpoint } from '../config/apiEndpoints';
 import { IAddToBasketResponse, IGetBasketResponse, IRemoveFromBasketResponse, IStoreAvailability, TCustomerId, TProductId } from './interfaces';
 
-/**
- * Грузится в RootLayout на каждой странице сайта (SSR-преднаполнение) — сбой
- * (сеть/таймаут) не должен ронять весь сайт, поэтому здесь фолбэк на null
- * (createBasketInitialState трактует null как "корзины ещё нет").
- */
+// Используется и в RootLayout при SSR, и в getBasketRequest-thunk на клиенте
+// (см. store/basket/actions.ts) — thunk сам ловит исключение через
+// rejectWithValue, поэтому здесь ошибку не глушим, а пробрасываем. Фолбэк
+// на сбой при SSR — забота вызывающей стороны (см. layout.tsx).
 export const getBasket = async (customerId?: TCustomerId) => {
   if (!customerId) return null;
 
-  try {
-    return await customFetch<IGetBasketResponse>({
-      path: ApiEndpoint.basket.getBasket(customerId),
-      method: 'GET',
-      withCredentials: true,
-    });
-  } catch (error) {
-    console.warn('Failed to load basket:', error);
-    return null;
-  }
+  return customFetch<IGetBasketResponse>({
+    path: ApiEndpoint.basket.getBasket(customerId),
+    method: 'GET',
+    withCredentials: true,
+  });
 };
 
 /** Доступность корзины по винотекам — для блокировки выбора точки без нужных товаров. */

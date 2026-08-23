@@ -5,6 +5,7 @@ import { getSelectedCitySlug } from '../../services/city/serverRequest';
 import { SITE_NAME } from '@/constants/site';
 import { EventsClient } from './components/EventsClient/EventsClient';
 import { HeaderTitle } from '../../ui/HeaderTitle/HeaderTitle';
+import { ServerErrorToast } from '@/components/ServerErrorToast/ServerErrorToast';
 import { DEFAULT_EVENTS_PAGE, DEFAULT_EVENTS_SIZE } from './constants';
 
 const EVENTS_DESCRIPTION = `Дегустации и винные казино от «${SITE_NAME}». Расписание, цены и регистрация.`;
@@ -33,12 +34,14 @@ export default async function EventsPage() {
   const citySlug = await getSelectedCitySlug();
   // Сбой (сеть/таймаут) не должен ронять страницу — пустой список мероприятий
   // вместо краша, EventsClient уже отображает пустой список нормально.
+  let hadLoadError = false;
   const events = await getEvents({
     page: DEFAULT_EVENTS_PAGE,
     size: DEFAULT_EVENTS_SIZE,
     city: citySlug,
   }).catch((error) => {
     console.warn('Failed to load events:', error);
+    hadLoadError = true;
     return EMPTY_EVENTS_PAGE;
   });
 
@@ -46,6 +49,9 @@ export default async function EventsPage() {
     <Layout>
       <HeaderTitle title="Мероприятия" />
       <EventsClient initialEvents={events} />
+      {hadLoadError && (
+        <ServerErrorToast message="Не удалось загрузить мероприятия. Попробуйте обновить страницу." />
+      )}
     </Layout>
   );
 }
