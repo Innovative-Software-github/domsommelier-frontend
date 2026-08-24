@@ -19,6 +19,20 @@
   gap: 32px;
 }
 
+// Фиксированная ширина колонки заказа (354px) + форма рядом — не умещаются
+// на мобильных, вылезают за экран. Стек в одну колонку.
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .orderInfo {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
 .validationHint {
   font-size: 13px;
   color: #888;

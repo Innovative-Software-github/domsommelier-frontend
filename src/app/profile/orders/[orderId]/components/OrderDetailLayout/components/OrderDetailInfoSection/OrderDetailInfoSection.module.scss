@@ -53,6 +53,25 @@
   gap: 16px 12px;
 }
 
+@media (max-width: 480px) {
+  .section {
+    padding: 32px 16px;
+  }
+
+  .metaGrid {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+  }
+
+  .metaLabel {
+    padding-top: 0;
+  }
+
+  .metaValue {
+    margin-bottom: 8px;
+  }
+}
+
 .metaLabel {
   font-size: 13px;
   color: #717171;

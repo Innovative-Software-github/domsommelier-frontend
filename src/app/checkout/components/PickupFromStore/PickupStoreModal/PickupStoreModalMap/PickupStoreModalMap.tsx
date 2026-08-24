@@ -31,8 +31,8 @@ export const PickupStoreModalMap: React.FC<IPickupStoreModalMapProps> = ({
     <div className={cls.mapContainer}>
       <YMaps>
         <Map
-          height="75vh"
-          width="50vw"
+          height="100%"
+          width="100%"
           state={mapState}
           modules={['control.ZoomControl', 'geoObject.addon.balloon']}
         >

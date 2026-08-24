@@ -3,14 +3,21 @@
 }
 
 .customSwiperSlide[class] {
+  width: 100%;
   max-width: 845px;
   height: fit-content;
 }
 
+// Ширина фиксированной 845px не масштабировалась вниз на узких экранах —
+// картинка рендерилась в натуральную величину и вылезала за пределы
+// вьюпорта. width: 100% + aspect-ratio (вместо жёсткого height) держат
+// исходные пропорции 845:585, но позволяют сжиматься до ширины экрана.
 .imageContainer,
 .image[class] {
+  width: 100%;
   max-width: 845px;
-  height: 585px;
+  aspect-ratio: 845 / 585;
+  height: auto;
 }
 
 .image {

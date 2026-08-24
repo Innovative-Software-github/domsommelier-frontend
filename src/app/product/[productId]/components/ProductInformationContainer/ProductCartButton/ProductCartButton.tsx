@@ -22,22 +22,27 @@ export const ProductCartButton: React.FC<IProductCartButtonProps> = ({
   const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange } = useProductBasket(productId);
 
   return (
-    <div className={cls.container}>
-      {isInBasket ? (
-        <QuantityButton
-          value={currentQuantity}
-          className={cls.quantityButton}
-          onChange={handleQuantityChange}
-        />
-      ) : (
-        <Button className={cls.buyButton} onClick={handleAddToBasket}>
-          <p>В корзину</p>
-          <p>{currentPrice} ₽</p>
-        </Button>
-      )}
-      <div className={cls.delivery}>
-        Способ получения: Самовывоз ул. Первая, д.2
+    <>
+      <div className={cls.container}>
+        {isInBasket ? (
+          <QuantityButton
+            value={currentQuantity}
+            className={cls.quantityButton}
+            onChange={handleQuantityChange}
+          />
+        ) : (
+          <Button className={cls.buyButton} onClick={handleAddToBasket}>
+            <p>В корзину</p>
+            <p>{currentPrice} ₽</p>
+          </Button>
+        )}
+        <div className={cls.delivery}>
+          Способ получения: Самовывоз ул. Первая, д.2
+        </div>
       </div>
-    </div>
+      {/* Резервирует место в потоке документа под фиксированную плашку выше —
+          иначе она перекрывает собой футер сайта. */}
+      <div className={cls.spacer} aria-hidden />
+    </>
   );
 };

@@ -9,3 +9,11 @@
     display: none;
   }
 }
+
+@media (max-width: 900px) {
+  .container {
+    flex: 0 0 auto;
+    max-height: 40vh;
+    width: 100%;
+  }
+}

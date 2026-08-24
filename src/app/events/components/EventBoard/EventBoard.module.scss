@@ -2,6 +2,16 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+
+  // Тот же паттерн понижения колонок, что и в каталоге (CatalogBoard.module.scss) —
+  // 3 колонки не оставляли карточкам мероприятий читаемой ширины на мобильных.
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .pagination {

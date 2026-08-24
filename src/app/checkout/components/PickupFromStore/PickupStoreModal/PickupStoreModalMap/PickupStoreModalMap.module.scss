@@ -4,3 +4,14 @@
   position: relative;
   overflow: hidden;
 }
+
+// height: 100% ничего не даёт внутри родителя с height: auto (стек в
+// колонку на мобильных, см. PickupStoreMap.module.scss) — карте нужна
+// явная высота, иначе она схлопывается в 0.
+@media (max-width: 900px) {
+  .mapContainer {
+    flex: 0 0 300px;
+    height: 300px;
+    width: 100%;
+  }
+}

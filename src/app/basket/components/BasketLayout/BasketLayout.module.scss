@@ -5,6 +5,16 @@
   gap: 50px;
 }
 
+// Список товаров и "Ваш заказ" сидели в одну строку без переноса — на узких
+// экранах ни у одной из колонок нет min-width:0, поэтому вместо сжатия они
+// наезжали друг на друга. Стек в одну колонку на мобильных.
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
 .containerEmptyList {
   display: flex;
   justify-content: center;

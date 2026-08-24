@@ -5,3 +5,18 @@
   gap: 56px;
   overflow: hidden !important;
 }
+
+// min-width: 1280px гарантированно ломал модалку на мобильных (список +
+// карта в ряд физически не умещаются на узком экране) — список сверху,
+// карта под ним фиксированной высоты снизу.
+@media (max-width: 900px) {
+  .wrapper {
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto !important;
+    gap: 24px;
+  }
+}

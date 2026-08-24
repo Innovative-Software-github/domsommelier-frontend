@@ -125,3 +125,46 @@
   color: #242424;
   margin: 0;
 }
+
+// Ряд был жёстко зафиксирован по ширине (120 + 234 + 100 + отступы — больше
+// 570px минимум) и не умещался на мобильных экранах, вылезая за вьюпорт.
+// Переносим на две строки: картинка+текст сверху, счётчик количества и цена
+// снизу на всю ширину.
+@media (max-width: 700px) {
+  .card {
+    flex-wrap: wrap;
+    // Место снизу под actionsSection (избранное/удалить) — он position: absolute
+    // и не занимает место в потоке сам по себе.
+    padding-bottom: 56px;
+  }
+
+  .imageSection {
+    flex: 0 0 90px;
+    height: 110px;
+    margin-right: 12px;
+  }
+
+  .contentSection {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .title {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .quantitySection {
+    flex: 1 1 auto;
+    padding: 12px 16px 0 0;
+  }
+
+  .readOnlyPriceSection {
+    padding-right: 0;
+    margin-top: 12px;
+  }
+}
