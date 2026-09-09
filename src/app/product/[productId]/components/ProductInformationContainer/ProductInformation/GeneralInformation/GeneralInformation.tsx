@@ -15,7 +15,7 @@ export const GeneralInformation: React.FC<IGeneralInformationProps> = ({ product
   return (
     <div className={cls.container}>
       {generalInformationData.map(({ property, result }) => (
-        <div className={cls.block}>
+        <div key={property} className={cls.block}>
           <span className={cls.property}>{`${property}:`}</span>
           <span className={cls.result}>{result}</span>
         </div>
