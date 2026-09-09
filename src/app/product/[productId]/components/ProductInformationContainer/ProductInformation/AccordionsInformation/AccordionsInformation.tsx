@@ -11,6 +11,7 @@ export interface IAccordionsInformationProps {
 
 export const AccordionsInformation: React.FC<IAccordionsInformationProps> = ({ product }) => {
   const sections = [
+    { title: 'Описание', text: product.description },
     { title: 'Аромат', text: product.aroma },
     { title: 'Вкус', text: product.taste },
     { title: 'Гастропары', text: product.foodPairing },
