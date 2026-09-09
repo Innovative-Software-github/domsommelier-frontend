@@ -58,7 +58,7 @@ export default async function EventPage({
   return (
     <Layout footerTheme="wineRed">
       <EventByIdHeader event={event} />
-      <EventByIdInformation eventType={event.type} />
+      <EventByIdInformation event={event} />
     </Layout>
   );
 }

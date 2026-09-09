@@ -1,6 +1,11 @@
 import { IPaginatedResponse } from '@/services/common/interfaces';
 import { TEventTypes } from "../../constants/events";
 
+export interface IFaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface IEvent {
   id: string;
   type: TEventTypes;
@@ -13,6 +18,9 @@ export interface IEvent {
   address: string;
   description: string;
   registrationLink: string;
+  about?: string | null;
+  howItGoes?: string | null;
+  faq?: IFaqItem[] | null;
 }
 
 export type IEventCard = Pick<IEvent,
