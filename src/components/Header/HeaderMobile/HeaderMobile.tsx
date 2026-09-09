@@ -2,10 +2,12 @@ import React from 'react';
 import { ContentContainer } from '@/ui/ContentContainer/ContentContainer';
 import cls from './HeaderMobile.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
 import { SearchInput } from '@/features/search/components/SearchInput/SearchInput';
 import { Icon } from '../../../ui/Icon/Icon';
 import { IconType } from '../../../ui/Icon/IconsMapping';
 import { MobileMenu } from './MobileMenu/MobileMenu';
+import { ROUTES } from '../../../constants/routes';
 
 export const HeaderMobile: React.FC = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
@@ -14,12 +16,14 @@ export const HeaderMobile: React.FC = () => {
   return (
     <header className={cls.header}>
       <ContentContainer className={cls.container}>
-        <Image
-          src="/mobileLogotype.png"
-          alt="Логотип на мобильные устройства"
-          width={72}
-          height={72}
-        />
+        <Link href={ROUTES.home} aria-label="На главную">
+          <Image
+            src="/mobileLogotype.png"
+            alt="Логотип на мобильные устройства"
+            width={72}
+            height={72}
+          />
+        </Link>
         <SearchInput
           className={cls.input}
           value={query}

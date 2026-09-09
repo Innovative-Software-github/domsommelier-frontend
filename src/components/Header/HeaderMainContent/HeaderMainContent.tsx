@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 
 import cls from './HeaderMainContent.module.scss';
@@ -45,7 +46,7 @@ export const HeaderMainContent: React.FC = () => {
         </button>
       </div>
 
-      <div className={cls.logo}>
+      <Link href={ROUTES.home} className={cls.logo} aria-label="На главную">
         <Image
           src="/logotype.png"
           alt="logotype"
@@ -53,7 +54,7 @@ export const HeaderMainContent: React.FC = () => {
           height={45}
           priority
         />
-      </div>
+      </Link>
 
       <div className={cls.links}>
         <IconLink 
