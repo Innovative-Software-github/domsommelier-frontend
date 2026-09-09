@@ -82,11 +82,13 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
     });
   };
 
-  if (events.totalElements === 0) {
-    return (
-      <EventEmptyList />
-    );
-  }
+  const hasActiveFilters = Boolean(filters.dateStart || filters.dateEnd || filters.type);
+
+  const resetFilters = () => {
+    const next: IFilters = { page: DEFAULT_EVENTS_PAGE, size: DEFAULT_EVENTS_SIZE };
+    setFilters(next);
+    immediateFetchEvents(next);
+  };
 
   return (
     <>
@@ -100,11 +102,15 @@ export const EventsClient: React.FC<IEventsClientProps> = ({
         eventType={filters.type}
         updateFilters={(type) => updateFilters("type", type)}
       />
-      <EventBoard
-        eventsConfig={events}
-        page={filters.page}
-        onPageChange={setPage}
-      />
+      {events.totalElements === 0 ? (
+        <EventEmptyList hasActiveFilters={hasActiveFilters} onResetFilters={resetFilters} />
+      ) : (
+        <EventBoard
+          eventsConfig={events}
+          page={filters.page}
+          onPageChange={setPage}
+        />
+      )}
     </>
   );
 };
