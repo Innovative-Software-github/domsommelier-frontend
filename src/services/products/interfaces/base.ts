@@ -21,6 +21,9 @@ export interface IBaseProduct<ProductType extends TProductType, TDetails> {
   initialPrice: number;
   price: number;
   description: string | null;
+  aroma: string | null;
+  taste: string | null;
+  foodPairing: string | null;
   discount: number | null;
   createdAt: string;
   productCountry: string;

@@ -17,7 +17,7 @@ export const ProductInformation: React.FC<IProductInformationProps> = ({ product
       <h1 className={cls.title}>{product.name}</h1>
 
       <GeneralInformation product={product} />
-      <AccordionsInformation />
+      <AccordionsInformation product={product} />
     </div>
   );
 };
