@@ -1,3 +1,4 @@
+import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ROUTES } from "../../../../constants/routes";
@@ -10,6 +11,17 @@ import { formatEventPrice } from "../../utils/formatPrice";
 
 export interface IEventCardProps extends IEventCard {}
 
+/** Плейсхолдер, если у мероприятия ещё не загружено ни одного фото. */
+const COVER_FALLBACK = '/eventImage.png';
+
+/** Относительный url (как у productPhoto) проксируется через /api-back на бэкенд. */
+function resolveCoverSrc(cover: string | null): string {
+  if (!cover) {
+    return COVER_FALLBACK;
+  }
+  return cover.startsWith('http') ? cover : `/api-back${cover}`;
+}
+
 export const EventCard: React.FC<IEventCardProps> = ({
   id,
   type,
@@ -19,17 +31,18 @@ export const EventCard: React.FC<IEventCardProps> = ({
   smallCover,
 }) => {
   const formattedDate = formatDate(dateTime, timeFormats.dayMonthTime);
+  const [src, setSrc] = React.useState(resolveCoverSrc(smallCover));
 
   return (
     <Link href={`${ROUTES.events}/${id}`} id={id} className={styles.container}>
       <div className={styles.imageContainer}>
-        {/* TODO: Заменить на smallCover, когда будут приходить ссылки */}
         <Image
           className={styles.image}
-          src={"/eventImage.png"}
+          src={src}
           alt={title}
           fill
           priority
+          onError={() => setSrc(COVER_FALLBACK)}
         />
         <EventTypeTag type={type} className={styles.eventType} />
       </div>

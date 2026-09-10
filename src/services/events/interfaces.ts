@@ -12,8 +12,8 @@ export interface IEvent {
   price: number;
   dateTime: string;
   title: string;
-  smallCover: string;
-  largeCover: string;
+  smallCover: string | null;
+  largeCover: string | null;
   city: string;
   address: string;
   description: string;
