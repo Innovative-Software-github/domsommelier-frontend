@@ -24,6 +24,8 @@ export interface IUseFiltersReturns {
   updateFilterArray: (field: string, value: any[]) => void;
   /** Применить фильтры (кнопка «Найти») — сброс на первую страницу, замена списка. */
   applyFilters: () => void;
+  /** Сменить один фильтр и сразу применить — для плашек вида товара над сеткой. */
+  applyFilter: (field: string, value: any[]) => void;
   /** Сменить сортировку — сброс на первую страницу, замена списка. */
   setSort: (sort: TSortOption) => void;
   /** «Показать ещё» — догрузить следующую страницу в конец списка. */
@@ -90,6 +92,12 @@ export const useFilters = (productType: TProductType): IUseFiltersReturns => {
 
   const applyFilters = () => fetchPage(filters, sort, 0, 'replace');
 
+  const applyFilter = (field: string, value: any[]) => {
+    const nextFilters = { ...filters, [field]: value };
+    setFilters(nextFilters);
+    fetchPage(nextFilters, sort, 0, 'replace');
+  };
+
   const setSort = (nextSort: TSortOption) => {
     setSortState(nextSort);
     fetchPage(filters, nextSort, 0, 'replace');
@@ -99,5 +107,5 @@ export const useFilters = (productType: TProductType): IUseFiltersReturns => {
 
   const goToPage = (nextPage: number) => fetchPage(filters, sort, nextPage, 'replace');
 
-  return { filters, sort, updateFilterArray, applyFilters, setSort, loadMore, goToPage };
+  return { filters, sort, updateFilterArray, applyFilters, applyFilter, setSort, loadMore, goToPage };
 };

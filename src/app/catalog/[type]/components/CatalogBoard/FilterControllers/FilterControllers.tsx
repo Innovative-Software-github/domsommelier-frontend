@@ -12,11 +12,14 @@ import { Select, ISelectOptions } from '../../../../../../ui/Select/Select';
 import { FiltersPanel } from '../../FiltersPanel/FiltersPanel';
 import { TProductType } from '../../../../../../constants/productTypes';
 import { IFiltersState } from '../../FiltersPanel/FiltersFabric/interfaces';
+import { IProductFacets } from '../../../../../../services/products/requests';
 import { SORT_OPTIONS, TSortOption } from '../../../utils/catalogQuery';
 
 export interface IFilterControllersProps {
   productType: TProductType;
   filters: IFiltersState;
+  facets: IProductFacets | null;
+  hiddenFields: string[];
   updateFilterArray: (field: string, value: any[]) => void;
   applyFilters: () => void;
   sort: TSortOption;
@@ -26,6 +29,8 @@ export interface IFilterControllersProps {
 export const FilterControllers: React.FC<IFilterControllersProps> = ({
   productType,
   filters,
+  facets,
+  hiddenFields,
   updateFilterArray,
   applyFilters,
   sort,
@@ -70,6 +75,8 @@ export const FilterControllers: React.FC<IFilterControllersProps> = ({
           <FiltersPanel
             productType={productType}
             filters={filters}
+            facets={facets}
+            hiddenFields={hiddenFields}
             updateFilterArray={updateFilterArray}
             applyFilters={applyFilters}
           />

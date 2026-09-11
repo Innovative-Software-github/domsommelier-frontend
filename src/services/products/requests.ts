@@ -68,6 +68,39 @@ export const getFilteredProducts = async (
   return normalizePagedProducts(response);
 };
 
+export interface IProductFacets {
+  /** Сколько товаров даст весь текущий выбор. */
+  total: number;
+  /** Поле фильтра → подпись варианта → сколько товаров будет, если его отметить. */
+  options: Record<string, Record<string, number>>;
+}
+
+/**
+ * Счётчики вариантов фильтров для текущего выбора. Ошибки не показываем тостом:
+ * это подсказка, без неё фильтры работают как раньше.
+ */
+export const getProductFacets = async (
+  filters: IFiltersState,
+  category: TProductType,
+  city?: string,
+  signal?: AbortSignal,
+): Promise<IProductFacets> => {
+  const search = new URLSearchParams({ category });
+  if (city) {
+    search.set('city', city);
+  }
+
+  return customFetch<IProductFacets, IFiltersState>(
+    {
+      path: `${ApiEndpoint.products.getFilteredProducts}/facets?${search.toString()}`,
+      method: 'POST',
+      signal,
+      silentError: true,
+    },
+    filters,
+  );
+};
+
 /**
  * Приводит ответ к постраничному виду. Подстраховка на случай, если бэкенд вернёт
  * обычный массив (старое поведение /filter без пагинации) — тогда трактуем его как

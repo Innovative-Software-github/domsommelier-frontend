@@ -10,9 +10,9 @@ import { MobileMenuAccordion } from './MobileMenuAccordion/MobileMenuAccordion';
 import { Backdrop } from '../../../../ui/Backdrop/Backdrop';
 import { ROUTES, PRODUCT_TYPES_SEGMENTS } from '../../../../constants/routes';
 import {
+  PRIMARY_FILTER_FIELD_BY_TYPE,
   productTypeArray,
   productTypeLabels,
-  TProductType,
 } from '../../../../constants/productTypes';
 import { filtersConfigSelector } from '../../../../store/filters/selectors';
 import { isAuthenticatedSelector } from '../../../../store/auth/selectors';
@@ -22,21 +22,6 @@ export interface IMobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-/**
- * Категории, для которых в конфиге фильтров есть осмысленный multi_select-фильтр —
- * он используется как быстрые ссылки в аккордеоне (значения приходят с бэка,
- * ничего не хардкодим). У категорий без подходящего фильтра (сейчас — аксессуары)
- * аккордеон не рендерится, вместо него обычная ссылка на раздел целиком.
- * Поля соответствуют `field` из `src/main/resources/data/filters.sql` на бэке.
- */
-const QUICK_FILTER_FIELD_BY_TYPE: Partial<Record<TProductType, string>> = {
-  wine: 'color',
-  champagne_and_sparkling: 'color',
-  spirit: 'subcategory',
-  snack: 'subcategory',
-  low_alcohol: 'subcategory',
-};
 
 export const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
@@ -76,7 +61,7 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen, onClose }) => {
         {productTypeArray.map((type) => {
           const categoryHref = PRODUCT_TYPES_SEGMENTS[type];
           const categoryLabel = productTypeLabels[type];
-          const quickFilterField = QUICK_FILTER_FIELD_BY_TYPE[type];
+          const quickFilterField = PRIMARY_FILTER_FIELD_BY_TYPE[type];
           const quickFilter = quickFilterField
             ? filtersConfig?.[type]?.[quickFilterField]
             : undefined;

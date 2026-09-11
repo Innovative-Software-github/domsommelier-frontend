@@ -13,16 +13,20 @@ import {
 } from './interfaces';
 import { isFilterActive } from '../../../utils/isFilterActive';
 import { RangeFilter } from './RangeFilter/RangeFilter';
+import { IProductFacets } from '../../../../../../services/products/requests';
 
 export interface IFilterFactoryProps {
   filterConfig: IFilterConfig;
   filtersState: IFiltersState;
+  /** Счётчики вариантов при текущем выборе; null — ещё не загружены. */
+  facets?: IProductFacets | null;
   onUpdateFilterArray: (field: string, value: any) => void;
 }
 
 export const FilterFactory: React.FC<IFilterFactoryProps> = ({
   filterConfig,
   filtersState,
+  facets,
   onUpdateFilterArray,
 }) => {
   switch (filterConfig.type) {
@@ -44,6 +48,7 @@ export const FilterFactory: React.FC<IFilterFactoryProps> = ({
           isAccordionOpen={isFilterActive(filtersState[filterConfig.field])}
           filterState={filtersState[filterConfig.field] as TMultiSelectFilterValue}
           filterConfig={filterConfig}
+          counts={facets?.options[filterConfig.field]}
           onUpdateFilterArray={(value) => {
             onUpdateFilterArray(filterConfig.field, value);
           }}

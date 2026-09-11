@@ -6,6 +6,8 @@ import { TGetFilteredProductsResponse } from "../../../../../services/products/i
 import { CatalogBoard } from "../CatalogBoard/CatalogBoard";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { useFilters } from "../../utils/useFilters";
+import { useFilterFacets } from "../../utils/useFilterFacets";
+import { usePrimaryFilter } from "../../utils/usePrimaryFilter";
 import { setInitialProductCards } from "../../../../../store/products/actions";
 import { useDispatch } from "react-redux";
 
@@ -19,8 +21,12 @@ export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
   initialProductCards,
 }) => {
   const dispatch = useDispatch();
-  const { filters, sort, updateFilterArray, applyFilters, setSort, loadMore, goToPage } =
+  const { filters, sort, updateFilterArray, applyFilters, applyFilter, setSort, loadMore, goToPage } =
     useFilters(productType);
+  const facets = useFilterFacets(productType, filters);
+  const primaryFilter = usePrimaryFilter(productType);
+  // Главный фильтр показан плашками над сеткой — в боковой панели его не дублируем.
+  const hiddenFields = primaryFilter ? [primaryFilter.field] : [];
 
   React.useEffect(() => {
     dispatch(setInitialProductCards(initialProductCards));
@@ -30,6 +36,8 @@ export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
     <>
       <Sidebar
         filters={filters}
+        facets={facets}
+        hiddenFields={hiddenFields}
         updateFilterArray={updateFilterArray}
         applyFilters={applyFilters}
         productType={productType}
@@ -38,8 +46,12 @@ export const CatalogClientWrapper: React.FC<ICatalogClientWrapperProps> = ({
       <CatalogBoard
         productType={productType}
         filters={filters}
+        facets={facets}
+        primaryFilter={primaryFilter}
+        hiddenFields={hiddenFields}
         updateFilterArray={updateFilterArray}
         applyFilters={applyFilters}
+        applyFilter={applyFilter}
         sort={sort}
         setSort={setSort}
         loadMore={loadMore}

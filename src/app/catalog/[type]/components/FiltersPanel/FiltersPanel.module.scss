@@ -1,4 +1,10 @@
-.filter + .filter {
+// Фильтр без подходящих вариантов (все дают ноль товаров) ничего не рендерит —
+// его пустую обёртку прячем, а разделитель ставим только между непустыми.
+.filter:empty {
+  display: none;
+}
+
+.filter:not(:empty) ~ .filter:not(:empty) {
   padding-top: 12px;
   margin-top: 12px;
   border-top: 1px solid #e9e9e9;
