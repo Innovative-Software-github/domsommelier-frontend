@@ -1,24 +1,42 @@
 import { useLayoutEffect } from 'react';
 
+// Блокировка общая на все модалки. Раньше каждая запоминала overflow body на
+// момент открытия и возвращала его при закрытии — при двух открытых сразу
+// (каталог + поиск) вторая запоминала уже 'hidden', и если закрывались не в
+// обратном порядке (Escape закрывает обе, каталог первым), body навсегда
+// оставался с overflow: hidden. Теперь стили снимаются, только когда закрылась
+// последняя модалка.
+let lockCount = 0;
+let savedOverflow = '';
+let savedPaddingRight = '';
+
 export const useBodyScrollLock = (isLocked: boolean) => {
   useLayoutEffect(() => {
     if (!isLocked) return;
 
-    const scrollBarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
+    if (lockCount === 0) {
+      const scrollBarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
 
-    const previousOverflow = document.body.style.overflow;
-    const previousPaddingRight = document.body.style.paddingRight;
+      savedOverflow = document.body.style.overflow;
+      savedPaddingRight = document.body.style.paddingRight;
 
-    document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
 
-    if (scrollBarWidth > 0) {
-      document.body.style.paddingRight = `${scrollBarWidth}px`;
+      if (scrollBarWidth > 0) {
+        document.body.style.paddingRight = `${scrollBarWidth}px`;
+      }
     }
 
+    lockCount += 1;
+
     return () => {
-      document.body.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousPaddingRight;
+      lockCount -= 1;
+
+      if (lockCount === 0) {
+        document.body.style.overflow = savedOverflow;
+        document.body.style.paddingRight = savedPaddingRight;
+      }
     };
   }, [isLocked]);
 };

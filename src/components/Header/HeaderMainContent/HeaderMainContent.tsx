@@ -34,13 +34,19 @@ export const HeaderMainContent: React.FC = () => {
               : IconType.Hamburger_24
           }
           height="H-42"
-          onClick={() => setIsCatalogMenuModalOpen((prev) => !prev)}
+          onClick={() => {
+            setIsCatalogMenuModalOpen((prev) => !prev);
+            setIsSearchModalOpen(false);
+          }}
         >
           Каталог
         </Button>
         <button
           className={cls.searchButton}
-          onClick={() => setIsSearchModalOpen((prev) => !prev)}
+          onClick={() => {
+            setIsSearchModalOpen((prev) => !prev);
+            setIsCatalogMenuModalOpen(false);
+          }}
         >
           <Icon type={IconType.Search_24} width={24} height={24} />
         </button>
