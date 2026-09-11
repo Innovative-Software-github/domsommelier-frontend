@@ -42,7 +42,7 @@ export const RangeFilter: React.FC<IRangeFilterProps> = ({
         <div className={cls.inputContainer}>
           <FilledInput
             elPrefix="от"
-            placeholder={`${min.toLocaleString()} ${unit}`}
+            placeholder={`${min.toLocaleString('ru-RU')} ${unit}`}
             value={minValue?.toString() || ''}
             onChange={(event) => {
               let localValue = Number(event.target.value);
@@ -54,7 +54,7 @@ export const RangeFilter: React.FC<IRangeFilterProps> = ({
           />
           <FilledInput
             elPrefix="до"
-            placeholder={`${max.toLocaleString()} ${unit}`}
+            placeholder={`${max.toLocaleString('ru-RU')} ${unit}`}
             value={maxValue?.toString() || ''}
             onChange={(event) => {
               let localValue = Number(event.target.value);
