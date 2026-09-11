@@ -82,7 +82,8 @@
   transition: box-shadow 150ms ease;
   cursor: pointer;
   
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled),
+  &.actionButtonActive {
     box-shadow: 0px 0px 5.2px 0px #0000001C;
   }
 
@@ -98,7 +99,7 @@
 }
 
 .heartIconActive {
-  color: #242424;
+  color: var(--color-red-accent);
 }
 // actions section end
 

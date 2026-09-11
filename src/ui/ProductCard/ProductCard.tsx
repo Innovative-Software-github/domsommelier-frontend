@@ -61,13 +61,15 @@ export const ProductCard: React.FC<IProductCardProps> = ({
           <button
             type="button"
             aria-label={isSaved ? 'Удалить из избранного' : 'Добавить в избранное'}
+            aria-pressed={isSaved}
+            title={isSaved ? 'В избранном — нажмите, чтобы убрать' : 'Добавить в избранное'}
             className={clsx(cls.favoriteButton, isSaved && cls.favoriteButtonActive)}
             onClick={handleToggleFavorite}
             disabled={isProductSavedLoading}
           >
             <Icon
               className={clsx(cls.heartIcon, isSaved && cls.heartIconActive)}
-              type={IconType.Heart_24}
+              type={isSaved ? IconType.HeartFilled_24 : IconType.Heart_24}
               width={24}
               height={24}
             />

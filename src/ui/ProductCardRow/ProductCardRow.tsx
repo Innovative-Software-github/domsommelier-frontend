@@ -127,13 +127,15 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
         <div className={cls.actionsSection}>
         <button
           aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
-          className={cls.actionButton}
+          aria-pressed={isFavorite}
+          title={isFavorite ? 'В избранном — нажмите, чтобы убрать' : 'Добавить в избранное'}
+          className={clsx(cls.actionButton, isFavorite && cls.actionButtonActive)}
           onClick={handleToggleFavorite}
           disabled={isFavoriteLoading}
         >
           <Icon
             className={clsx(cls.heartIcon, isFavorite && cls.heartIconActive)}
-            type={IconType.Heart_24}
+            type={isFavorite ? IconType.HeartFilled_24 : IconType.Heart_24}
             width={24}
             height={24}
           />
@@ -141,6 +143,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
         {onRemoveFromBasket && (
           <button
             aria-label="Удалить из корзины"
+            title="Удалить из корзины"
             className={cls.actionButton}
             onClick={handleRemoveFromBasket}
           >

@@ -1,8 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { addToSavedThunk, removeFromSavedThunk, clearSavedThunk } from '../../store/saved/actions';
+import {
+  addToSavedThunk,
+  removeFromSavedThunk,
+  clearSavedThunk,
+  getSavedRequest,
+} from '../../store/saved/actions';
 import { savedIsLoadingSelector } from '../../store/saved/selectors';
-import { TSavedProductId } from '../../services/saved/interfaces';
+import { TSavedCustomerId, TSavedProductId } from '../../services/saved/interfaces';
 import { useAppDispatch } from '../../store/hooks';
 import { useRequireCustomerId } from '../useRequireCustomerId';
 
@@ -27,6 +32,16 @@ export const useSaved = () => {
     });
   }, []);
 
+  // Если add/remove упал (сеть, 5xx), неизвестно, успел ли бэк применить
+  // изменение, — перечитываем избранное, чтобы сердечки и счётчик показали
+  // реальное состояние.
+  const resyncSaved = useCallback(
+    (customerId: TSavedCustomerId) => {
+      void dispatch(getSavedRequest(customerId));
+    },
+    [dispatch],
+  );
+
   const addToSaved = useCallback(
     async (productId: TSavedProductId) => {
       const customerId = requireCustomerId();
@@ -39,12 +54,13 @@ export const useSaved = () => {
         return await dispatch(addToSavedThunk({ customerId, productId })).unwrap();
       } catch (error) {
         console.error('Ошибка при добавлении товара в избранное:', error);
+        resyncSaved(customerId);
         throw error;
       } finally {
         setProductLoading(productId, false);
       }
     },
-    [dispatch, requireCustomerId, setProductLoading],
+    [dispatch, requireCustomerId, setProductLoading, resyncSaved],
   );
 
   const removeFromSaved = useCallback(
@@ -59,12 +75,13 @@ export const useSaved = () => {
         return await dispatch(removeFromSavedThunk({ customerId, productId })).unwrap();
       } catch (error) {
         console.error('Ошибка при удалении товара из избранного:', error);
+        resyncSaved(customerId);
         throw error;
       } finally {
         setProductLoading(productId, false);
       }
     },
-    [dispatch, requireCustomerId, setProductLoading],
+    [dispatch, requireCustomerId, setProductLoading, resyncSaved],
   );
 
   const clearSaved = useCallback(async () => {

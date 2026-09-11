@@ -31,7 +31,9 @@
   background: none;
 }
 
-.favoriteButton:hover .heartIcon {
+// Только для несохранённого: иначе при наведении активное бордовое сердечко
+// перекрашивалось в чёрное и казалось, что товар выпал из избранного.
+.favoriteButton:hover .heartIcon:not(.heartIconActive) {
   color: #242424;
 }
 

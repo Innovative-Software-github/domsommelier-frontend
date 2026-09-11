@@ -12,6 +12,7 @@ import { AuthModalProvider } from '@/components/AuthModal/AuthModalContext';
 import { AuthModal } from '@/components/AuthModal/AuthModal';
 import { useRestoreAuthSession } from '@/hooks/useRestoreAuthSession';
 import { useSyncCartOnAuth } from '@/hooks/useSyncCartOnAuth';
+import { useSyncCartOnFocus } from '@/hooks/useSyncCartOnFocus';
 import { logoutAction } from '@/store/auth/actions';
 import { ROUTES } from '@/constants/routes';
 
@@ -26,6 +27,7 @@ function AuthSessionRestorer({ children }: { children: ReactNode }) {
 
   useRestoreAuthSession();
   useSyncCartOnAuth();
+  useSyncCartOnFocus();
 
   useEffect(() => {
     const handler = () => {

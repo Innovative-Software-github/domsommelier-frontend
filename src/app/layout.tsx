@@ -139,7 +139,10 @@ export default async function RootLayout({
         <Providers reduxPreloadedState={reduxPreloadedState}>
           {children}
         </Providers>
-        <Toaster position="top-right" richColors closeButton />
+        {/* offset.top — чтобы тост вставал под ряд иконок шапки, а не поверх
+            счётчиков корзины/избранного, которые только что изменились. На
+            мобильных (mobileOffset по умолчанию) счётчиков в шапке нет. */}
+        <Toaster position="top-right" richColors closeButton offset={{ top: 96 }} />
         {hadLoadError && (
           <ServerErrorToast message="Не удалось загрузить часть данных. Обновите страницу." />
         )}

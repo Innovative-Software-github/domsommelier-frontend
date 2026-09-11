@@ -40,6 +40,9 @@ export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
             [cls.favoriteButtonSaved]: isSaved,
           }) }
           variant="darkOutlined"
+          aria-label={isSaved ? 'Удалить из избранного' : 'Добавить в избранное'}
+          aria-pressed={isSaved}
+          title={isSaved ? 'В избранном — нажмите, чтобы убрать' : 'Добавить в избранное'}
           onClick={handleToggleSaved}
           isDisabled={isProductSavedLoading}
         >
@@ -48,7 +51,7 @@ export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
           ) : (
           <Icon
             className={clsx(cls.heartIcon, isSaved && cls.heartIconActive)}
-            type={IconType.Heart_24}
+            type={isSaved ? IconType.HeartFilled_24 : IconType.Heart_24}
             />
           )}
         </Button>
