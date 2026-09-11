@@ -96,7 +96,7 @@ export const MobileMenu: React.FC<IMobileMenuProps> = ({ isOpen, onClose }) => {
           );
         })}
 
-        <Link className={cls.link} href="/" onClick={onClose}>
+        <Link className={cls.link} href={ROUTES.about} onClick={onClose}>
           О нас
         </Link>
         <Link className={cls.link} href={ROUTES.privateEvents} onClick={onClose}>

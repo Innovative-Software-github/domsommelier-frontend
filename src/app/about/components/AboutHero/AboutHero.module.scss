@@ -1,0 +1,53 @@
+.container {
+  margin-top: 40px;
+  color: var(--color-red-accent);
+}
+
+.label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.statement {
+  margin: 0;
+  max-width: 1024px;
+  font-family: 'forum' !important;
+  font-weight: 400;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 720px;
+  margin-top: 32px;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .statement {
+    font-size: 1.75rem;
+  }
+
+  .paragraphs {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .label {
+    font-size: 0.75rem;
+  }
+
+  .statement {
+    font-size: 1.5rem;
+  }
+}

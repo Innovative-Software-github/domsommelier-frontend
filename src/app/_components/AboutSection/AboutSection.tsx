@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ContentContainer } from '../../../ui/ContentContainer/ContentContainer';
+import { ROUTES } from '@/constants/routes';
 import styles from './AboutSection.module.scss';
 
 const mainTextContent =
@@ -18,7 +19,7 @@ export const AboutSection: React.FC = () => {
           <p className={styles.mainText}>{mainTextContent}</p>
           <div className={styles.description}>
             {subTextContent}
-            <Link href="/" className={styles.link}>
+            <Link href={ROUTES.about} className={styles.link}>
               Узнать больше о нас
             </Link>
           </div>

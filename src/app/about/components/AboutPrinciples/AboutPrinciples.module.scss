@@ -1,0 +1,27 @@
+.container {
+  margin-top: 96px;
+  margin-bottom: 96px;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  color: var(--color-red-accent);
+  margin-bottom: 24px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 460px) {
+  .container {
+    margin-top: 64px;
+    margin-bottom: 64px;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+}

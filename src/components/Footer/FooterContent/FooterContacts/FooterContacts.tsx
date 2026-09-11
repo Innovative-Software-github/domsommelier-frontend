@@ -13,10 +13,10 @@ export const FooterContacts: React.FC = () => {
           companyContactsConstant.email,
         ]}
       />
-      <ContactBlock label="Адрес" contents={[companyContactsConstant.email]} />
+      <ContactBlock label="Адрес" contents={[companyContactsConstant.address]} />
       <ContactBlock
         label="Режим работы"
-        contents={['ПН-ПТ 10:00 - 23:00', 'СБ-ВС 11:00 - 23:00']}
+        contents={[...companyContactsConstant.workingHours]}
       />
     </div>
   );
