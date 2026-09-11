@@ -1,0 +1,14 @@
+.clearButton {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a3a3a3;
+  cursor: pointer;
+  transition: color 150ms;
+
+  &:hover,
+  &:focus-visible {
+    color: #242424;
+  }
+}

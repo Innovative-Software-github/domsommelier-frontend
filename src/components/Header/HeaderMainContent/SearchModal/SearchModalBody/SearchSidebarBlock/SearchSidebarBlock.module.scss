@@ -4,6 +4,13 @@
   gap: 16px;
 }
 
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .title {
   color: #717171;
   font-size: 16px;
@@ -11,10 +18,32 @@
   line-height: 140%;
 }
 
+.action {
+  all: unset;
+  color: #a3a3a3;
+  font-size: 14px;
+  line-height: 140%;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: #242424;
+  }
+}
+
 .link {
+  all: unset;
   width: fit-content;
   color: #242424;
   font-size: 16px;
   font-weight: 400;
   line-height: 140%;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition: color 150ms;
+
+  &:hover,
+  &:focus-visible {
+    color: #680a08;
+  }
 }

@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 import { SearchInput } from '@/features/search/components/SearchInput/SearchInput';
+import { getSearchUrl } from '@/constants/routes';
 import { Button } from '../../../../../ui/Button/Button';
 import cls from './SearchModalHeader.module.scss';
 
@@ -19,7 +21,10 @@ export const SearchModalHeader: React.FC<ISearchModalHeaderProps> = ({
   autoFocus = false,
   onClose,
 }) => {
-  const handleSubmit = () => {
+  const router = useRouter();
+
+  const handleSubmit = (text: string) => {
+    router.push(getSearchUrl(text));
     onClose();
   };
 

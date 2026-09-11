@@ -6,6 +6,8 @@ import { Input, TInputTheme } from '@/ui/Input/Input';
 import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 
+import cls from './SearchInput.module.scss';
+
 export interface ISearchInputProps {
   value: string;
   onChange: (value: string) => void;
@@ -43,6 +45,11 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
     }
   };
 
+  const handleClear = () => {
+    onChange('');
+    inputRef.current?.focus();
+  };
+
   return (
     <Input
       ref={inputRef}
@@ -50,7 +57,21 @@ export const SearchInput: React.FC<ISearchInputProps> = ({
       theme={theme}
       value={value}
       placeholder={placeholder}
+      aria-label={placeholder}
+      enterKeyHint="search"
       elPrefix={<Icon type={IconType.Search_24} width={24} height={24} />}
+      elSuffix={
+        value && (
+          <button
+            type="button"
+            className={cls.clearButton}
+            aria-label="Очистить поиск"
+            onClick={handleClear}
+          >
+            <Icon type={IconType.Cancel_24} width={20} height={20} />
+          </button>
+        )
+      }
       onChange={(event) => onChange(event.currentTarget.value)}
       onPressEnter={handleSubmit}
     />

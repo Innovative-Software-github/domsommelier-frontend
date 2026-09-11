@@ -24,8 +24,22 @@
   height: 42px;
 }
 
+.searchLink {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  margin-left: auto;
+  color: inherit;
+}
+
 @media (max-width: 420px) {
   .input {
     display: none;
+  }
+
+  .searchLink {
+    display: flex;
   }
 }

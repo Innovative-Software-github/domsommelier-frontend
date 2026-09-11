@@ -16,6 +16,7 @@ export const ROUTES = {
   product: '/product',
   profile: '/profile',
   profileOrders: '/profile/orders',
+  search: '/search',
 } as const;
 
 export const PRODUCT_TYPES_SEGMENTS = {
@@ -36,4 +37,13 @@ export const getProductUrl = (productId: string): string => {
 
 export const getOrderUrl = (orderId: string): string => {
   return `${ROUTES.profileOrders}/${orderId}`;
+};
+
+/** Страница результатов поиска; page — 0-based, как на бэкенде (в URL — с 1). */
+export const getSearchUrl = (query: string, page = 0): string => {
+  const params = new URLSearchParams({ q: query.trim() });
+  if (page > 0) {
+    params.set('page', String(page + 1));
+  }
+  return `${ROUTES.search}?${params.toString()}`;
 };

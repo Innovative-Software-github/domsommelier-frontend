@@ -60,7 +60,7 @@ export const SearchModal: React.FC<ISearchModalProps> = ({
           autoFocus={isOpen}
           onClose={onClose}
         />
-        <SearchModalBody query={query} />
+        <SearchModalBody query={query} onQueryChange={setQuery} onNavigate={onClose} />
       </ContentContainer>
     </Backdrop>
   );
