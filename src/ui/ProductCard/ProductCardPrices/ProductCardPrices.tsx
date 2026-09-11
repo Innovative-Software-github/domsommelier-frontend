@@ -5,21 +5,21 @@ import cls from './ProductCardPrices.module.scss';
 
 export interface IProductCardPrices {
   price: TProductCard['price'];
-  discount?: TProductCard['discount'];
+  salePrice?: TProductCard['salePrice'];
   className?: string;
 }
 
 export const ProductCardPrices: React.FC<IProductCardPrices> = ({
   price,
-  discount,
+  salePrice,
   className,
 }) => {
-  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
+  const { hasSale, currentPrice } = useProductPrice(price, salePrice);
 
   return (
     <div className={clsx(cls.container, className)}>
       <span className={cls.price}>{currentPrice} ₽</span>
-      {hasDiscount && <span className={cls.oldPrice}>{price} ₽</span>}
+      {hasSale && <span className={cls.oldPrice}>{price} ₽</span>}
     </div>
   );
 }

@@ -27,14 +27,14 @@ export const ProductInformationContainer: React.FC<IProductInformationContainerP
       <ProductActionPanel 
         productId={product.id}
         price={product.price} 
-        discount={product.discount} 
+        salePrice={product.salePrice} 
       />
 
       {isTablet && (
         <ProductCartButton 
           productId={product.id}
           price={product.price} 
-          discount={product.discount} 
+          salePrice={product.salePrice} 
         />
       )}
     </div>

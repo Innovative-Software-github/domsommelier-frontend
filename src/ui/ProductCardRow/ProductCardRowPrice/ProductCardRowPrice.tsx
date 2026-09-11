@@ -7,19 +7,19 @@ import { TProductCard } from '../../../services/products/interfaces/base';
 
 interface IProductCardRowPriceProps {
   price: TProductCard['price'];
-  discount: TProductCard['discount'];
+  salePrice: TProductCard['salePrice'];
 }
 
 export const ProductCardRowPrice: React.FC<IProductCardRowPriceProps> = ({
   price,
-  discount,
+  salePrice,
 }) => {
-  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
+  const { hasSale, currentPrice } = useProductPrice(price, salePrice);
 
   return (
     <div className={cls.priceSection}>
       <p className={cls.price}>{currentPrice} ₽</p>
-      {hasDiscount && (
+      {hasSale && (
         <p className={cls.oldPrice}>{price} ₽</p>
       )}
     </div>

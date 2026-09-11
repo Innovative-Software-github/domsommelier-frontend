@@ -1,0 +1,35 @@
+.badge {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 520px;
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: var(--color-grey-4);
+  border-left: 3px solid var(--color-red-accent);
+}
+
+.title {
+  font-size: 16px;
+  color: var(--color-black);
+}
+
+.percent {
+  font-weight: 600;
+  color: var(--color-red-accent);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--color-grey-3);
+}
+
+@media (max-width: 768px) {
+  .badge {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+}

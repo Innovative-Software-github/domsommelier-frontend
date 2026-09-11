@@ -38,7 +38,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
   isSaved = false,
   isProductSavedLoading = false,
 }) => {
-  const { id, name, price, discount, productPhoto } = option;
+  const { id, name, price, salePrice, productPhoto } = option;
 
   const handleAddToBasket = () => {
     onAddToBasket(id);
@@ -101,7 +101,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({
 
           <ProductCardPrices
             price={price}
-            discount={discount}
+            salePrice={salePrice}
           />
 
           <p className={cls.description}>

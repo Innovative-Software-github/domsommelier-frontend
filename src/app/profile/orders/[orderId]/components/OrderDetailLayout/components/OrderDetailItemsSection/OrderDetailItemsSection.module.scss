@@ -30,3 +30,38 @@
   font-weight: 500;
   color: #242424;
 }
+
+.discountRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.discountRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.discountLabel {
+  font-size: 15px;
+  color: #717171;
+}
+
+.discountValue {
+  font-size: 15px;
+  color: #242424;
+  min-width: 120px;
+  text-align: right;
+}
+
+.discountValueRed {
+  font-size: 15px;
+  color: #c0392b;
+  min-width: 120px;
+  text-align: right;
+}

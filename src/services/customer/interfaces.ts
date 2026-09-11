@@ -8,5 +8,7 @@ export interface ICustomer {
   email: string;
   phone: string;
   role?: UserRole;
+  /** Личная скидка в процентах, 0 — скидки нет. */
+  discountPercent?: number | null;
 }
 

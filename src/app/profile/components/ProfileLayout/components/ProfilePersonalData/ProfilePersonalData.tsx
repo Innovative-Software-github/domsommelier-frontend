@@ -3,6 +3,7 @@
 import React from 'react';
 import { ICustomer } from '@/services/customer/interfaces';
 import { TProfileForm } from '../../utils';
+import { ProfileDiscountBadge } from './components/ProfileDiscountBadge/ProfileDiscountBadge';
 import { ProfilePersonalDataContent } from './components/ProfilePersonalDataContent/ProfilePersonalDataContent';
 import { ProfilePersonalDataHeader } from './components/ProfilePersonalDataHeader/ProfilePersonalDataHeader';
 import { ProfilePersonalDataLoading } from './components/ProfilePersonalDataLoading/ProfilePersonalDataLoading';
@@ -57,19 +58,23 @@ export const ProfilePersonalData: React.FC<IProfilePersonalDataProps> = ({
           </button>
         </div>
       ) : (
-        <div className={cls.fieldGroup}>
-          <ProfilePersonalDataContent
-            customer={customer}
-            form={form}
-            isEditing={isEditing}
-            isSaving={isSaving}
-            error={error}
-            success={success}
-            onFormChange={onFormChange}
-            onSave={onSave}
-            onCancel={onCancel}
-          />
-        </div>
+        <>
+          <ProfileDiscountBadge percent={customer?.discountPercent} />
+
+          <div className={cls.fieldGroup}>
+            <ProfilePersonalDataContent
+              customer={customer}
+              form={form}
+              isEditing={isEditing}
+              isSaving={isSaving}
+              error={error}
+              success={success}
+              onFormChange={onFormChange}
+              onSave={onSave}
+              onCancel={onCancel}
+            />
+          </div>
+        </>
       )}
     </div>
   );

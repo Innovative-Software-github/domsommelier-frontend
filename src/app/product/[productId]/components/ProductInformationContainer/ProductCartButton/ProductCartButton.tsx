@@ -10,15 +10,15 @@ import cls from './ProductCartButton.module.scss';
 export interface IProductCartButtonProps {
   productId: string;
   price: number;
-  discount?: number | null;
+  salePrice?: number | null;
 }
 
 export const ProductCartButton: React.FC<IProductCartButtonProps> = ({
   productId,
   price,
-  discount,
+  salePrice,
 }) => {
-  const { currentPrice } = useProductPrice(price, discount);
+  const { currentPrice } = useProductPrice(price, salePrice);
   const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange } = useProductBasket(productId);
 
   return (

@@ -74,6 +74,10 @@ export const OrderDetailLayout: React.FC<IOrderDetailLayoutProps> = ({ orderId }
         <OrderDetailItemsSection
           items={displayItems}
           totalAmount={order.totalAmount}
+          itemsTotal={order.itemsTotal}
+          saleDiscountAmount={order.saleDiscountAmount}
+          personalDiscountPercent={order.personalDiscountPercent}
+          personalDiscountAmount={order.personalDiscountAmount}
         />
       </div>
     </ContentContainer>

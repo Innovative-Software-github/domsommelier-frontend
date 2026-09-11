@@ -5,7 +5,7 @@ export const productCardModelMock: TProductCard = {
   article: '1234567890',
   name: 'The Durif Caravan',
   price: 1611,
-  discount: 1614,
+  salePrice: 1614,
   productCountry: 'Австралия',
   productCategoryName: 'wine',
   color: 'Красное',

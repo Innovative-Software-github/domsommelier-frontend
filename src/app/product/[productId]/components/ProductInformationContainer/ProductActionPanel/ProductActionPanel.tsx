@@ -17,22 +17,22 @@ import { Spinner } from '../../../../../../ui/Spinner/Spinner';
 export interface IProductActionPanelProps {
   productId: string;
   price: number;
-  discount?: number | null;
+  salePrice?: number | null;
 }
 
 export const ProductActionPanel: React.FC<IProductActionPanelProps> = ({
   productId,
   price,
-  discount,
+  salePrice,
 }) => {
-  const { hasDiscount, currentPrice } = useProductPrice(price, discount);
+  const { hasSale, currentPrice } = useProductPrice(price, salePrice);
   const { isInBasket, currentQuantity, handleAddToBasket, handleQuantityChange } = useProductBasket(productId);
   const { isSaved, handleToggleSaved, isProductSavedLoading } = useProductSaved(productId);
   const { store: nearestStore, isLoading: isNearestStoreLoading } = useNearestStore();
 
   return (
     <div className={cls.container}>
-      {hasDiscount && <div className={cls.oldPrice}>{price} ₽</div>}
+      {hasSale && <div className={cls.oldPrice}>{price} ₽</div>}
       <div className={cls.price}>{currentPrice} ₽</div>
       <div className={cls.actions}>
         <Button

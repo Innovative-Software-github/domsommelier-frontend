@@ -38,19 +38,34 @@ export const getProductQuantitySelector = createSelector(
   (itemsMap, productId) => itemsMap.get(productId)?.quantity || 0,
 );
 
-export const basketTotalPriceSelector = createSelector(
+export const basketItemsTotalSelector = createSelector(
   [basketSelector],
-  (basket) => basket?.totalPrice ?? 0,
+  (basket) => basket?.itemsTotal ?? 0,
 );
 
-export const basketDiscountSelector = createSelector(
+export const basketSaleDiscountSelector = createSelector(
   [basketSelector],
-  (basket) => basket?.discount ?? 0,
+  (basket) => basket?.saleDiscountAmount ?? 0,
 );
 
-export const basketDiscountedPriceSelector = createSelector(
+export const basketPersonalDiscountPercentSelector = createSelector(
   [basketSelector],
-  (basket) => basket?.discountedPrice ?? 0,
+  (basket) => basket?.personalDiscountPercent ?? 0,
+);
+
+export const basketPersonalDiscountSelector = createSelector(
+  [basketSelector],
+  (basket) => basket?.personalDiscountAmount ?? 0,
+);
+
+export const basketPromoDiscountSelector = createSelector(
+  [basketSelector],
+  (basket) => basket?.promoDiscountAmount ?? 0,
+);
+
+export const basketPayableTotalSelector = createSelector(
+  [basketSelector],
+  (basket) => basket?.payableTotal ?? 0,
 );
 
 export const basketCustomerIdSelector = createSelector(

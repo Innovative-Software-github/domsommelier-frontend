@@ -24,7 +24,13 @@ export interface IOrderFull {
   date: string;
   statusName: string;
   pickupAddress: string;
+  /** Сумма к оплате — после всех скидок. */
   totalAmount: number;
+  /** Снапшот скидок на момент оформления. У заказов до внедрения скидок — undefined. */
+  itemsTotal?: number | null;
+  saleDiscountAmount?: number | null;
+  personalDiscountPercent?: number | null;
+  personalDiscountAmount?: number | null;
   items: IOrderedProduct[];
   customerPhone?: string;
   customerName?: string;

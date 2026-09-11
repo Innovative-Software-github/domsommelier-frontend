@@ -43,8 +43,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
   readOnly = false,
   lineTotal,
 }) => {
-  const { id, name, price, discount, productPhoto } = option;
-  // const { hasDiscount, currentPrice } = useProductPrice(price, discount);
+  const { id, name, price, salePrice, productPhoto } = option;
 
   const handleAddToBasket = () => {
     onAddToBasket?.(id);
@@ -121,7 +120,7 @@ export const ProductCardRow: React.FC<IProductCardRowProps> = ({
           <p className={cls.readOnlyPrice}>{formatPrice(lineTotal)} ₽</p>
         </div>
       ) : (
-        <ProductCardRowPrice price={price} discount={discount} />
+        <ProductCardRowPrice price={price} salePrice={salePrice} />
       )}
 
       {!readOnly && (

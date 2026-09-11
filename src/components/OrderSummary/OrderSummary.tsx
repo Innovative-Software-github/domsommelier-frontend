@@ -1,7 +1,14 @@
 'use client';
 
 import { useSelector } from 'react-redux';
-import { basketTotalPriceSelector, basketDiscountSelector, basketDiscountedPriceSelector } from '../../store/basket/selectors';
+import {
+  basketItemsTotalSelector,
+  basketSaleDiscountSelector,
+  basketPersonalDiscountPercentSelector,
+  basketPersonalDiscountSelector,
+  basketPromoDiscountSelector,
+  basketPayableTotalSelector,
+} from '../../store/basket/selectors';
 import cls from './OrderSummary.module.scss';
 import { OrderSummaryItem } from './OrderSummaryItem/OrderSummaryItem';
 import { formatPrice } from '../../utils/formatPrice';
@@ -24,9 +31,12 @@ export const OrderSummary: React.FC<IOrderSummaryProps> = ({
   isActionLoading,
   isActionDisabled,
 }) => {
-  const totalPrice = useSelector(basketTotalPriceSelector);
-  const discount = useSelector(basketDiscountSelector);
-  const discountedPrice = useSelector(basketDiscountedPriceSelector);
+  const itemsTotal = useSelector(basketItemsTotalSelector);
+  const saleDiscount = useSelector(basketSaleDiscountSelector);
+  const personalPercent = useSelector(basketPersonalDiscountPercentSelector);
+  const personalDiscount = useSelector(basketPersonalDiscountSelector);
+  const promoDiscount = useSelector(basketPromoDiscountSelector);
+  const payableTotal = useSelector(basketPayableTotalSelector);
 
   return (
     <div className={cls.container}>
@@ -34,19 +44,35 @@ export const OrderSummary: React.FC<IOrderSummaryProps> = ({
 
       <OrderSummaryItem
         label="Товары"
-        value={`${formatPrice(totalPrice)} ₽`}
+        value={`${formatPrice(itemsTotal)} ₽`}
       />
 
-      {discount > 0 && (
+      {saleDiscount > 0 && (
         <OrderSummaryItem
-          label="Скидка"
-          value={`- ${formatPrice(discount)} ₽`}
+          label="Скидка по акции"
+          value={`- ${formatPrice(saleDiscount)} ₽`}
+          isValueRed
+        />
+      )}
+
+      {personalDiscount > 0 && (
+        <OrderSummaryItem
+          label={`Ваша скидка ${personalPercent}%`}
+          value={`- ${formatPrice(personalDiscount)} ₽`}
+          isValueRed
+        />
+      )}
+
+      {promoDiscount > 0 && (
+        <OrderSummaryItem
+          label="Промокод"
+          value={`- ${formatPrice(promoDiscount)} ₽`}
           isValueRed
         />
       )}
 
       <OrderSummaryTotal
-        totalPrice={discountedPrice}
+        totalPrice={payableTotal}
       />
 
       <Button

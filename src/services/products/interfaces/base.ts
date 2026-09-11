@@ -24,7 +24,8 @@ export interface IBaseProduct<ProductType extends TProductType, TDetails> {
   aroma: string | null;
   taste: string | null;
   foodPairing: string | null;
-  discount: number | null;
+  /** Акционная цена в рублях для всех покупателей, null — акции нет. */
+  salePrice: number | null;
   createdAt: string;
   productCountry: string;
   productCategoryName: ProductType;
@@ -35,7 +36,7 @@ export interface IBaseProduct<ProductType extends TProductType, TDetails> {
 export interface IBaseProductCard<ProductType extends TProductType>
 extends Pick<IBaseProduct<ProductType, unknown>,
 | 'article'
-| 'discount' 
+| 'salePrice' 
 | 'id' 
 | 'name' 
 | 'price' 
