@@ -23,6 +23,8 @@ import { ROUTES } from '../../../../constants/routes';
 import { getProfile, updateProfile } from '@/services/customer/requests';
 import { getCustomerDisplayName } from '@/services/customer/utils';
 
+import { normalizeCustomerName, normalizeCustomerPhone, validateCustomerName, validateCustomerPhone } from '../CustomerInfo/validation';
+
 interface ISelectedStore {
   id: number;
   name: string;
@@ -54,6 +56,23 @@ export const CheckoutLayout: React.FC = () => {
     pickupDate: new Date(),
   });
 
+  // Раньше эти поля считались "уже заполненными" (и профильные данные
+  // отбрасывались) по одному признаку — непустой строке. Но имя изначально
+  // синхронно берётся из authCustomer (данные логина, без отчества — там
+  // только firstName/secondName), поэтому оно непустое ещё до этого эффекта,
+  // и полное имя с отчеством из getProfile() ниже отбрасывалось всегда, а не
+  // изредка. Флаги ниже отличают "это заполнил пользователь" от "это подставили
+  // мы сами", чтобы более полные данные из профиля могли дозаполнить поле.
+  const isNameEditedRef = React.useRef(false);
+  const isPhoneEditedRef = React.useRef(false);
+
+  // "Тронуто" — показываем ошибку у конкретного поля только после того, как
+  // пользователь из него ушёл (или уже пытался отправить форму), а не сразу
+  // при пустом поле, в которое ещё никто не заходил.
+  const nameRef = React.useRef<HTMLInputElement>(null);
+  const phoneRef = React.useRef<HTMLInputElement>(null);
+  const [touched, setTouched] = React.useState({ name: false, phone: false });
+
   React.useEffect(() => {
     if (!authCustomer?.id) return;
 
@@ -63,8 +82,8 @@ export const CheckoutLayout: React.FC = () => {
           const displayName = getCustomerDisplayName(profile);
           return {
             ...prev,
-            customerName: prev.customerName.trim() ? prev.customerName : (displayName || prev.customerName),
-            customerPhone: prev.customerPhone.trim() ? prev.customerPhone : (profile.phone || prev.customerPhone),
+            customerName: isNameEditedRef.current ? prev.customerName : (displayName || prev.customerName),
+            customerPhone: isPhoneEditedRef.current ? prev.customerPhone : (profile.phone || prev.customerPhone),
           };
         });
       })
@@ -79,32 +98,45 @@ export const CheckoutLayout: React.FC = () => {
 
   const formUpdater = createObjectUpdater(setFormState);
 
-  const isPhoneValid = /^(\+7|8|7)?[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/.test(
-    formState.customerPhone.trim(),
-  );
+  const nameValidationError = validateCustomerName(formState.customerName);
+  const phoneValidationError = validateCustomerPhone(formState.customerPhone);
+  const isNameValid = !nameValidationError;
+  const isPhoneValid = !phoneValidationError;
 
   const isFormValid =
     !!formState.selectedStore &&
     !!formState.pickupDate &&
-    formState.customerName.trim().length > 0 &&
+    isNameValid &&
     isPhoneValid;
 
+  // Ошибки имени/телефона теперь показываются прямо у полей (см. CustomerInfo
+  // ниже) — здесь остаётся только то, к чему нет отдельного текстового поля
+  // для инлайн-подсказки.
   const validationHints: string[] = [];
   if (!formState.selectedStore) validationHints.push('выберите винотеку');
-  if (!formState.customerName.trim()) validationHints.push('укажите имя');
-  if (!isPhoneValid) validationHints.push('укажите корректный номер телефона');
+  if (!formState.pickupDate) validationHints.push('выберите дату получения');
+
+  const nameError = touched.name ? nameValidationError : undefined;
+  const phoneError = touched.phone ? phoneValidationError : undefined;
 
   const handleSubmit = () => {
+    if (isSubmitting) return;
+    setTouched({ name: true, phone: true });
+    if (!isNameValid || !isPhoneValid) {
+      const field = !isNameValid ? nameRef.current : phoneRef.current;
+      field?.focus();
+      field?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return;
+    }
     if (!formState.selectedStore || !isFormValid || !formState.pickupDate) return;
 
-    // Синхронизируем телефон в профиль параллельно (fire-and-forget)
-    if (formState.customerPhone.trim()) {
-      updateProfile({ phone: formState.customerPhone }).catch(() => {});
-    }
+    const customerName = normalizeCustomerName(formState.customerName);
+    const customerPhone = normalizeCustomerPhone(formState.customerPhone);
+    updateProfile({ phone: customerPhone }).catch(() => {});
 
     checkout(formState.selectedStore.id, {
-      customerName: formState.customerName,
-      customerPhone: formState.customerPhone,
+      customerName,
+      customerPhone,
       pickupDate: formState.pickupDate.toISOString().split('T')[0],
       paymentMethod: formState.paymentMethod,
     });
@@ -131,10 +163,29 @@ export const CheckoutLayout: React.FC = () => {
         />
 
         <CustomerInfo
+          nameRef={nameRef}
+          phoneRef={phoneRef}
+          onSubmit={handleSubmit}
           name={formState.customerName}
           phone={formState.customerPhone}
-          onChangeName={(value) => formUpdater('customerName', value)}
-          onChangePhone={(value) => formUpdater('customerPhone', value)}
+          nameError={nameError}
+          phoneError={phoneError}
+          onChangeName={(value) => {
+            isNameEditedRef.current = true;
+            formUpdater('customerName', value);
+          }}
+          onChangePhone={(value) => {
+            isPhoneEditedRef.current = true;
+            formUpdater('customerPhone', value);
+          }}
+          onBlurName={() => {
+            formUpdater('customerName', normalizeCustomerName(formState.customerName));
+            setTouched((prev) => ({ ...prev, name: true }));
+          }}
+          onBlurPhone={() => {
+            formUpdater('customerPhone', normalizeCustomerPhone(formState.customerPhone));
+            setTouched((prev) => ({ ...prev, phone: true }));
+          }}
         />
       </div>
       <div className={cls.orderInfo}>
@@ -142,7 +193,7 @@ export const CheckoutLayout: React.FC = () => {
           actionText="Оформить заказ"
           onActionClick={handleSubmit}
           isActionLoading={isSubmitting}
-          isActionDisabled={!isFormValid || isSubmitting}
+          isActionDisabled={isSubmitting}
         />
         {!isFormValid && validationHints.length > 0 && (
           <p className={cls.validationHint}>Чтобы оформить заказ: {validationHints.join(', ')}.</p>

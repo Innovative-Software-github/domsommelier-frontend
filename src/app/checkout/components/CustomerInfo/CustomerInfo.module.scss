@@ -8,7 +8,7 @@
 .customerInfo {
   display: flex;
   gap: 20px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -16,5 +16,17 @@
   .customerInfo {
     flex-direction: column;
     align-items: stretch;
+  }
+}
+.field {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+
+  label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #242424;
   }
 }

@@ -55,6 +55,13 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       ...nativeInputProps
     } = props;
 
+    const generatedId = React.useId();
+    const errorId = `${nativeInputProps.id || generatedId}-error`;
+    const describedBy =
+      [nativeInputProps['aria-describedby'], errorText ? errorId : undefined]
+        .filter(Boolean)
+        .join(' ') || undefined;
+
     const isEmpty = React.useMemo(() => !value, [value]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -66,19 +73,17 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
       }
     };
 
-    const renderPrefix =
-      elPrefix && (
-        <div className={clsx(cls.prefix, prefixClassName)}>{elPrefix}</div>
-      );
+    const renderPrefix = elPrefix && (
+      <div className={clsx(cls.prefix, prefixClassName)}>{elPrefix}</div>
+    );
 
-    const renderSuffix =
-      isLoading ? (
-        <Spinner className={cls.loadingSpinner} size="m" />
-      ) : (
-        elSuffix && (
-          <div className={clsx(cls.suffix, suffixClassName)}>{elSuffix}</div>
-        )
-      );
+    const renderSuffix = isLoading ? (
+      <Spinner className={cls.loadingSpinner} size="m" />
+    ) : (
+      elSuffix && (
+        <div className={clsx(cls.suffix, suffixClassName)}>{elSuffix}</div>
+      )
+    );
 
     return (
       <>
@@ -94,6 +99,8 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
           {renderPrefix}
           <input
             {...nativeInputProps}
+            aria-invalid={errorText ? true : nativeInputProps['aria-invalid']}
+            aria-describedby={describedBy}
             ref={ref}
             placeholder={placeholder}
             type={type}
@@ -106,7 +113,11 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>(
           />
           {renderSuffix}
         </div>
-        {!!errorText && <p className={cls.errorText}>{errorText}</p>}
+        {!!errorText && (
+          <p id={errorId} role="status" className={cls.errorText}>
+            {errorText}
+          </p>
+        )}
       </>
     );
   },
