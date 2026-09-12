@@ -10,6 +10,7 @@ import { createStore } from '@/store';
 import { IServerData, TAppStore } from '@/store/interfaces';
 import { AuthModalProvider } from '@/components/AuthModal/AuthModalContext';
 import { AuthModal } from '@/components/AuthModal/AuthModal';
+import { CartAddedPopupProvider } from '@/components/CartAddedPopup/CartAddedPopupContext';
 import { useRestoreAuthSession } from '@/hooks/useRestoreAuthSession';
 import { useSyncCartOnAuth } from '@/hooks/useSyncCartOnAuth';
 import { useSyncCartOnFocus } from '@/hooks/useSyncCartOnFocus';
@@ -56,7 +57,9 @@ export function Providers({ children, reduxPreloadedState }: IProvidersProps) {
       <AuthSessionRestorer>
         <AuthModalProvider>
           <NextTopLoader color="#680A08" showSpinner={false} />
-          {children}
+          <CartAddedPopupProvider>
+            {children}
+          </CartAddedPopupProvider>
           <AuthModal />
         </AuthModalProvider>
       </AuthSessionRestorer>

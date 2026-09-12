@@ -13,6 +13,10 @@ export const checkoutBasket = async (
       path: ApiEndpoint.orders.checkout(customerId, wineStoreId),
       method: 'POST',
       withCredentials: true,
+      // CheckoutLayout уже показывает собственное сообщение об ошибке рядом
+      // с кнопкой «Оформить заказ» — без этого пользователь видел одну и ту
+      // же ошибку дважды: тостом от customFetch и этим текстом.
+      silentError: true,
     },
     checkoutData as unknown as IRequestData,
   );

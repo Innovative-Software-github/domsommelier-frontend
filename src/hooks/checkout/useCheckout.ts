@@ -23,9 +23,24 @@ export const useCheckout = () => {
       const customerId = requireCustomerId();
       if (!customerId) return;
 
-      const orderId = await dispatch(checkoutThunk({ customerId, wineStoreId, checkoutData })).unwrap();
-      await dispatch(getBasketRequest(customerId));
-      router.push(`${ROUTES.checkoutSuccess}?orderId=${orderId}`);
+      try {
+        const orderId = await dispatch(
+          checkoutThunk({ customerId, wineStoreId, checkoutData }),
+        ).unwrap();
+
+        // Переходим на страницу успеха сразу, как только заказ создан —
+        // обновление корзины дальше ни на что не влияет для этой страницы
+        // (только на счётчик в шапке), поэтому не ждём его: если оно упадёт
+        // или просто выполнится чуть позже, это больше не блокирует переход
+        // и не гонится с гардом "пустая корзина -> редирект на /basket" в
+        // CheckoutLayout, который раньше мог сработать раньше, чем push.
+        router.push(`${ROUTES.checkoutSuccess}?orderId=${orderId}`);
+        dispatch(getBasketRequest(customerId));
+      } catch {
+        // Ошибка уже отражена в checkoutError через checkoutThunk.rejected
+        // (см. store/checkout/reducers.ts) — здесь только не даём промису
+        // остаться необработанным (handleSubmit не делает await/.catch).
+      }
     },
     [dispatch, requireCustomerId, router],
   );

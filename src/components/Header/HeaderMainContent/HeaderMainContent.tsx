@@ -8,6 +8,7 @@ import { Icon } from '@/ui/Icon/Icon';
 import { IconType } from '@/ui/Icon/IconsMapping';
 import { IconLink } from '@/components/Header/HeaderMainContent/IconLink/IconLink';
 import { ProfileButton } from '@/components/Header/HeaderMainContent/ProfileButton/ProfileButton';
+import { CartAddedPopup } from '@/components/CartAddedPopup/CartAddedPopup';
 import { Button } from '../../../ui/Button/Button';
 import { Backdrop } from '../../../ui/Backdrop/Backdrop';
 import { CatalogMenuContent } from './CatalogMenuContent/CatalogMenuContent';
@@ -63,12 +64,15 @@ export const HeaderMainContent: React.FC = () => {
       </Link>
 
       <div className={cls.links}>
-        <IconLink 
-          href={ROUTES.basket} 
-          iconType={IconType.Basket_24} 
-          badgeCount={cartTotalItems}
-          showBadge
-        />
+        <div className={cls.basketLinkWrapper}>
+          <IconLink
+            href={ROUTES.basket}
+            iconType={IconType.Basket_24}
+            badgeCount={cartTotalItems}
+            showBadge
+          />
+          <CartAddedPopup />
+        </div>
         <IconLink href={ROUTES.saved} iconType={IconType.Heart_24} badgeCount={savedTotalItems} showBadge />
         <ProfileButton />
       </div>

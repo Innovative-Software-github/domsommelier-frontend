@@ -38,68 +38,92 @@ export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
     zoom: DEFAULT_MAP_ZOOM,
   });
 
+  const selectStore = (store: IWineStore, zoom: number) => {
+    setSelectedStoreId(store.id);
+    setMapState({
+      center: [store.location.latitude, store.location.longitude],
+      zoom,
+    });
+    onStoreSelect({
+      id: store.id,
+      name: store.name,
+      address: store.address,
+      workingHours: store.workingHours,
+    });
+  };
+
   useEffect(() => {
-    Promise.all([
-      getWineStores(0, 50, currentCity?.slug),
-      customerId
-        ? getBasketStoreAvailability(customerId)
-        : Promise.resolve([] as IStoreAvailability[]),
-    ])
-      .then(([page, availabilityList]) => {
+    let cancelled = false;
+
+    const autoSelectFirstAvailable = (
+      storesList: IWineStore[],
+      availability: Record<number, IStoreAvailability>,
+    ) => {
+      if (selectedStoreId !== null || storesList.length === 0) return;
+
+      // Строго available === true: если данных по винотеке нет вовсе,
+      // авто-выбором её не считаем (раньше отсутствие данных трактовалось
+      // как «доступна»).
+      const firstAvailable = storesList.find(
+        (store) => availability[store.id]?.available === true,
+      );
+
+      if (firstAvailable) {
+        selectStore(firstAvailable, DEFAULT_MAP_ZOOM);
+      }
+    };
+
+    // Список винотек — обязательные данные экрана, грузим независимо от
+    // проверки доступности корзины: раньше оба запроса были объединены через
+    // Promise.all, и падение необязательной (best-effort) доступности
+    // роняло и список винотек тоже.
+    getWineStores(0, 50, currentCity?.slug)
+      .then((page) => {
+        if (cancelled) return;
         setStores(page.content);
 
-        const map: Record<number, IStoreAvailability> = {};
-        availabilityList.forEach((item) => {
-          map[item.wineStoreId] = item;
-        });
-        setAvailabilityByStore(map);
+        const availabilityPromise = customerId
+          ? getBasketStoreAvailability(customerId)
+          : Promise.resolve([] as IStoreAvailability[]);
 
-        // Авто-выбор только среди доступных винотек
-        if (selectedStoreId === null && page.content.length > 0) {
-          const firstAvailable = page.content.find(
-            (store) => map[store.id]?.available !== false,
-          );
+        availabilityPromise
+          .then((availabilityList) => {
+            if (cancelled) return;
 
-          if (firstAvailable) {
-            setSelectedStoreId(firstAvailable.id);
-            // Центрируем карту на первой доступной винотеке текущего города,
-            // а не на захардкоженной точке — тогда это само подстроится
-            // под любой город, когда их снова станет несколько.
-            setMapState({
-              center: [firstAvailable.location.latitude, firstAvailable.location.longitude],
-              zoom: DEFAULT_MAP_ZOOM,
+            const map: Record<number, IStoreAvailability> = {};
+            availabilityList.forEach((item) => {
+              map[item.wineStoreId] = item;
             });
-          } else {
-            setSelectedStoreId(null);
-          }
-        }
+            setAvailabilityByStore(map);
+            autoSelectFirstAvailable(page.content, map);
+          })
+          .catch((error) => {
+            // Доступность не проверить — считаем её неизвестной и авто-выбор
+            // не делаем вовсе, а не «всё доступно». Список винотек при этом
+            // уже показан, выбрать можно вручную.
+            console.error(error);
+          });
       })
       .catch(console.error)
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        if (!cancelled) setIsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId, currentCity?.slug]);
 
   const handleStoreSelect = (storeId: number) => {
-    // Не даём выбрать винотеку, в которой нет нужных товаров корзины
+    // Не даём выбрать винотеку, в которой точно нет нужных товаров корзины
     if (availabilityByStore[storeId]?.available === false) {
       return;
     }
 
-    setSelectedStoreId(storeId);
-
     const store = stores.find((s) => s.id === storeId);
     if (store) {
-      setMapState({
-        center: [store.location.latitude, store.location.longitude],
-        zoom: SELECTED_STORE_ZOOM,
-      });
-
-      onStoreSelect({
-        id: store.id,
-        name: store.name,
-        address: store.address,
-        workingHours: store.workingHours,
-      });
+      selectStore(store, SELECTED_STORE_ZOOM);
     }
   };
 
@@ -118,6 +142,7 @@ export const PickupStoreModal: React.FC<IPickupStoreModalProps> = ({
       <PickupStoreModalMap
         stores={stores}
         selectedStoreId={selectedStoreId}
+        availabilityByStore={availabilityByStore}
         mapState={mapState}
         onStoreSelect={handleStoreSelect}
       />

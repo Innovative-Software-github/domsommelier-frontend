@@ -5,7 +5,8 @@ import { SITE_NAME } from '@/constants/site';
 import { OurMission } from '../_components/OurMission/OurMission';
 import { AboutHero } from './components/AboutHero/AboutHero';
 import { AboutPrinciples } from './components/AboutPrinciples/AboutPrinciples';
-import { AboutContacts } from './components/AboutContacts/AboutContacts';
+// TODO: блок "Как нас найти" убран со страницы "О нас" по запросу.
+// import { AboutContacts } from './components/AboutContacts/AboutContacts';
 
 const ABOUT_DESCRIPTION =
   'Винный бутик «Дом сомелье» в Перми: кто мы, что предлагаем — вино, дегустации, ' +
@@ -29,7 +30,7 @@ export default function AboutPage() {
       <AboutHero />
       <AboutPrinciples />
       <OurMission />
-      <AboutContacts />
+      {/* <AboutContacts /> */}
     </Layout>
   );
 }

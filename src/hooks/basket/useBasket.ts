@@ -9,11 +9,13 @@ import { basketIsLoadingSelector } from '../../store/basket/selectors';
 import { TProductId } from '../../services/basket/interfaces';
 import { useAppDispatch } from '../../store/hooks';
 import { useRequireCustomerId } from '../useRequireCustomerId';
+import { useCartAddedPopup } from '../../components/CartAddedPopup/CartAddedPopupContext';
 
 export const useBasket = () => {
   const dispatch = useAppDispatch();
   const isBasketLoading = useSelector(basketIsLoadingSelector);
   const { requireCustomerId } = useRequireCustomerId();
+  const { showAddedProduct } = useCartAddedPopup();
 
   const [productLoadingStates, setProductLoadingStates] = useState<Map<TProductId, boolean>>(new Map());
 
@@ -37,18 +39,27 @@ export const useBasket = () => {
 
     setProductLoading(productId, true);
     try {
-      return await dispatch(addToBasketThunk({
+      const basket = await dispatch(addToBasketThunk({
         customerId,
         productId,
         quantity,
       })).unwrap();
+
+      // Показываем попап только по товару, который реально добавили —
+      // не по всей корзине.
+      const addedItem = basket.items.find(item => item.product.id === productId);
+      if (addedItem) {
+        showAddedProduct(addedItem);
+      }
+
+      return basket;
     } catch (error) {
       console.error('Ошибка при добавлении товара в корзину:', error);
       throw error;
     } finally {
       setProductLoading(productId, false);
     }
-  }, [dispatch, requireCustomerId, setProductLoading]);
+  }, [dispatch, requireCustomerId, setProductLoading, showAddedProduct]);
 
   const updateQuantity = useCallback(async (productId: TProductId, quantity: number) => {
     const customerId = requireCustomerId();

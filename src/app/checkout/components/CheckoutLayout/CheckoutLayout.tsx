@@ -3,8 +3,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 import { ContentContainer } from "../../../../ui/ContentContainer/ContentContainer";
-import { DeliveryMethod } from "../DeliveryMethod/DeliveryMethod";
+// TODO: блок "Способ получения" убран из UI — способ получения всё равно
+// один (самовывоз), выбирать нечего. Раскомментировать, когда появится
+// доставка курьером или другой способ получения.
+// import { DeliveryMethod } from "../DeliveryMethod/DeliveryMethod";
 import { PaymentMethod } from "../PaymentMethod/PaymentMethod";
 
 import cls from './CheckoutLayout.module.scss';
@@ -137,7 +141,12 @@ export const CheckoutLayout: React.FC = () => {
     checkout(formState.selectedStore.id, {
       customerName,
       customerPhone,
-      pickupDate: formState.pickupDate.toISOString().split('T')[0],
+      // date-fns format — в локальном времени, как и сами карточки дат в
+      // PickupFromStoreDate. Раньше здесь был .toISOString().split('T')[0],
+      // который переводит момент в UTC: для Перми (UTC+5) между полуночью и
+      // 5 утра по местному времени это сдвигало отправляемую дату на день
+      // назад относительно выбранной пользователем.
+      pickupDate: format(formState.pickupDate, 'yyyy-MM-dd'),
       paymentMethod: formState.paymentMethod,
     });
   };
@@ -145,10 +154,11 @@ export const CheckoutLayout: React.FC = () => {
   return (
     <ContentContainer className={cls.container}>
       <div className={cls.registrationInfo}>
-        <DeliveryMethod
+        {/* <DeliveryMethod
           selectedType={formState.deliveryMethod}
           onSelectType={(type) => formUpdater('deliveryMethod', type)}
-        />
+          pickupDate={formState.pickupDate}
+        /> */}
 
         <PickupFromStore
           selectedStore={formState.selectedStore}

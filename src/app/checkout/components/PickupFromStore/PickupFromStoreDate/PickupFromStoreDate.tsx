@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { format, addDays } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import cls from './PickupFromStoreDate.module.scss';
@@ -14,19 +14,23 @@ export const PickupFromStoreDate: React.FC<PickupFromStoreDateProps> = ({
   selectedDate,
   onDateSelect,
 }) => {
-  const dates = Array.from({ length: 7 }, (_, i) => addDays(new Date(), i));
-
-  const [internalSelectedDate, setInternalSelectedDate] = useState<Date>(
-    selectedDate || dates[0]
+  // useMemo, а не пересчёт на каждом рендере: раньше new Date() внутри
+  // Array.from пересоздавался при любом перерендере формы (например, при
+  // вводе в поле телефона выше по дереву), а key={date.toISOString()}
+  // включал миллисекунды — React получал 7 новых ключей и полностью
+  // размонтировал/монтировал все карточки дат вместо обновления на месте.
+  const dates = React.useMemo(
+    () => Array.from({ length: 7 }, (_, i) => addDays(new Date(), i)),
+    [],
   );
 
-  const handleDateSelect = (date: Date) => {
-    setInternalSelectedDate(date);
-    onDateSelect(date);
-  };
+  // Используем проп напрямую, а не дублируем его в локальном состоянии —
+  // раньше internalSelectedDate синхронизировался с selectedDate только при
+  // монтировании и не подхватил бы более позднее внешнее изменение.
+  const activeDate = selectedDate ?? dates[0];
 
   const isSelected = (date: Date) => {
-    return format(date, 'yyyy-MM-dd') === format(internalSelectedDate, 'yyyy-MM-dd');
+    return format(date, 'yyyy-MM-dd') === format(activeDate, 'yyyy-MM-dd');
   };
 
   return (
@@ -35,9 +39,9 @@ export const PickupFromStoreDate: React.FC<PickupFromStoreDateProps> = ({
       <div className={cls.datesContainer}>
         {dates.map((date) => (
           <button
-            key={date.toISOString()}
+            key={format(date, 'yyyy-MM-dd')}
             className={`${cls.dateCard} ${isSelected(date) ? cls.dateCardSelected : ''}`}
-            onClick={() => handleDateSelect(date)}
+            onClick={() => onDateSelect(date)}
             type="button"
           >
             <span className={cls.dateNumber}>
@@ -52,4 +56,3 @@ export const PickupFromStoreDate: React.FC<PickupFromStoreDateProps> = ({
     </div>
   );
 };
-

@@ -71,7 +71,7 @@ export default async function CatalogPage({
   });
 
   return (
-    <Layout showCatalogLinks={false}>
+    <Layout>
       <ContentContainer className={cls.container}>
         <CatalogClientWrapper
           productType={productType}

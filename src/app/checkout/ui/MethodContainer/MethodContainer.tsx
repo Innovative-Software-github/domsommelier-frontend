@@ -19,7 +19,19 @@ export const MethodContainer: React.FC<IMethodContainerProps> = ({
       [cls.selected]: selected,
     })}
     data-selected={selected}
+    role="radio"
+    aria-checked={selected}
+    tabIndex={0}
     onClick={onSelect}
+    onKeyDown={(event) => {
+      // div с onClick не фокусируется и не активируется с клавиатуры сам по
+      // себе — без этого выбрать способ доставки/оплаты клавиатурой или
+      // скринридером было нельзя.
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        onSelect();
+      }
+    }}
   >
     {children}
   </div>
