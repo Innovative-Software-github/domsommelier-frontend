@@ -1,4 +1,5 @@
 import React from "react";
+import { normalizeAttributeFilters } from "./catalogAttributeFilters";
 import { useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IFiltersState } from "../components/FiltersPanel/FiltersFabric/interfaces";
@@ -44,8 +45,15 @@ export const useFilters = (productType: TProductType): IUseFiltersReturns => {
   const [filters, setFilters] = React.useState<IFiltersState>(() => parseFilterStateFromUrl(searchParams));
   const [sort, setSortState] = React.useState<TSortOption>(() => parseSortFromParams(searchParams));
 
+  const queryKey = searchParams.toString();
+  React.useEffect(() => {
+    const params = new URLSearchParams(queryKey);
+    setFilters(parseFilterStateFromUrl(params));
+    setSortState(parseSortFromParams(params));
+  }, [queryKey, productType]);
+
   const updateFilterArray = (field: string, value: any[]) =>
-    setFilters((prev) => ({ ...prev, [field]: value }));
+    setFilters((prev) => normalizeAttributeFilters({ ...prev, [field]: value }));
 
   const buildQueryString = (
     nextFilters: IFiltersState,
@@ -93,7 +101,7 @@ export const useFilters = (productType: TProductType): IUseFiltersReturns => {
   const applyFilters = () => fetchPage(filters, sort, 0, 'replace');
 
   const applyFilter = (field: string, value: any[]) => {
-    const nextFilters = { ...filters, [field]: value };
+    const nextFilters = normalizeAttributeFilters({ ...filters, [field]: value });
     setFilters(nextFilters);
     fetchPage(nextFilters, sort, 0, 'replace');
   };

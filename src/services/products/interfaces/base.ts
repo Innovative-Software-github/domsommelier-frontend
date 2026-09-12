@@ -1,3 +1,4 @@
+import type { CatalogReference, Packaging } from './attributes';
 import type { TProductType } from '../../../constants/productTypes';
 import { IAccessoriesProductCard, TAccessoriesProduct } from './accessories';
 import { IChampagneAndSparklingProductCard, TChampagneAndSparklingProduct } from './champagneAndSparkling';
@@ -15,6 +16,8 @@ export interface IProductPhoto {
 }
 
 export interface IBaseProduct<ProductType extends TProductType, TDetails> {
+  brand?: CatalogReference | null;
+  packaging?: Packaging | null;
   id: string;
   article: string;
   name: string;

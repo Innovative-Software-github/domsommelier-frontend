@@ -28,7 +28,7 @@ export const RangeFilter: React.FC<IRangeFilterProps> = ({
   filterConfig,
   onUpdateFilterArray,
 }) => {
-  const { name, min, max, unit = '', steps } = filterConfig;
+  const { name, min, max, unit = '', steps = [] } = filterConfig;
 
   const [minValue, maxValue] = filterState;
 
@@ -48,7 +48,7 @@ export const RangeFilter: React.FC<IRangeFilterProps> = ({
               let localValue = Number(event.target.value);
               if (localValue > max) localValue = max;
               if (isNumber(localValue)) {
-                onUpdateFilterArray([localValue || null, maxValue]);
+                onUpdateFilterArray([event.target.value.trim() === '' ? null : localValue, maxValue]);
               }
             }}
           />
@@ -60,7 +60,7 @@ export const RangeFilter: React.FC<IRangeFilterProps> = ({
               let localValue = Number(event.target.value);
               if (localValue > max) localValue = max;
               if (isNumber(localValue)) {
-                onUpdateFilterArray([minValue, localValue || null]);
+                onUpdateFilterArray([minValue, event.target.value.trim() === '' ? null : localValue]);
               }
             }}
           />

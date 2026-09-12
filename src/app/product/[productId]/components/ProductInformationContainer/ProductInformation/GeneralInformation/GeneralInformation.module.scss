@@ -1,13 +1,5 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 64px;
-}
-
-.block {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
+.container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.block { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 12px; line-height: 1.5; }
+.property { color: #6b625e; }
+.result { overflow-wrap: anywhere; }
+@media (max-width: 480px) { .block { grid-template-columns: 1fr; gap: 3px; } }

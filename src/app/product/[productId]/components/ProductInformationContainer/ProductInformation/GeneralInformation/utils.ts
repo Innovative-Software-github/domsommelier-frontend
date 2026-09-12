@@ -1,68 +1,29 @@
-import { productType } from '../../../../../../../constants/productTypes';
-import { TProduct } from '../../../../../../../services/products/interfaces/base';
+import { TProduct } from '@/services/products/interfaces/base';
 
-interface IGeneralInformationItem {
-  property: string;
-  result?: string;
-}
+export interface IGeneralInformationItem { property: string; result: string }
 
 export const getGeneralInformationData = (product: TProduct): IGeneralInformationItem[] => {
-  const result = [];
-
-  switch (product.productCategoryName) {
-    case productType.wine:
-      result.push({ property: 'Цвет', result: product.details.color });
-      result.push({ property: 'Страна', result: product.productCountry });
-      result.push({ property: 'Регион', result: 'Доделать' });
-      result.push({ property: 'Сахар', result: product.details.type });
-      result.push({ property: 'Виноград', result: product.details.grapes.join(', ') });
-      result.push({ property: 'Производитель', result: product.details.producer });
-      result.push({ property: 'Объем', result: product.details.volume });
-      break;
-
-    case productType.spirit:
-      result.push({ property: 'Категория', result: product.details.category });
-      result.push({ property: 'Страна', result: product.productCountry });
-      result.push({ property: 'Крепость', result: product.details.strength });
-      result.push({ property: 'Виноград', result: 'Нет винограда' });
-      result.push({ property: 'Объем', result: product.details.volume });
-      result.push({ property: 'Производитель', result: product.details.producer });
-      break;
-
-    case productType.accessories:
-      result.push({ property: 'Категория', result: 'Нет категории' });
-      result.push({ property: 'Страна', result: product.productCountry });
-      result.push({ property: 'Производитель', result: product.details.producer });
-      break;
-
-    case productType.snack:
-      result.push({ property: 'Категория', result: product.details.category });
-      result.push({ property: 'Страна', result: product.productCountry });
-      result.push({ property: 'Производитель', result: product.details.producer });
-      break;
-
-    case productType.champagne_and_sparkling:
-      result.push({ property: 'Цвет', result: product.details.color });
-      result.push({ property: 'Категория', result: product.details.category });
-      result.push({ property: 'Страна', result: product.productCountry });
-      result.push({ property: 'Регион', result: "Нет региона" });
-      result.push({ property: 'Сахар', result: product.details.content });
-      result.push({ property: 'Виноград', result: 'Нет винограда' });
-      result.push({ property: 'Производитель', result: product.details.producer });
-      result.push({ property: 'Объем', result: product.details.volume });
-      break;
-
-    case productType.low_alcohol:
-      result.push({ property: 'Страна', result: product.productCountry });
-      result.push({ property: 'Категория', result: product.details.category });
-      result.push({ property: 'Крепость', result: product.details.strength });
-      result.push({ property: 'Производитель', result: product.details.producer });
-      result.push({ property: 'Объем', result: product.details.volume });
-      break;
-
-    default:
-      break;
-  }
-
+  const result: IGeneralInformationItem[] = [];
+  const add = (property: string, value: unknown) => {
+    if (value != null && String(value).trim()) result.push({ property, result: String(value) });
+  };
+  const d = product.details;
+  add('Артикул', product.article);
+  add('Страна', product.productCountry);
+  add('Бренд', product.brand?.label);
+  add('Производитель', d.producer);
+  if ('color' in d) add('Цвет', d.color);
+  if ('subcategory' in d) add('Категория', d.subcategory || d.category);
+  else if ('category' in d) add('Категория', d.category);
+  if ('type' in d) add('Сахар', d.type);
+  if ('content' in d) add('Сахар', d.content);
+  if ('volume' in d) add('Объём', d.volume);
+  if ('strength' in d && d.strength != null && String(d.strength).trim()) add('Крепость', `${String(d.strength).replace(/\s*%$/, '')}%`);
+  if ('productionYear' in d) add('Год урожая', d.productionYear);
+  if ('grapes' in d && !('grapeComposition' in d && d.grapeComposition?.length)) add('Виноград', d.grapes?.join(', '));
+  if ('features' in d) add('Особенности', d.features?.join(', '));
+  if ('pairings' in d) add('Сочетания', d.pairings?.join(', '));
+  add('Упаковка', product.packaging?.type?.label);
+  if (product.packaging?.giftBox != null) add('Подарочная упаковка', product.packaging.giftBox ? 'Да' : 'Нет');
   return result;
 };

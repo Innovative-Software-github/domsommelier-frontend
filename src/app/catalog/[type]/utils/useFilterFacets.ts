@@ -27,7 +27,7 @@ export const useFilterFacets = (
     const controller = new AbortController();
     const timer = window.setTimeout(() => {
       getProductFacets(JSON.parse(filtersKey), productType, citySlug, controller.signal)
-        .then((facets) => setState({ productType, facets }))
+        .then((facets) => { if (!controller.signal.aborted) setState({ productType, facets }); })
         .catch(() => {
           // Без счётчиков фильтры работают как раньше — просто без подсказок.
         });

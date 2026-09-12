@@ -5,6 +5,8 @@ export type TMultiSelectFilterValue = string[];
 export type TCheckboxFilterValue = boolean;
 
 export interface IRangeFilterConfig {
+  subtype?: 'whisky' | 'cognac' | null;
+  selectionMode?: 'value' | null;
   category: TProductType;
   id: string;
   type: 'range';
@@ -17,6 +19,8 @@ export interface IRangeFilterConfig {
 }
 
 export interface IMultiSelectFilterConfig {
+  subtype?: 'whisky' | 'cognac' | null;
+  selectionMode?: 'value' | null;
   category: TProductType;
   id: string;
   type: 'multi_select';
@@ -30,6 +34,8 @@ export interface ICheckboxFilterConfig {
   type: 'checkbox';
   name: string;
   field: string;
+  subtype?: 'whisky' | 'cognac' | null;
+  selectionMode?: 'value' | null;
   category: TProductType;
 }
 

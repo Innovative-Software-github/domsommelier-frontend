@@ -1,6 +1,7 @@
+import type { WineAttributes } from './attributes';
 import type { IBaseProduct, IBaseProductCard } from './base';
 
-export interface IWineDetails {
+export interface IWineDetails extends WineAttributes {
   productionYear: number;
   color: string;
   type?: string;

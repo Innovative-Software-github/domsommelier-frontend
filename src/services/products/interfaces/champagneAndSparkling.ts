@@ -1,7 +1,11 @@
+import type { SparklingAttributes } from './attributes';
 import type { IBaseProduct, IBaseProductCard } from './base';
 
-export interface IChampagneAndSparklingDetails {
-  category: string;
+export interface IChampagneAndSparklingDetails extends SparklingAttributes {
+  subcategory: string;
+  grapes?: string[] | null;
+  /** Legacy optional alias. */
+  category?: string;
   content: string;
   color: string;
   producer?: string;

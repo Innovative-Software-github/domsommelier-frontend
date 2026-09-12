@@ -1,6 +1,7 @@
+import type { SpiritAttributes } from './attributes';
 import type { IBaseProduct, IBaseProductCard } from './base';
 
-export interface ISpiritDetails {
+export interface ISpiritDetails extends SpiritAttributes {
   category: string;
   strength: string;
   producer?: string;

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { ExtendedInformation } from './ExtendedInformation/ExtendedInformation';
 
 import cls from './ProductInformation.module.scss';
 import { AccordionsInformation } from './AccordionsInformation/AccordionsInformation';
@@ -17,6 +18,7 @@ export const ProductInformation: React.FC<IProductInformationProps> = ({ product
       <h1 className={cls.title}>{product.name}</h1>
 
       <GeneralInformation product={product} />
+      <ExtendedInformation product={product} />
       <AccordionsInformation product={product} />
     </div>
   );

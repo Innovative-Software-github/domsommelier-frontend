@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { isFilterVisible } from '../../utils/catalogAttributeFilters';
 import { Button } from '../../../../../ui/Button/Button';
 import cls from './FiltersPanel.module.scss';
 import { filtersConfigSelector } from '../../../../../store/filters/selectors';
@@ -36,7 +37,7 @@ export const FiltersPanel: React.FC<IFiltersPanel> = ({
   return (
     <>
       {Object.values(productTypeFiltersConfig)
-        .filter((filterConfig) => !hiddenFields.includes(filterConfig.field))
+        .filter((filterConfig) => !hiddenFields.includes(filterConfig.field) && isFilterVisible(filterConfig, filters))
         .map((filterConfig) => (
           <div key={filterConfig.id} className={cls.filter}>
             <FilterFactory
